@@ -1,203 +1,195 @@
-== When shit hits the fan
+== Quando dá tudo errado
 
 image::shtf-banner.jpg[]
 
-Bitcoin is built by people. People write the software, and people then
-run this software. When a security vulnerability or a severe bug is
-discovered - is there really a distinction between the two? - it's
-always discovered by people, flesh and blood. This chapter
-contemplates what people do, should, and shouldn't do when shit hits
-the fan. The first section explains the term _responsible disclosure_, which refers to
-how someone who discovers a vulnerability can act responsibly to
-help minimize the damage from it. The rest of the chapter takes
-you on a tour through some of the most severe vulnerabilities
-discovered over the years, and how they were handled by developers,
-miners, and users. Things were not as rigorous in Bitcoin's early
-childhood as they are today.
+O Bitcoin é construído por pessoas. Pessoas escrevem o software e, em seguida,
+essas mesmas pessoas executam o software. Quando uma vulnerabilidade de segurança ou 
+um bug grave é descoberto – existe realmente uma distinção entre os dois? – essa descoberta 
+é sempre feita por pessoas, de carne e osso. Este capítulo contempla o que as pessoas fazem, 
+o que deveriam fazer e o que não deveriam fazer quando tudo dá errado. A primeira seção explica o 
+termo _divulgação responsável_, que se refere a
+como alguém que descobre uma vulnerabilidade pode agir de forma responsável para
+ajudar a minimizar os danos. O restante do capítulo leva você a uma jornada por algumas das vulnerabilidades 
+mais graves descobertas ao longo dos anos e como foram tratadas por desenvolvedores, mineradores e usuários. 
+As coisas não eram tão rigorosas na infância do Bitcoin como são hoje.
 
 [[responsible-disclosure]]
-=== Responsible disclosure
+=== Divulgação responsável
 
-Imagine you discover a bug in Bitcoin Core, a bug that allows anyone to
-remotely shut down a Bitcoin Core node by using some specially crafted
-network messages. Imagine also you are not malicious and
-would like this issue to remain unexploited. What do you do? If you
-remain silent about it, someone else will probably discover the issue,
-and you can't be sure that person won't be malicious.
+Imagine que você descobre um bug no Bitcoin Core, um bug que permite a qualquer pessoa
+desligar remotamente um nó Bitcoin Core usando algumas mensagens de rede especialmente criadas. 
+Imagine também que você não é mal-intencionado e
+gostaria que esse problema permanecesse sem ser explorado. O que você faz? Se você
+ficar em silêncio sobre isso, provavelmente outra pessoa descobrirá o problema,
+e você não pode ter certeza de que essa pessoa não será mal-intencionada.
 
-When a security issue is discovered, the person discovering it should
-employ _responsible disclosure_ which is a term often used among
-Bitcoin developers. The term is
-https://en.wikipedia.org/wiki/Coordinated_vulnerability_disclosure[explained
-on Wikipedia]:
+Quando um problema de segurança é descoberto, a pessoa que o descobre deve
+empregar _divulgação responsável_, um termo frequentemente usado entre
+desenvolvedores de Bitcoin. O termo é
+https://en.wikipedia.org/wiki/Coordinated_vulnerability_disclosure[explicado
+na Wikipedia]:
 
-[quote, Wikipedia, Responsible disclosure article]
+[quote, Wikipedia, artigo sobre Divulgação responsável]
 ____
-Developers of hardware and software often require time and resources
-to repair their mistakes. Often, it is ethical hackers who find these
-vulnerabilities.[1] Hackers and computer security scientists have the
-opinion that it is their social responsibility to make the public
-aware of vulnerabilities. Hiding problems could cause a feeling of
-false security. To avoid this, the involved parties coordinate and
-negotiate a reasonable period of time for repairing the
-vulnerability. Depending on the potential impact of the vulnerability,
-the expected time needed for an emergency fix or workaround to be
-developed and applied and other factors, this period may vary between
-a few days and several months.
-____
-
-This means that if you find a security issue, you should
-report this to the team responsible for the system. But what does this
-mean in the context of Bitcoin? As noted in <<softwaremaintenance>>,
-no one controls Bitcoin, but there's currently a
-focal point for Bitcoin development, namely the
-https://github.com/bitcoin/bitcoin[Bitcoin Core Github
-repository]. The maintainers of said repository are responsible for
-the code in it, but they're not responsible for the system as a
-whole - no one is. Nevertheless, the general best practice is to send
-an email to security@bitcoincore.org.
-
-In an
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-September/015002.html[email
-thread] titled "`Responsible disclosure of bugs`" from 2017, Anthony Towns
-tried to summarize what he perceived to be the current best practices. He
-had collected inputs from several sources and different people to inform his view on the subject.
-
-[quote, Anthony Towns in thread "`Responsible disclosure of bugs`",Bitcoin-dev email list (2017)]
+Desenvolvedores de hardware e software frequentemente precisam de tempo e recursos
+para corrigir seus erros. Muitas vezes, são hackers éticos que encontram essas
+vulnerabilidades. Hackers e cientistas de segurança de computadores têm a
+opinião de que é sua responsabilidade social informar o público sobre vulnerabilidades. 
+Esconder problemas pode causar uma sensação de
+falsa segurança. Para evitar isso, as partes envolvidas coordenam e
+negociam um período razoável de tempo para reparar a
+vulnerabilidade. Dependendo do impacto potencial da vulnerabilidade,
+do tempo necessário para que uma correção de emergência ou solução alternativa seja
+desenvolvida e aplicada, e de outros fatores, esse período pode variar entre
+alguns dias e vários meses.
 ____
 
-* Vulnerabilities should be reported via security at bitcoincore.org
+Isso significa que, se você encontrar um problema de segurança, deve
+relatar isso à equipe responsável pelo sistema. Mas o que isso significa
+no contexto do Bitcoin? Como observado em <<softwaremaintenance>>,
+ninguém controla o Bitcoin, mas atualmente existe um
+ponto focal para o desenvolvimento do Bitcoin, nomeadamente o
+https://github.com/bitcoin/bitcoin[repositório Bitcoin Core no Github].
+Os mantenedores deste repositório são responsáveis
+pelo código nele contido, mas não são responsáveis pelo sistema como um
+todo – ninguém é. No entanto, a prática geral recomendada é enviar
+um e-mail para security@bitcoincore.org.
+
+Em uma
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-September/015002.html[troca de e-mails] intitulada "`Responsible disclosure of bugs`" de 2017, Anthony Towns tentou resumir o que ele percebia como as melhores práticas atuais. Ele
+coletou contribuições de várias fontes e diferentes pessoas para formar sua visão sobre o assunto.
+
+[quote, Anthony Towns no tópico "`Responsible disclosure of bugs`", lista de e-mails Bitcoin-dev (2017)]
+____
+
+* Vulnerabilidades devem ser relatadas via security at bitcoincore.org
   [0]
-* A critical issue (that can be exploited immediately or is already
-  being exploited causing large harm) will be dealt with by:
-** a released patch ASAP
-** wide notification of the need to upgrade (or to disable affected
-   systems)
-** minimal disclosure of the actual problem, to delay attacks [1] [2]
-* A non-critical vulnerability (because it is difficult or expensive
-  to exploit) will be dealt with by:
-** patch and review undertaken in the ordinary flow of development
-** backport of a fix or workaround from master to the current released
-   version [2]
-* Devs will attempt to ensure that publication of the fix does not
-  reveal the nature of the vulnerability by providing the proposed fix
-  to experienced devs who have not been informed of the vulnerability,
-  telling them that it fixes a vulnerability, and asking them to
-  identify the vulnerability. [2]
-* Devs may recommend other bitcoin implementations adopt vulnerability
-  fixes prior to the fix being released and widely deployed, if they
-  can do so without revealing the vulnerability; eg, if the fix has
-  significant performance benefits that would justify its
-  inclusion. [3]
-* Prior to a vulnerability becoming public, devs will generally
-  recommend to friendly altcoin devs that they should catch up with
-  fixes. But this is only after the fixes are widely deployed in the
-  bitcoin network. [4]
-* Devs will generally not notify altcoin developers who have behaved
-  in a hostile manner (eg, using vulnerabilities to attack others, or
-  who violate embargoes). [5]
-* Bitcoin devs won't disclose vulnerability details until >80% of
-  bitcoin nodes have deployed the fixes. Vulnerability discovers are
-  encouraged and requested to follow the same policy. [1] [6]
+* Um problema crítico (que pode ser explorado imediatamente ou já está
+  sendo explorado causando grandes danos) será tratado por:
+** uma correção lançada o mais rápido possível
+** notificação ampla da necessidade de atualizar (ou desativar sistemas afetados)
+** divulgação mínima do problema real, para atrasar ataques [1] [2]
+* Uma vulnerabilidade não crítica (porque é difícil ou cara
+  de explorar) será tratada por:
+** correção e revisão realizadas no fluxo normal de desenvolvimento
+** backport de uma correção ou solução alternativa do master para a versão atual lançada
+  [2]
+* Os desenvolvedores tentarão garantir que a publicação da correção não
+  revele a natureza da vulnerabilidade, fornecendo a correção proposta
+  para desenvolvedores experientes que não foram informados da vulnerabilidade,
+  dizendo-lhes que ela corrige uma vulnerabilidade e pedindo-lhes para
+  identificar a vulnerabilidade. [2]
+* Os desenvolvedores podem recomendar que outras implementações de bitcoin adotem as correções 
+  de vulnerabilidade antes que a correção seja lançada e amplamente implementada, se puderem fazer 
+  isso sem revelar a vulnerabilidade; por exemplo, se a correção tiver benefícios de desempenho significativos 
+  que justifiquem sua inclusão. [3]
+* Antes de uma vulnerabilidade se tornar pública, os desenvolvedores geralmente
+  recomendam aos desenvolvedores de altcoins amigáveis que acompanhem as correções.
+  Mas isso só acontece depois que as correções são amplamente implementadas na
+  rede bitcoin. [4]
+* Os desenvolvedores geralmente não notificarão desenvolvedores de altcoins que se comportaram
+  de maneira hostil (por exemplo, usando vulnerabilidades para atacar outros, ou
+  que violam embargos). [5]
+* Os desenvolvedores do Bitcoin não divulgarão detalhes de vulnerabilidades até que >80% dos
+  nós do bitcoin tenham implementado as correções. Os descobridores de vulnerabilidades são
+  encorajados e solicitados a seguir a mesma política. [1] [6]
 ____
 
-This list displays how careful one must be when publishing patches for
-Bitcoin, since the patch itself might give away the
-vulnerability. The fourth bullet is particularly interesting as it
-explains how to test whether a patch has been disguised well enough. Indeed, if a few
-really experienced developers can't spot the vulnerability even
-knowing that the patch fixes one, it will probably be really hard for
-others to discover it.
+Esta lista mostra o quão cuidadoso alguém deve ser ao publicar correções para
+o Bitcoin, pois a própria correção pode revelar a
+vulnerabilidade. A quarta bala é particularmente interessante, pois
+explica como testar se uma correção foi bem disfarçada. De fato, se alguns
+desenvolvedores realmente experientes não conseguirem identificar a vulnerabilidade, mesmo
+sabendo que a correção resolve uma, será provavelmente muito difícil para
+outras pessoas descobri-la.
 
-The thread that led to this email was discussing whether, when, and how
-to disclose vulnerabilities to altcoins and other implementations of
-Bitcoin. There is no clear answer here. "`Helping the good guys`"
-seems like the sensible thing to do, but who decides who they are and
-where does one draw the line? Bryan Bishop
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-September/014983.html[argued]
-that helping altcoins and even scamcoins defend themselves against security
-exploits was a moral duty.
+A discussão que levou a esse e-mail discutia se, quando e como
+divulgar vulnerabilidades para altcoins e outras implementações do
+Bitcoin. Não há uma resposta clara aqui. "`Ajudar os mocinhos`"
+parece ser a coisa sensata a fazer, mas quem decide quem são eles e
+onde se traça a linha? Bryan Bishop
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-September/014983.html[argumentou]
+que ajudar altcoins e até mesmo scamcoins a se defenderem contra explorações de segurança
+era um dever moral.
 
-[quote, Bryan Bishop in thread "`Responsible disclosure of bugs`", Bitcoin-dev email list (2017)]
+[quote, Bryan Bishop no tópico "`Responsible disclosure of bugs`", lista de e-mails Bitcoin-dev (2017)]
 ____
-It's not enough to defend bitcoin and its users from active threats,
-there is a more general responsibility to defend all kinds of users
-and different software from many kinds of threats in whatever forms,
-even if folks are using stupid and insecure software that you
-personally don't maintain or contribute to or advocate for. Handling
-knowledge of a vulnerability is a delicate matter and you might be
-receiving knowledge with more serious direct or indirect impact than
-originally described.
+Não basta defender o bitcoin e seus usuários contra ameaças ativas,
+existe uma responsabilidade mais geral de defender todos os tipos de usuários
+e diferentes softwares de muitas ameaças, independentemente da forma que tomem,
+mesmo que as pessoas estejam usando softwares estúpidos e inseguros que você
+pessoalmente não mantém, contribui ou defende. Lidar
+com o conhecimento de uma vulnerabilidade é uma questão delicada e você pode
+estar recebendo conhecimento com impacto direto ou indireto mais sério do que
+originalmente descrito.
 ____
 
-Also leading up to Town's email above was a
+Outro fator que levou ao e-mail de Towns acima foi um
 https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-September/014977.html[post]
-by Gregory Maxwell, in which he argued that security
-vulnerabilities could be more severe than they appear.
+de Gregory Maxwell, no qual ele argumentava que as vulnerabilidades de segurança
+podem ser mais graves do que parecem.
 
-[quote, Gregory Maxwell in thread "`Responsible disclosure of bugs`", Bitcoin-dev email list (2017)]
+[quote, Gregory Maxwell no tópico "`Responsible disclosure of bugs`", lista de e-mails Bitcoin-dev (2017)]
 ____
-I've multiple time seen a hard to exploit issue turn out to be trivial
-when you find the right trick, or a minor dos issue turn our to far
-more serious.
+Já vi várias vezes um problema difícil de explorar se revelar trivial
+quando você encontra a técnica certa, ou um problema menor de DoS se tornar
+muito mais sério.
 
-Simple performance bugs, expertly deployed, can potentially be used to
-carve up the network--- miner A and exchange B go in one partition,
-everyone else in another.. and doublespend.
+Bugs simples de desempenho, implantados de forma experta, podem ser potencialmente usados para
+dividir a rede—minerador A e exchange B ficam em uma partição,
+todos os outros em outra... e fazer double-spend (gasto duplo).
 
-And so on.  So while I absolutely do agree that different things
-should and can be handled differently, it is not always so clear cut.
-It's prudent to treat things as more severe than you know them to be.
+E assim por diante. Então, embora eu absolutamente concorde que coisas diferentes
+devem e podem ser tratadas de maneira diferente, nem sempre é tão claro.
+É prudente tratar as coisas como mais graves do que você sabe que são.
 ____
 
-So, even if a vulnerability seems hard to exploit, it might be best to
-assume that it's easily exploitable and you just haven't figured out
-how yet.
+Então, mesmo que uma vulnerabilidade pareça difícil de explorar, pode ser melhor
+presumir que é facilmente explorável e que você apenas ainda não descobriu
+como.
 
-He also mentions how "`it's somewhat incorrect to call this thread
-anything about disclosure, this thread is not about
-disclosure. Disclosure is when you tell the vendor.  This thread is
-about publication and that has very different
-implications. Publication is when you're sure you've told the
-prospective attackers`". This last observation concerning the distinction
-between disclosure and publication is an important one. The easy part
-is responsible disclosure; the hard part is sensible publishing.
+Ele também menciona como "`é um pouco incorreto chamar esta discussão de
+qualquer coisa sobre divulgação, esta discussão não é sobre
+divulgação. Divulgação é quando você conta ao fornecedor. Esta discussão é
+sobre publicação e isso tem implicações muito diferentes. Publicação é quando você tem certeza de que contou aos
+futuros atacantes`". Essa última observação sobre a distinção
+entre divulgação e publicação é importante. A parte fácil
+é a divulgação responsável; a parte difícil é a publicação sensata.
 
-=== Traumatic childhood
+=== Infância traumática
 
-Bitcoin started out as a one-man (at least that's what its creator's
-pseudonym suggests) project, and bitcoin had initially little to no value. As
-such, vulnerabilities and bug fixes were not as rigorously handled as
-they are today.
+O Bitcoin começou como um projeto de uma pessoa (pelo menos é o que o pseudônimo de seu criador
+sugere), e bitcoin inicialmente tinha pouco ou nenhum valor. Como
+tal, as vulnerabilidades e correções de bugs não eram tratadas com o mesmo rigor de hoje.
 
-The Bitcoin wiki has a
-https://en.bitcoin.it/wiki/Common_Vulnerabilities_and_Exposures[list
-of common vulnerabilities and exposures]
+O wiki do Bitcoin tem uma
+https://en.bitcoin.it/wiki/Common_Vulnerabilities_and_Exposures[lista
+de vulnerabilidades e exposições comuns]
 (CVEs)
-that Bitcoin has gone through. This section constitutes a little exposé of some
-of the security issues and incidents from the early years of
-Bitcoin. We won't cover them all, but we selected a few that we
-find especially interesting.
+pelas quais o Bitcoin passou. Esta seção constitui um pequeno exposé de alguns
+dos problemas de segurança e incidentes dos primeiros anos do
+Bitcoin. Não vamos cobrir todos eles, mas selecionamos alguns que
+achamos especialmente interessantes.
 
 [[cve-2010-5141]]
-==== 2010-07-28: Spend anyone's coins (CVE-2010-5141)
+==== 2010-07-28: Gastar moedas de qualquer pessoa (CVE-2010-5141)
 
-On July 28, 2010, a pseudonymous person by the name ArtForz discovered a
-bug in version 0.3.4 that would let anyone take coins from
-anyone else. ArtForz _responsibly_ reported this to Satoshi Nakamoto and to
-another Bitcoin developer named Gavin Andresen.
+Em 28 de julho de 2010, uma pessoa pseudônima chamada ArtForz descobriu um
+bug na versão 0.3.4 que permitia a qualquer pessoa retirar moedas de
+qualquer outra pessoa. ArtForz relatou _responsavelmente_ isso a Satoshi Nakamoto e a
+outro desenvolvedor do Bitcoin chamado Gavin Andresen.
 
-The problem was that the script operator `OP_RETURN` would simply exit
-the program execution, so if the scriptPubKey was `<pubkey>
-OP_CHECKSIG` and scriptSig was `OP_1 OP_RETURN`, the part of the
-program in the scriptPubKey would never execute. The only thing that
-would happen would be for `1` to be put on the stack and then `OP_RETURN`
-would cause the program to exit. Any non-zero value on top of the
-stack after the program has executed means that the spending condition
-is fulfilled. Since the top stack element `1` is non-zero, the
-spending would be OK.
+O problema era que o operador de script `OP_RETURN` simplesmente encerrava
+a execução do programa, então se o scriptPubKey fosse `<pubkey>
+OP_CHECKSIG` e scriptSig fosse `OP_1 OP_RETURN`, a parte do
+programa em scriptPubKey nunca seria executada. A única coisa que
+aconteceria seria que `1` seria colocado na pilha e então `OP_RETURN`
+faria o programa sair. Qualquer valor diferente de zero no topo da
+pilha após a execução do programa significa que a condição de gasto
+está cumprida. Como o elemento superior da pilha `1` é diferente de zero, o
+gasto seria permitido.
 
-This was the code for handling of `OP_RETURN`:
+Este era o código para o manuseio de `OP_RETURN`:
 
 ----
             case OP_RETURN:
@@ -207,10 +199,10 @@ This was the code for handling of `OP_RETURN`:
             break;
 ----
 
-The effect of `pc = pend;` was for the rest of the program to get skipped,
-meaning that any locking script in scriptPubKey would be ignored. The
-fix consisted in changing the meaning of `OP_RETURN` so that it
-immediately failed, instead.
+O efeito de `pc = pend;` era que o resto do programa era ignorado,
+significando que qualquer script de bloqueio em scriptPubKey seria ignorado. A
+correção consistiu em mudar o significado de `OP_RETURN` para que ele
+falhasse imediatamente, em vez disso.
 
 ----
             case OP_RETURN:
@@ -220,99 +212,103 @@ immediately failed, instead.
             break;
 ----
 
-Satoshi made this change locally and built an executable binary with
-version 0.3.5 from it. Then he posted on Bitcointalk forum "`\\*** ALERT \***
-Upgrade to 0.3.5 ASAP`", urging users to install this binary version
-of his, without presenting the source code for it.
+Satoshi fez essa mudança localmente e construiu um binário executável com
+a versão 0.3.5 a partir dele. Então, ele postou no fórum Bitcointalk "`\\*** ALERTA \***
+Atualize para 0.3.5 O MAIS RÁPIDO POSSÍVEL`", instando os usuários a instalar esta versão binária
+dele, sem apresentar o código-fonte.
 
-[quote, Satoshi Nakamoto, Bitcointalk forum (2010)]
+[quote, Satoshi Nakamoto, fórum Bitcointalk (2010)]
 ____
-Please upgrade to 0.3.5 ASAP!  We fixed an implementation bug where it was possible that bogus transactions could be accepted.  Do not accept Bitcoin transactions as payment until you upgrade to version 0.3.5!
-____
-
-The original message was later edited and is no longer available in its full
-form. The above snippet is from a
-https://bitcointalk.org/index.php?topic=626.msg6458#msg6458[quoting
-answer]. Some users tried Satoshi's binary, but ran into issues with it. Shortly
-after, https://bitcointalk.org/index.php?topic=626.msg6469#msg6469[Satoshi wrote]:
-
-[quote, Satoshi Nakamoto, Bitcointalk forum (2010)]
-____
-Haven't had time to update the SVN yet.  Wait for 0.3.6, I'm building
-it now.  You can shut down your node in the meantime.
+Por favor, atualize para 0.3.5 o mais rápido possível! Corrigimos um bug de implementação onde era possível 
+que transações falsas fossem aceitas. Não aceite transações de Bitcoin como pagamento até que você atualize 
+para a versão 0.3.5!
 ____
 
-And 35 minutes later, https://bitcointalk.org/index.php?topic=626.msg6480#msg6480[he wrote]
+A mensagem original foi editada mais tarde e não está mais disponível em sua forma completa.
+O trecho acima é de uma
+https://bitcointalk.org/index.php?topic=626.msg6458#msg6458[resposta
+com citação]. Alguns usuários tentaram o binário de Satoshi, mas tiveram problemas com ele. Logo
+depois, https://bitcointalk.org/index.php?topic=626.msg6469#msg6469[Satoshi escreveu]:
 
-[quote, Satoshi Nakamoto, Bitcointalk forum (2010)]
+[quote, Satoshi Nakamoto, fórum Bitcointalk (2010)]
 ____
-SVN is updated with version 0.3.6.
-
-Uploading Windows build of 0.3.6 to Sourceforge now, then will rebuild
-linux.
+Ainda não tive tempo de atualizar o SVN. Espere pela versão 0.3.6, estou construindo
+agora. Você pode desligar seu nó enquanto isso.
 ____
 
-At this point he also seemed to have updated the original post to
-mention 0.3.6 instead of 0.3.5:
+E 35 minutos depois, https://bitcointalk.org/index.php?topic=626.msg6480#msg6480[ele escreveu]
 
-[quote, Satoshi Nakamoto, Bitcointalk forum (2010)]
+[quote, Satoshi Nakamoto, fórum Bitcointalk (2010)]
 ____
-Please upgrade to 0.3.6 ASAP!  We fixed an implementation bug where it was possible that bogus transactions could be displayed as accepted.  Do not accept Bitcoin transactions as payment until you upgrade to version 0.3.6!
+O SVN foi atualizado com a versão 0.3.6.
 
-If you can't upgrade to 0.3.6 right away, it's best to shut down your Bitcoin node until you do.
+Carregando a versão para Windows da 0.3.6 no Sourceforge agora, depois irei recompilar
+para Linux.
+____
 
-Also in 0.3.6, faster hashing: +
-- midstate cache optimisation thanks to tcatm +
-- Crypto++ ASM SHA-256 thanks to BlackEye +
-Total generating speedup 2.4x faster.
+Nesse ponto, ele também parece ter atualizado a postagem original para
+mencionar 0.3.6 em vez de 0.3.5:
+
+[quote, Satoshi Nakamoto, fórum Bitcointalk (2010)]
+____
+Por favor, atualize para 0.3.6 o mais rápido possível! Corrigimos um bug de implementação onde era possível 
+que transações falsas fossem exibidas como aceitas. Não aceite transações de Bitcoin como pagamento até que 
+você atualize para a versão 0.3.6!
+
+Se você não puder atualizar para 0.3.6 imediatamente, é melhor desligar seu nó Bitcoin até que você o faça.
+
+Também na 0.3.6, hashing mais rápido: +
+- otimização do cache de midstate graças a tcatm +
+- SHA-256 ASM do Crypto++ graças a BlackEye +
+Aceleração total na geração, 2,4x mais rápido.
 
 Download: +
 http://sourceforge.net/projects/bitcoin/files/Bitcoin/bitcoin-0.3.6/
 
-Windows and Linux users: if you got 0.3.5 you still need to upgrade to 0.3.6.
+Usuários de Windows e Linux: se você obteve a 0.3.5, ainda precisará atualizar para a 0.3.6.
 ____
 
-Note the difference in the characterization of the problem from the
-first message: "`could be displayed as accepted`" vs "`could be
-accepted`". Maybe Satoshi downplayed the severity of the bug in his communication
-so as not to draw too much attention to the actual issue. Anyhow, people
-upgraded to 0.3.6 and it worked as expected. This particular
-issue was resolved, amazingly, with no bitcoin losses.
+Observe a diferença na caracterização do problema em relação à
+primeira mensagem: "`poderia ser exibida como aceita`" vs "`poderia ser
+aceita`". Talvez Satoshi tenha minimizado a gravidade do bug em sua comunicação
+para não chamar muita atenção para o problema real. De qualquer forma, as pessoas
+atualizaram para a 0.3.6 e funcionou como esperado. Esta questão particular
+foi resolvida, incrivelmente, sem perdas de bitcoin.
 
-Satoshi's message also described some performance optimization for
-mining. It's unclear why that was included in a critical security fix,
-it's possible that the purpose was to obfuscate the real issue. However, it
-seems more likely that he just released whatever was on the head of
-the development branch of the Subversion repository, with the security fix
-added to it.
+A mensagem de Satoshi também descreveu algumas otimizações de desempenho para
+mineração. Não está claro por que isso foi incluído em uma correção de segurança crítica,
+é possível que o objetivo fosse ofuscar o problema real. No entanto,
+parece mais provável que ele tenha simplesmente lançado o que estava na cabeça
+do branch de desenvolvimento do repositório Subversion, com a correção de segurança
+adicionada a ele.
 
-At that time, there weren't nearly as many users as there are today,
-and bitcoin's value was close to zero. If this bug response was
-played out today, it would be considered a complete shit-show for
-multiple reasons:
+Naquela época, não havia nem de perto tantos usuários quanto hoje,
+e o valor do bitcoin era próximo de zero. Se essa resposta ao bug fosse
+executada hoje, seria considerada um verdadeiro show de horror por
+vários motivos:
 
-* Satoshi made a binary-only release of 0.3.5 containing the fix. No
-patch or code was provided, maybe as a measure to obfuscate the issue.
-* 0.3.5 https://bitcointalk.org/index.php?topic=626.msg6455#msg6455[didn't even work].
-* The fix in 0.3.6 was actually a hard fork, as explained in <<historic-upgrades>>.
+* Satoshi fez uma versão binária única da 0.3.5 contendo a correção. Nenhum
+patch ou código foi fornecido, talvez como uma medida para ofuscar o problema.
+* 0.3.5 https://bitcointalk.org/index.php?topic=626.msg6455#msg6455[nem funcionou].
+* A correção na 0.3.6 foi, na verdade, um hard fork, como explicado em <<historic-upgrades>>.
 
-Another debatable thing is whether it's good or bad that
-users were asked to shut down their nodes. This wouldn't be doable
-today, but at that time lots of users were actively following the
-forums for updates and were usually on top of things. Given that it
-was possible to do this, it might have been a sensible thing to do.
+Outra coisa debatível é se é bom ou ruim que
+os usuários tenham sido solicitados a desligar seus nós. Isso não seria viável
+hoje, mas naquela época muitos usuários acompanhavam ativamente os
+fóruns para atualizações e geralmente estavam cientes das coisas. Dado que
+era possível fazer isso, pode ter sido algo sensato a se fazer.
 
 [[combined-output-overflow]]
-==== 2010-08-15 Combined output overflow (CVE-2010-5139)
+==== 2010-08-15 Transbordo de saída combinada (CVE-2010-5139)
 
-In mid-August 2010, Bitcointalk forum user jgarzik, a.k.a. Jeff Garzik,
-https://bitcointalk.org/index.php?topic=822.msg9474#msg9474[discovered
-that] a certain transaction at block height 74638 had two outputs of
-unusually high value:
+Em meados de agosto de 2010, o usuário do fórum Bitcointalk jgarzik, também conhecido como Jeff Garzik,
+https://bitcointalk.org/index.php?topic=822.msg9474#msg9474[descobriu
+que] uma certa transação no bloco de altura 74638 tinha duas saídas de
+valor excepcionalmente alto:
 
-[quote, Jeff Garzik, Bitcointalk forum (2010)]
+[quote, Jeff Garzik, fórum Bitcointalk (2010)]
 ____
-The "value out" in this block #74638 is quite strange:
+O "valor de saída" neste bloco #74638 é bastante estranho:
 
 ----
 
@@ -329,380 +325,363 @@ The "value out" in this block #74638 is quite strange:
   ]
 ...
 ----
-92233720368.54277039 BTC?  Is that UINT64_MAX, I wonder?
+92233720368.54277039 BTC? Isso é UINT64_MAX, eu me pergunto?
 ____
 
-Presumably, there was a bug causing two int64 (not uint64, as Garzik supposed) outputs`' sum
-to overflow to a negative value -0.00997538 BTC. Whatever the sum
-of the inputs, the "`sum`" of the outputs would be smaller, making
-this transaction OK according to the code at the time.
+Presumivelmente, havia um bug que fazia com que a soma de duas saídas int64 (não uint64, como Garzik supôs)
+transbordasse para um valor negativo -0,00997538 BTC. Qualquer que fosse a soma
+das entradas, a "`soma`" das saídas seria menor, tornando
+esta transação válida de acordo com o código da época.
 
-In this case, the bug had been disclosed and published through an actual exploit. An unfortunate outcome of this was that about 2x92 billion bitcoin
-had been created, which severely diluted the money supply of around 3.7
-million coins that existed at that time.
+Nesse caso, o bug foi divulgado e publicado através de uma exploração real. Um resultado infeliz disso foi que 
+cerca de 2x92 bilhões de bitcoins foram criados, o que diluiu severamente a oferta monetária de cerca de 3,7
+milhões de moedas que existiam naquela época.
 
-In a related thread,
+Em um tópico relacionado,
 https://bitcointalk.org/index.php?topic=823.msg9531#msg9531[Satoshi
-posted] that he'd appreciate it if people stopped mining (or _generating_,
-as they called it back then).
+postou] que apreciaria se as pessoas parassem de minerar (ou _gerar_,
+como era chamado na época).
 
-[quote, Satoshi Nakamoto, Bitcointalk forum (2010)]
+[quote, Satoshi Nakamoto, fórum Bitcointalk (2010)]
 ____
-It would help if people stop generating.  We will probably need to
-re-do a branch around the current one, and the less you generate the
-faster that will be.
+Seria útil se as pessoas parassem de gerar. Provavelmente precisaremos
+refazer um branch em torno do atual, e quanto menos você gerar, mais rápido isso acontecerá.
 
-A first patch will be in SVN rev 132.  It's not uploaded yet.  I'm
-pushing some other misc changes out of the way first, then I'll upload
-the patch for this.
-____
-
-His plan was to make a soft fork to make transactions like the one
-discussed here invalid, thus invalidating the blocks (especially block
-74638) that contained such transactions. Less than an hour later, he
-committed a https://sourceforge.net/p/bitcoin/code/132/[patch in
-revision 132] of the Subversion repository and
-https://bitcointalk.org/index.php?topic=823.msg9548#msg9548[posted to
-the forum] describing what he thought users should do:
-
-____
-Patch is uploaded to SVN rev 132!
-
-For now, recommended steps: +
-1) Shut down. +
-2) Download knightmb's blk files.  (replace your blk0001.dat and blkindex.dat files) +
-3) Upgrade. +
-4) It should start out with less than 74000 blocks. Let it redownload the rest.
-
-If you don't want to use knightmb's files, you could just delete your
-blk*.dat files, but it's going to be a lot of load on the network if
-everyone is downloading the whole block index at once.
-
-I'll build releases shortly.
+Um primeiro patch estará na revisão 132 do SVN. Ainda não está carregado. Estou
+empurrando algumas outras mudanças diversas para fora do caminho primeiro, depois carregarei
+o patch para isso.
 ____
 
-He wanted people to download block data from a specific user, namely
-knightmb, who had published his blockchain as it appeared on his disk,
-the files blkXXXX.dat and blkindex.dat. The reason for downloading the
-blockchain data this way, as opposed to synchronizing from scratch, was
-to reduce network bandwidth bottlenecks.
+O plano dele era fazer um soft fork para invalidar transações como a discutida aqui, invalidando assim os blocos (especialmente o bloco 74638) que continham essas transações. Menos de uma hora depois, ele
+realizou um https://sourceforge.net/p/bitcoin/code/132/[commit de patch na
+revisão 132] do repositório Subversion e
+https://bitcointalk.org/index.php?topic=823.msg9548#msg9548[postou no
+fórum] descrevendo o que achava que os usuários deveriam fazer:
+
+____
+O patch foi carregado para a revisão 132 do SVN!
+
+Por enquanto, os passos recomendados: +
+1) Desligue o node. +
+2) Baixe os arquivos blk do knightmb. (substitua seus arquivos blk0001.dat e blkindex.dat) +
+3) Faça a atualização. +
+4) Ele deve começar com menos de 74000 blocos. Deixe-o baixar o resto novamente.
+
+Se você não quiser usar os arquivos do knightmb, você pode simplesmente deletar seus
+arquivos blk*.dat, mas vai sobrecarregar a rede se
+todo mundo estiver baixando o índice de blocos inteiro ao mesmo tempo.
+
+Construirei as releases em breve.
+____
+
+Ele queria que as pessoas baixassem os dados do blockchain de um usuário específico, chamado
+knightmb, que publicou seu blockchain como estava em seu disco,
+nos arquivos blkXXXX.dat e blkindex.dat. O motivo para baixar os
+dados do blockchain dessa forma, em vez de sincronizar do zero, era
+reduzir os gargalos de largura de banda da rede.
 
 //noqr
-There was a big caveat with this: the data users would download from
-knightmb https://bitcoin.stackexchange.com/a/113682/69518[weren't
-verified by the Bitcoin software] at startup. The blkindex.dat file
-contained the UTXO set, and the software would accept any data therein
-as if it had already verified it. knightmb could have manipulated the
-data to give himself or anyone else some bitcoins.
+Havia um grande problema com isso: os dados que os usuários baixariam do
+knightmb https://bitcoin.stackexchange.com/a/113682/69518[não eram
+verificados pelo software Bitcoin] na inicialização. O arquivo blkindex.dat
+continha o conjunto UTXO, e o software aceitaria qualquer dado ali como se já tivesse sido verificado. knightmb poderia ter manipulado os
+dados para se dar bitcoins ou para outra pessoa.
 
 //noqr
-Again, people seemed to go along with this, and the reversal of the
-invalid block and its successors was successful. Miners started
-working on a new successor to block
+Novamente, as pessoas pareceram aceitar isso, e a reversão do
+bloco inválido e seus sucessores foi bem-sucedida. Os mineradores começaram
+a trabalhar em um novo sucessor para o bloco
 https://mempool.space/block/0000000000606865e679308edf079991764d88e8122ca9250aef5386962b6e84[74637]
-and, according to the block's timestamp, a successor appeared at 23:53
-UTC, about 6 hours after the issue was discovered. At 08:10 the following day, on August
-16, around block 74689, the new chain had overtaken the old
-chain, therefore all non-upgraded nodes reorged to follow the new
-chain. This is the deepest reorg - 52 blocks - in Bitcoin's history.
+e, de acordo com o timestamp do bloco, um sucessor apareceu às 23:53
+UTC, cerca de 6 horas após o problema ser descoberto. Às 08:10 do dia seguinte, em 16 de agosto,
+em torno do bloco 74689, a nova cadeia ultrapassou a cadeia antiga,
+portanto, todos os nodes não atualizados fizeram reorg para seguir a nova
+cadeia. Este é o reorg mais profundo - 52 blocos - na história do Bitcoin.
 
-Compared to the OP_RETURN issue, this issue was handled in a somewhat
-cleaner way:
+Comparado ao problema do OP_RETURN, este foi tratado de uma forma um pouco
+mais limpa:
 
-* No binary-only patch release
-* The released software worked as intended
-* No hard fork
+* Nenhuma release binária apenas com o patch
+* O software lançado funcionou conforme o esperado
+* Nenhum hard fork
 
-Users were asked to stop mining during this issue as well. We can discuss whether
-this is a good idea or not, but imagine you're a miner and you're
-convinced that any blocks on top of the bad block will eventually get
-wiped out in a deep reorg: why would you waste resources on mining
-doomed blocks?
+Os usuários foram convidados a parar de minerar durante este problema também. Podemos discutir se
+isso é uma boa ideia ou não, mas imagine que você é um minerador e está
+convencido de que quaisquer blocos acima do bloco ruim eventualmente serão
+apagados em um reorg profundo: por que desperdiçar recursos minerando
+blocos condenados?
 
-You might also think that it's a bit fishy to do as suggested by
-Nakamoto and download the blockchain, including the UTXO set, from a
-random dude's hard drive. If so, you're right: that is fishy. But, given the circumstances, this emergency response was a
-sensible one.
+Você também pode pensar que é um pouco suspeito seguir a sugestão de
+Nakamoto e baixar o blockchain, incluindo o conjunto UTXO, do
+disco rígido de um cara aleatório. Se sim, você está certo: isso é suspeito. Mas, dadas as circunstâncias, essa resposta de emergência foi
+sensata.
 
-There's an important difference between this case and
-the previous OP_RETURN case: this issue was exploited in the wild, and
-thus a fix could be made more straightforward. In the case of
-OP_RETURN, they had to obfuscate the fix and make public statements
-that didn't directly reveal what the issue was.
+Há uma diferença importante entre este caso e
+o caso anterior do OP_RETURN: este problema foi explorado na prática, e
+assim uma correção pôde ser feita de maneira mais direta. No caso do
+OP_RETURN, eles tiveram que ofuscar a correção e fazer declarações públicas
+que não revelassem diretamente qual era o problema.
 
 [[march2013split]]
-==== 2013-03-11 DB locks issue 0.7.2 - 0.8.0 (CVE-2013-3220)
+==== 2013-03-11 Problema de bloqueios de banco de dados 0.7.2 - 0.8.0 (CVE-2013-3220)
 
-A very interesting an educationally valuable issue surfaced in March
-2013. It appeared that the blockchain had split (although the word
-"`fork`" is used in the quote below) after block 225429. The details
-of this incident were
-https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki[reported
-in BIP50]. The summary says:
+Uma questão muito interessante e educacionalmente valiosa surgiu em março
+de 2013. Aparentemente, o blockchain havia se dividido (embora a palavra
+"`fork`" seja usada na citação abaixo) após o bloco 225429. Os detalhes
+deste incidente foram
+https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki[relatados
+no BIP50]. O resumo diz:
 
-[quote, Various Bitcoin Core developers, BIP50 (2013)]
+[quote, Vários desenvolvedores do Bitcoin Core, BIP50 (2013)]
 ____
-A block that had a larger number of total transaction inputs than
-previously seen was mined and broadcasted. Bitcoin 0.8 nodes were able
-to handle this, but some pre-0.8 Bitcoin nodes rejected it, causing an
-unexpected fork of the blockchain. The pre-0.8-incompatible chain
-(from here on, the 0.8 chain) at that point had around 60% of the
-mining hash power ensuring the split did not automatically resolve (as
-would have occurred if the pre-0.8 chain outpaced the 0.8 chain in
-total work, forcing 0.8 nodes to reorganise to the pre-0.8 chain).
+Um bloco que tinha um número maior de entradas de transações do que
+anteriormente visto foi minerado e transmitido. Os nodes com Bitcoin 0.8 conseguiram
+lidar com isso, mas alguns nodes com versões anteriores ao 0.8 rejeitaram o bloco, causando uma
+divisão inesperada do blockchain. A cadeia incompatível com versões anteriores ao 0.8
+(daqui em diante, a cadeia 0.8) tinha naquela altura cerca de 60% do
+poder de hash, garantindo que a divisão não fosse resolvida automaticamente (como
+teria ocorrido se a cadeia anterior ao 0.8 ultrapassasse a cadeia 0.8 em
+trabalho total, forçando os nodes 0.8 a se reorganizarem para a cadeia anterior ao 0.8).
 
-In order to restore a canonical chain as soon as possible, BTCGuild
-and Slush downgraded their Bitcoin 0.8 nodes to 0.7 so their pools
-would also reject the larger block. This placed majority hashpower on
-the chain without the larger block, thus eventually causing the 0.8
-nodes to reorganise to the pre-0.8 chain.
-____
-
-The quick action that the mining pools BTCGuild and Slush took was
-imperative in this emergency. They were able to tip the majority of the hash power
-over to the pre-0.8 branch of the split, and thus help restore
-consensus. This gave developers the time to figure out a sustainable fix.
-
-What's also very interesting in this issue is that version 0.7.2 was
-incompatible with itself, as was the case with prior
-versions too. This is explained in the
-https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki#root-cause[Root
-cause section of BIP50]:
-
-[quote, Various Bitcoin Core developers, BIP50 (2013)]
-____
-With the insufficiently high BDB lock configuration, it implicitly had
-become a network consensus rule determining block validity (albeit an
-inconsistent and unsafe rule, since the lock usage could vary from
-node to node).
+Para restaurar uma cadeia canônica o mais rápido possível, BTCGuild
+e Slush rebaixaram seus nodes Bitcoin 0.8 para 0.7 para que seus pools
+também rejeitassem o bloco maior. Isso colocou a maioria do poder de hash na
+cadeia sem o bloco maior, eventualmente fazendo com que os nodes 0.8 se reorganizassem para a cadeia anterior ao 0.8.
 ____
 
-In short, the issue is that the number of database locks the Bitcoin
-Core software needs to verify a block is not deterministic. One node
-might need X locks while another node might need X+1 locks. The nodes
-also have a limit on how many locks Bitcoin can take. If the number of
-locks needed exceeds the limit, the block will be considered
-invalid. So if X+1 exceeds the limit but not X, then the two nodes
-will split the blockchain and disagree on which branch is valid.
+A rápida ação que os pools de mineração BTCGuild e Slush tomaram foi
+imperativa nesta emergência. Eles conseguiram inclinar a maioria do poder de hash
+para o branch anterior ao 0.8 da divisão, e assim ajudar a restaurar
+o consenso. Isso deu aos desenvolvedores tempo para descobrir uma correção sustentável.
 
-The solution chosen, apart from the immediate actions taken by the two pools to
-restore consensus, was to
+Outro ponto muito interessante nesta questão é que a versão 0.7.2 era
+incompatível consigo mesma, assim como as versões anteriores. Isso é explicado na
+https://github.com/bitcoin/bips/blob/master/bip-0050.mediawiki#root-cause[seção de causa raiz do BIP50]:
 
-* limit the blocks in terms of both size and locks needed on version
+[quote, Vários desenvolvedores do Bitcoin Core, BIP50 (2013)]
+____
+Com a configuração de bloqueios do BDB insuficientemente alta, ela se tornou implicitamente uma regra de consenso de rede determinando a validade do bloco (embora uma
+regra inconsistente e insegura, já que o uso de bloqueios poderia variar de
+node para node).
+____
+
+Em resumo, o problema é que o número de bloqueios de banco de dados que o software do Bitcoin Core precisa para verificar um bloco não é determinístico. Um node
+pode precisar de X bloqueios enquanto outro node pode precisar de X+1 bloqueios. Os nodes
+também têm um limite de quantos bloqueios o Bitcoin pode tomar. Se o número de
+bloqueios necessários exceder o limite, o bloco será considerado
+inválido. Então, se X+1 exceder o limite, mas não X, os dois nodes
+dividirão o blockchain e discordarão sobre qual branch é válido.
+
+A solução escolhida, além das ações imediatas tomadas pelos dois pools para
+restaurar o consenso, foi
+
+* limitar os blocos em termos de tamanho e bloqueios necessários na versão
   0.8.1
-* patch old versions (0.7.2 and some older ones) with the same new
-  rules, and increase the global lock limit.
+* corrigir versões antigas (0.7.2 e algumas anteriores) com as mesmas novas
+  regras, e aumentar o limite global de bloqueios.
 
-Except for the increased global lock limit in the second bullet, these rules were
-implemented temporarily for a pre-determined amount of time. The plan was to
-remove these limits once most nodes had upgraded.
+Exceto pelo aumento do limite global de bloqueios no segundo ponto, essas regras foram
+implementadas temporariamente por um período de tempo predeterminado. O plano era
+remover esses limites assim que a maioria dos nodes tivesse sido atualizada.
 
-This soft fork dramatically reduced the risk of consensus failure, and
-a few months later, on May 15, the temporary rules were deactivated in
-concert across the network. Note that this deactivation was in effect
-a hard fork, but it was not contentious. Furthermore, it was released
-along with the preceding soft fork, so people running the soft-forked
-software were well aware that a hard fork would follow it. Therefore, the vast
-majority of nodes remained in consensus when the hard fork got activated.
-Unfortunately, though, a few nodes that didn't upgrade were lost in the process.
+Este soft fork reduziu drasticamente o risco de falha de consenso, e
+alguns meses depois, em 15 de maio, as regras temporárias foram desativadas em
+concerto em toda a rede. Note que essa desativação foi, na prática,
+um hard fork, mas não foi controverso. Além disso, foi lançado
+junto com o soft fork anterior, então as pessoas que rodavam o software com o soft fork estavam bem cientes de que um hard fork o seguiria. Portanto, a grande
+maioria dos nodes permaneceu em consenso quando o hard fork foi ativado.
+Infelizmente, alguns nodes que não atualizaram foram perdidos no processo.
 
-One might wonder if this would be doable today. The mining
-landscape is more complex today, and, depending on the hash power on
-each side of the split, it might be hard to roll out a patch such as
-the one in BIP50 quickly enough. It'd probably be hard to convince
-miners on the "`wrong`" branch to let go of their block rewards.
+Pode-se questionar se isso seria possível hoje. O cenário de mineração
+é mais complexo hoje, e, dependendo do poder de hash de
+cada lado da divisão, pode ser difícil lançar um patch como
+o do BIP50 rapidamente o suficiente. Provavelmente seria difícil convencer
+os mineradores no "`lado errado`" a abrir mão de suas recompensas de blocos.
 
 [[bip66-splits]]
 ==== BIP66
 
-BIP66 is interesting because it highlights the importance of
+O BIP66 é interessante porque destaca a importância de
 
-* good selection cryptography
-* responsible disclosure
-* deployment without revealing the vulnerability
-* mining on top of verified blocks
+* boa criptografia de seleção
+* divulgação responsável
+* implantação sem revelar a vulnerabilidade
+* mineração em cima de blocos verificados
 
-BIP66 was a proposal to tighten up the rules for signature encodings
-in Bitcoin Script. The
-https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki#motivation[motivation]
-was to be able to parse signatures with software or libraries other
-than OpenSSL and even recent versions of OpenSSL. OpenSSL is a library
-for general purpose cryptography that Bitcoin Core used at that time.
+O BIP66 foi uma proposta para endurecer as regras para codificações de assinatura
+no Bitcoin Script. A
+https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki#motivation[motivação]
+era poder analisar assinaturas com software ou bibliotecas diferentes do OpenSSL e até mesmo versões recentes do OpenSSL. OpenSSL é uma biblioteca
+de criptografia de uso geral que o Bitcoin Core usava na época.
 
-The BIP activated on July 4, 2015. However, while the above is true,
-BIP66 also fixes a much more severe issue not mentioned in the BIP.
+O BIP foi ativado em 4 de julho de 2015. No entanto, enquanto o acima é verdade,
+o BIP66 também corrige um problema muito mais grave que não é mencionado no BIP.
 
-===== The vulnerability
+===== A vulnerabilidade
 
-The full disclosure of this issue was published on July 28 2015 by
-Pieter Wuille in an
+A divulgação completa deste problema foi publicada em 28 de julho de 2015 por
+Pieter Wuille em um
 https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2015-July/009697.html[email
-to the Bitcoin-dev mailing list]:
+para a lista de discussão Bitcoin-dev]:
 
-[quote, Pieter Wuille on Bitcoin-dev mailing list, Disclosure: consensus bug indirectly solved by BIP66 (2015)]
+[quote, Pieter Wuille na lista de discussão Bitcoin-dev, Divulgação: bug de consenso indiretamente resolvido pelo BIP66 (2015)]
 ____
-Hello all,
+Olá a todos,
 
-I'd like to disclose a vulnerability I discovered in September 2014,
-which became unexploitable when BIP66's 95% threshold was reached
-earlier this month.
+Gostaria de divulgar uma vulnerabilidade que descobri em setembro de 2014,
+que se tornou inexplotável quando o limite de 95% do BIP66 foi alcançado
+no início deste mês.
 
-## Short description:
+## Descrição curta:
 
-A specially-crafted transaction could have forked the blockchain
-between nodes:
+Uma transação especialmente criada poderia ter dividido o blockchain
+entre nodes:
 
-* using OpenSSL on a 32-bit systems and on 64-bit Windows systems
-* using OpenSSL on non-Windows 64-bit systems (Linux, OSX, ...)
-* using some non-OpenSSL codebases for parsing signatures
+* usando OpenSSL em sistemas de 32 bits e em sistemas Windows de 64 bits
+* usando OpenSSL em sistemas de 64 bits que não são Windows (Linux, OSX, ...)
+* usando algumas bases de código não-OpenSSL para análise de assinaturas
 ____
 
-The email further lays out the details about how the issue got
-discovered and more exactly what caused it. At the end, he submits a
-timeline of the events, and we will replay some of the most important
-ones here. Some of them have, as illustrated by
-<<fig-bip66-timeline-1>>, already been described.
+O email detalha ainda mais como o problema foi
+descoberto e exatamente o que o causou. No final, ele apresenta uma
+linha do tempo dos eventos, e vamos reproduzir alguns dos mais importantes
+aqui. Alguns deles já foram descritos em <<fig-bip66-timeline-1>>.
 
 [[fig-bip66-timeline-1]]
-.Timeline of events surrounding BIP66. Items in black have been explained above.
+.Linha do tempo dos eventos em torno do BIP66. Itens em preto já foram explicados acima.
 image::bip66-timeline-1.png[{big-width}]
 
-===== Before discovery
+===== Antes da descoberta
 
-Without anyone knowing about the issue, it could have been resolved by
-the now widthdrawn BIP62, which was a proposal to reduce the
-possibilities of transaction malleability. Among the proposed changes
-in BIP62 were tightening of the consensus rules for the encoding of
-signatures, or "`strict DER encoding`". Pieter Wuille proposed some
-tweaks to the BIP in July 2014, that would have solved the issue:
+Sem que ninguém soubesse do problema, ele poderia ter sido resolvido pelo agora retirado BIP62, que era uma proposta para reduzir as
+possibilidades de maleabilidade de transações. Entre as mudanças propostas
+no BIP62 estava o endurecimento das regras de consenso para a codificação
+de assinaturas, ou "`strict DER encoding`". Pieter Wuille propôs alguns
+ajustes no BIP em julho de 2014, que teriam resolvido o problema:
 
-[quote, Pieter Wuille on Bitcoin-dev mailing list, Disclosure: consensus bug indirectly solved by BIP66 (2015)]
+[quote, Pieter Wuille na lista de discussão Bitcoin-dev, Divulgação: bug de consenso indiretamente resolvido pelo BIP66 (2015)]
 ____
-* 2014-Jul-18: In order to make Bitcoin's signature encoding rules not
-depend on OpenSSL's specific parser, I modified the BIP62 proposal to
-have its strict DER signatures requirement also apply to version 1
-transactions. No non-DER signatures were being mined into blocks
-anymore at the time, so this was assumed to not have any impact. See
-https://github.com/bitcoin/bips/pull/90 and
+* 2014-Jul-18: Para fazer com que as regras de codificação de assinaturas do Bitcoin não
+dependam do analisador específico do OpenSSL, modifiquei a proposta do BIP62 para
+que seu requisito de assinaturas DER estritas também se aplicasse a transações de versão 1.
+Nenhuma assinatura não DER estava sendo minerada em blocos
+naquela época, então presumiu-se que isso não teria nenhum impacto. Veja
+https://github.com/bitcoin/bips/pull/90 e
 http://lists.linuxfoundation.org/pipermail/bitcoin-dev/2014-July/006299.html.
-Unknown at the time, but if deployed this would have solved the
-vulnerability.
+Desconhecido na época, mas se implantado isso teria resolvido a
+vulnerabilidade.
 ____
 
-Due to the breadth of this BIP, which covered substantially more than
-just "`strict DER encoding`", it was constantly changing and never got
-near deployment. The BIP was later withdrawn because Segregated
-Witness, BIP141, solved transaction malleability in a different and
-more complete way.
+Devido à amplitude deste BIP, que cobria substancialmente mais do que
+apenas "`strict DER encoding`", ele estava constantemente mudando e nunca chegou
+perto da implantação. O BIP foi posteriormente retirado porque o Segregated
+Witness, BIP141, resolveu a maleabilidade das transações de uma maneira diferente e
+mais completa.
 
-===== After discovery
+===== Após a descoberta
 
-OpenSSL released new versions of their software with patches that, if
-used in Bitcoin since the beginning, would have solved the
-issue. However, using any new version of OpenSSL only in a
-new release of Bitcoin Core would make matters worse. Gregory Maxwell
-explains this in another
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2015-January/007097.html[email thread] in January 2015:
+O OpenSSL lançou novas versões de seu software com patches que, se
+usados no Bitcoin desde o início, teriam resolvido o
+problema. No entanto, usar qualquer nova versão do OpenSSL apenas em uma
+nova versão do Bitcoin Core tornaria as coisas piores. Gregory Maxwell
+explica isso em outro
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2015-January/007097.html[tópico de email] em janeiro de 2015:
 
-[quote,Gregory Maxwell on OpenSSL upgrade,Bitcoin-dev mailing list]
+[quote,Gregory Maxwell sobre atualização do OpenSSL, lista de discussão Bitcoin-dev]
 ____
-While for most applications it is generally acceptable to eagerly
-reject some signatures, Bitcoin is a consensus system where all
-participants must generally agree on the exact validity or
-invalidity of the input data.  In a sense, consistency is more
-important than "`correctness`".
+Enquanto para a maioria dos aplicativos geralmente é aceitável
+rejeitar ansiosamente algumas assinaturas, o Bitcoin é um sistema de consenso onde todos
+os participantes devem geralmente concordar sobre a exata validade ou
+invalidade dos dados de entrada. Em certo sentido, a consistência é mais
+importante do que a "`correção`".
 
 ...
 
-The patches above, however, only fix one symptom of the general
-problem: relying on software not designed or distributed for
-consensus use (in particular OpenSSL) for consensus-normative
-behavior.  Therefore, as an incremental improvement, I propose
-a targeted soft-fork to enforce strict DER compliance soon,
-utilizing a subset of BIP62.
+Os patches acima, no entanto, corrigem apenas um sintoma do problema geral: confiar em software não projetado ou distribuído para
+uso normativo de consenso (em particular o OpenSSL) para comportamento normativo de consenso. Portanto, como uma melhoria incremental, proponho
+um soft fork direcionado para impor conformidade estrita ao DER em breve,
+utilizando um subconjunto do BIP62.
 ____
 
-He points out that using code that's not intended for use in consensus
-systems poses serious risks, and proposes that Bitcoin implements
-strict DER encoding. This is a very clear example of the importance of
-good selection cryptography, a term we discussed in <<selectioncryptography>>.
+Ele destaca que usar código que não é destinado ao uso em sistemas de consenso
+representa riscos sérios, e propõe que o Bitcoin implemente
+strict DER encoding. Este é um exemplo muito claro da importância da
+boa criptografia de seleção, um termo que discutimos em <<selectioncryptography>>.
 
-These events might give you the impression that Gregory Maxwell knew
-about the vulnerability Pieter Wuille later published, but wanted to
-help sneak in a fix disguised as a precaution measure, without drawing
-too much attention to the actual problem. It might be so, but it's
-purely speculation.
+Esses eventos podem dar a impressão de que Gregory Maxwell sabia
+sobre a vulnerabilidade que Pieter Wuille publicou mais tarde, mas queria
+ajudar a introduzir uma correção disfarçada como uma medida de precaução, sem chamar
+muita atenção para o problema real. Pode ser isso, mas é
+pura especulação.
 
-Then, as proposed by Maxwell, BIP66 was created as a subset of BIP62 that
-specified only strict DER encoding. This BIP was apparently broadly
-accepted and deployed in July, albeit two blockchain splits ironically
-occurred due to _validationless mining_. These splits are discussed in
-the next section.
+Então, como proposto por Maxwell, o BIP66 foi criado como um subconjunto do BIP62 que
+especificava apenas a codificação estrita ao DER. Este BIP aparentemente foi amplamente
+aceito e implantado em julho, embora duas divisões de blockchain tenham ocorrido ironicamente devido à _mineração sem validação_. Essas divisões são discutidas na
+próxima seção.
 
 image::bip66-timeline-2.png[{big-width}]
 
-A key takeaway from this is that BIPs should be more or less
-_atomic_, meaning that they should be complete enough to provide something useful or solve a
-specific problem, but small enough to allow for broad support among
-users. The more stuff you put into a BIP, the smaller the chance of
-acceptance.
+Uma lição importante a se tirar do BIP66 é que os BIPs devem ser mais ou menos
+_atômicos_, o que significa que devem ser completos o suficiente para fornecer algo útil ou resolver um
+problema específico, mas pequenos o suficiente para permitir um amplo suporte entre
+os usuários. Quanto mais coisas você coloca em um BIP, menor é a chance de
+aceitação.
 
 [[bip66splits]]
-===== Splits due to validationless mining
+===== Divisões devido à mineração sem validação
 
-Unfortunately, the story of BIP66 didn't end there. When BIP66 was
-activated, it turned out quite messy because some miners didn't verify
-the blocks they were trying to extend. This is called validationless mining,
-or SPV-mining (as in Simplified Payment Verification). An alert
-message was sent out to Bitcoin nodes with a link to
-https://bitcoin.org/en/alert/2015-07-04-spv-mining[a web page
-describing the issue].
+Infelizmente, a história do BIP66 não terminou aí. Quando o BIP66 foi
+ativado, a situação ficou bastante complicada porque alguns mineradores não validavam
+os blocos que estavam tentando estender. Isso é chamado de mineração sem validação,
+ou SPV-mining (como em Simplified Payment Verification). Uma mensagem de alerta
+foi enviada aos nodes do Bitcoin com um link para
+https://bitcoin.org/en/alert/2015-07-04-spv-mining[uma página da web
+descrevendo o problema].
 
-[quote,Bitcoin Core developers,Alert information on bitcoin.org (2015)]
+[quote,Desenvolvedores do Bitcoin Core, Informação de alerta em bitcoin.org (2015)]
 ____
-Early morning on 4 July 2015, the 950/1000 (95%) threshold was
-reached. Shortly thereafter, a small miner (part of the non-upgraded
-5%) mined an invalid block–as was an expected
-occurrence. Unfortunately, it turned out that roughly half the network
-hash rate was mining without fully validating blocks (called SPV
-mining), and built new blocks on top of that invalid block.
+No início da manhã de 4 de julho de 2015, o limite de 950/1000 (95%) foi
+atingido. Logo depois, um pequeno minerador (parte dos 5% não atualizados)
+minerou um bloco inválido – como era esperado
+ocorrer. Infelizmente, descobriu-se que cerca de metade do poder de hash da rede
+estava minerando sem validar completamente os blocos (chamado de mineração SPV),
+e construíram novos blocos em cima daquele bloco inválido.
 ____
 
-The alert page instructed people to wait for 30 additional confirmations
-than they normally would in case they were using older versions of Bitcoin Core.
+A página de alerta instruiu as pessoas a esperar por 30 confirmações adicionais
+além das que normalmente fariam caso estivessem usando versões mais antigas do Bitcoin Core.
 
 //noqr
-The split mentioned above occurred on 2015-07-04 at 02:10 UTC after block
-height
-https://mempool.space/block/000000000000000006a320d752b46b532ec0f3f815c5dae467aff5715a6e579e[363730]. This
-issue got resolved at 03:50 the same day, after 6 invalid blocks had been
-mined. Unfortunately, the same issue happened again the next day, i.e. on
-2015-07-05 at 21:50, but this time the invalid branch only lasted 3
-blocks.
+A divisão mencionada acima ocorreu em 2015-07-04 às 02:10 UTC após o bloco
+de altura
+https://mempool.space/block/000000000000000006a320d752b46b532ec0f3f815c5dae467aff5715a6e579e[363730]. Este
+problema foi resolvido às 03:50 do mesmo dia, após 6 blocos inválidos terem sido
+minerados. Infelizmente, o mesmo problema ocorreu novamente no dia seguinte, ou seja, em
+2015-07-05 às 21:50, mas desta vez o branch inválido durou apenas 3
+blocos.
 
 image::bip66-timeline-3.png[{big-width}]
 
-The events that led up to BIP66, its deployment, and the aftermath are
-a very good case study for how careful Bitcoin developers have
-to be. A few key takeaways from BIP66:
+Os eventos que levaram ao BIP66, sua implantação e suas consequências são
+um excelente estudo de caso sobre o quão cuidadosos os desenvolvedores de Bitcoin precisam ser. Algumas lições importantes do BIP66:
 
-* The balance between openness and not publishing a vulnerability is a
-delicate one.
-* Deploying fixes for non-published vulnerabilities is a tricky game
-  to play.
-* Retaining consensus is hard.
-* Software not intended for consensus systems are generally risky.
-* BIPs should be somewhat atomic.
+* O equilíbrio entre abertura e não publicação de uma vulnerabilidade é
+delicado.
+* Implantar correções para vulnerabilidades não publicadas é um jogo arriscado.
+* Manter o consenso é difícil.
+* Software não destinado a sistemas de consenso geralmente é arriscado.
+* Os BIPs devem ser um tanto atômicos.
 
 
-=== Conclusion
+=== Conclusão
 
-Bitcoin has bugs. People discovering bugs are encouraged to disclose
-them responsibly to Bitcoin developers, so they can fix the bug
-without revealing it publicly. Ideally, the bug fix can be disguised
-as a performace improvement, or some other smoke screen.
+O Bitcoin tem bugs. As pessoas que descobrem bugs são incentivadas a divulgá-los
+responsavelmente aos desenvolvedores do Bitcoin, para que possam corrigir o bug
+sem revelá-lo publicamente. Idealmente, a correção do bug pode ser disfarçada
+como uma melhoria de desempenho ou algum outro tipo de cortina de fumaça.
 
-We've looked at some of the more severe issues that's surfaced through
-the years, and how they were handled. Some were discovered publicly
-through exploits while other were responisibly disclosed and could be
-fixed before malicious actors had a chance to exploit them.
+Vimos algumas das questões mais graves que surgiram ao longo dos
+anos, e como foram tratadas. Algumas foram descobertas publicamente
+por meio de explorações, enquanto outras foram divulgadas responsavelmente e puderam
+ser corrigidas antes que atores mal-intencionados tivessem a chance de explorá-las.
+

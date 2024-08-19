@@ -1,399 +1,338 @@
-== Privacy
+== Privacidade
 
 image::privacy-banner.jpg[]
 
-This chapter deals with how to keep your private financial information
-to yourself. It explains what privacy stands for in the context of Bitcoin,
-why it's important, and what it means to say that Bitcoin is
-pseudonymous. It also looks into how private data can leak, both on-chain
-and off-chain. Then, it talks about the fact that bitcoins should be
-fungible, meaning interchangeable for any other bitcoins, and how
-fungibility and privacy go hand in hand. Lastly, the chapter introduces some
-measures you can take to improve your privacy and that of others.
+Este capítulo trata de como manter suas informações financeiras privadas. 
+Ele explica o que significa privacidade no contexto do Bitcoin, por que é 
+importante e o que significa dizer que o Bitcoin é pseudônimo. Também examina 
+como os dados privados podem vazar, tanto na blockchain quanto fora dela. 
+Em seguida, aborda o fato de que os bitcoins devem ser fungíveis, ou seja, 
+intercambiáveis com outros bitcoins, e como a fungibilidade e a privacidade 
+andam de mãos dadas. Por fim, o capítulo apresenta algumas medidas que você 
+pode tomar para melhorar sua privacidade e a de outros.
 
-Bitcoin can be described as a pseudonymous system (see
-<<pseudonymity>> for further details on this), where users have multiple pseudonyms in the
-form of public keys. At first glance, this looks like a pretty good
-way to protect users from being identified, but it is in fact really
-easy to leak private financial information unintentionally.
+O Bitcoin pode ser descrito como um sistema pseudônimo (veja <<pseudonymity>> 
+para mais detalhes sobre isso), onde os usuários têm vários pseudônimos na forma 
+de chaves públicas. À primeira vista, isso parece uma boa maneira de proteger os 
+usuários de serem identificados, mas na verdade é muito fácil vazar informações 
+financeiras privadas de forma não intencional.
 
-=== What does privacy mean?
+=== O que significa privacidade?
 
-Privacy can mean different things in different contexts. In
-Bitcoin, it generally means that users don't have to reveal their
-financial information to others, unless they voluntarily do so.
+Privacidade pode significar coisas diferentes em diferentes contextos. 
+No Bitcoin, geralmente significa que os usuários não precisam revelar suas 
+informações financeiras para os outros, a menos que o façam voluntariamente.
 
-There are many ways in which you may leak your private information
-to others, with or without knowing it. Data can either leak from the
-public blockchain or through other means, for example when malicious actors intercept
-your internet communications.
+Existem muitas maneiras pelas quais você pode vazar suas informações privadas 
+para outros, com ou sem saber. Os dados podem vazar da blockchain pública ou 
+por outros meios, por exemplo, quando atores mal-intencionados interceptam 
+suas comunicações na internet.
 
 [[whyprivacyimportant]]
-=== Why is privacy important?
+=== Por que a privacidade é importante?
 
-It may seem obvious why privacy is important in Bitcoin, but there are
-some aspects of it that one might not immediately think about.
-https://bitcointalk.org/index.php?topic=334316.msg3588908#msg3588908[On
-the Bitcoin Talk forum], Gregory
-Maxwell walks us through a lot of good reasons why he
-thinks privacy matters. Among them are free market, safety, and human
-dignity:
+Pode parecer óbvio por que a privacidade é importante no Bitcoin, 
+mas há alguns aspectos disso que talvez não sejam imediatamente percebidos. 
+https://bitcointalk.org/index.php?topic=334316.msg3588908#msg3588908[No fórum Bitcoin Talk], 
+Gregory Maxwell nos guia por várias boas razões pelas quais ele acredita que a privacidade é 
+importante. Entre elas estão o mercado livre, a segurança e a dignidade humana:
 
 [quote, Gregory Maxwell, Bitcoin Talk forum (2013)]
 ____
-Financial privacy is an essential criteria for the efficient operation
-of a free market: if you run a business, you cannot effectively set
-prices if your suppliers and customers can see all your transactions
-against your will. You cannot compete effectively if your competition
-is tracking your sales.  Individually your informational leverage is
-lost in your private dealings if you don't have privacy over your
-accounts: if you pay your landlord in Bitcoin without enough privacy
-in place, your landlord will see when you've received a pay raise and
-can hit you up for more rent.
+A privacidade financeira é um critério essencial para o funcionamento eficiente de um mercado livre: 
+se você administra um negócio, não pode definir preços de forma eficaz se seus fornecedores e 
+clientes podem ver todas as suas transações contra sua vontade. Você não pode competir de forma 
+eficaz se seus concorrentes estiverem acompanhando suas vendas. Individualmente, sua alavancagem 
+informacional é perdida em seus negócios privados se você não tiver privacidade sobre suas contas:
+se você pagar seu senhorio em Bitcoin sem a privacidade adequada, seu senhorio verá quando você recebeu 
+um aumento de salário e poderá pedir mais aluguel.
 
-Financial privacy is essential for personal safety: if thieves can see
-your spending, income, and holdings, they can use that information to
-target and exploit you. Without privacy malicious parties have more
-ability to steal your identity, snatch your large purchases off your
-doorstep, or impersonate businesses you transact with towards
-you... they can tell exactly how much to try to scam you for.
+A privacidade financeira é essencial para a segurança pessoal: se ladrões podem ver seus gastos, 
+renda e posses, eles podem usar essas informações para direcioná-lo e explorá-lo. Sem privacidade, 
+partes mal-intencionadas têm mais capacidade de roubar sua identidade, roubar suas grandes compras 
+na sua porta ou se passar por empresas com as quais você transaciona... eles podem saber exatamente 
+quanto tentar te enganar.
 
-Financial privacy is essential for human dignity: no one wants the
-snotty barista at the coffee shop or their nosy neighbors commenting
-on their income or spending habits. No one wants their baby-crazy
-in-laws asking why they're buying contraception (or sex toys). Your
-employer has no business knowing what church you donate to. Only in a
-perfectly enlightened discrimination free world where no one has undue
-authority over anyone else could we retain our dignity and make our
-lawful transactions freely without self-censorship if we don't have
-privacy.
+A privacidade financeira é essencial para a dignidade humana: ninguém quer que o barista intrometido 
+na cafeteria ou seus vizinhos curiosos comentem sobre sua renda ou hábitos de consumo. Ninguém quer 
+que seus sogros obcecados por bebês perguntem por que estão comprando contraceptivos (ou brinquedos sexuais). 
+Seu empregador não tem nada a ver com saber para qual igreja você doa. Apenas em um mundo perfeitamente 
+iluminado, livre de discriminação, onde ninguém tem autoridade indevida sobre ninguém, poderíamos manter 
+nossa dignidade e fazer nossas transações legais livremente, sem auto-censura, se não tivermos privacidade.
 ____
 
-Maxwell also touches on fungibility, which will be discussed <<fungibility,later in
-this chapter>>, as well as on how privacy and law enforcement are not
-contradictory.
+Maxwell também toca na fungibilidade, que será discutida <<fungibility,mais adiante neste capítulo>>, 
+bem como na ideia de que privacidade e aplicação da lei não são contraditórias.
 
 [[pseudonymity]]
-=== Pseudonymity
+=== Pseudonimidade
 
-We mentioned above that Bitcoin is pseudonymous, and that the
-pseudonyms are public keys. In the media you often hear
-that Bitcoin is anonymous, which is not correct. There is a
-distinction between anonymity and pseudonymity.
+Mencionamos acima que o Bitcoin é pseudônimo, e que os pseudônimos são chaves públicas. Na mídia, 
+muitas vezes se ouve que o Bitcoin é anônimo, o que não é correto. Há uma distinção entre anonimato 
+e pseudonimidade.
 
 Andrew Poelstra
-https://bitcoin.stackexchange.com/a/29473/69518[explains in a Bitcoin
-Stack Exchange post] what anonymity would look like in transactions:
+https://bitcoin.stackexchange.com/a/29473/69518[explica em um post no Bitcoin Stack Exchange] como 
+seria o anonimato em transações:
 
-[quote,Andrew Poelstra on anonymity,Bitcoin Stack Exchange (2016)]
+[quote,Andrew Poelstra sobre anonimato,Bitcoin Stack Exchange (2016)]
 ____
-Total anonymity, in the sense that when you spend money there is no
-trace of where it came from or where it's going, is theoretically
-possible by using the cryptographic technique of zero-knowledge
-proofs.
+O anonimato total, no sentido de que, quando você gasta dinheiro, não há vestígios de onde ele veio 
+ou para onde está indo, é teoricamente possível usando a técnica criptográfica de provas de conhecimento zero.
 ____
 
-The difference seems to be that in a pseudonymous form of money you can
-trace payments between pseudonyms, whereas in an anonymous form of money you
-can't. Since bitcoin payments are traceable between pseudonyms, it's
-not an anonymous system.
+A diferença parece ser que, em uma forma de dinheiro pseudônimo, você pode rastrear pagamentos entre pseudônimos, 
+enquanto em uma forma anônima de dinheiro, você não pode. Como os pagamentos em bitcoin são rastreáveis entre pseudônimos, 
+não é um sistema anônimo.
 
-We have also said that the pseudonyms are public keys, but it's
-actually addresses derived from public keys. Why do we use addresses
-as pseudonyms and not something else, for example some descriptive
-names, like "`watchme1984`"? This has been
-https://bitcoin.stackexchange.com/a/25175/69518[explained well] by
-user Tim S., also on Bitcoin Stack Exchange:
+Também dissemos que os pseudônimos são chaves públicas, mas, na verdade, são endereços derivados de 
+chaves públicas. Por que usamos endereços como pseudônimos e não outra coisa, por exemplo, alguns 
+nomes descritivos, como "`watchme1984`"? Isso foi
+https://bitcoin.stackexchange.com/a/25175/69518[bem explicado] pelo usuário Tim S., também no 
+Bitcoin Stack Exchange:
 
-[quote,Tim S. on pseudonyms,Bitcoin Stack Exchange (2014)]
+[quote,Tim S. sobre pseudônimos,Bitcoin Stack Exchange (2014)]
 ____
-In order for Bitcoin's idea to work, you must have coins that can only
-be spent by the owner of a given private key. This means that whatever
-you send to must be tied, in some way, to a public key.
+Para que a ideia do Bitcoin funcione, você deve ter moedas que só possam ser gastas pelo proprietário 
+de uma determinada chave privada. Isso significa que o que quer que você envie deve estar vinculado, 
+de alguma forma, a uma chave pública.
 
-Using arbitrary pseudonyms (e.g. user names) would mean that you'd
-have to then somehow link the pseudonym to a public key in order to
-enable public/private key crypto. This would remove the ability to
-securely create addresses/pseudonyms offline (e.g. before someone
-could send money to the user name "tdumidu", you'd have to announce in
-the blockchain that "tdumidu" is owned by public key "a1c...", and
-include a fee so others have a reason to announce it), reduce
-anonymity (by encouraging you to reuse pseudonyms), and needlessly
-bloat the size of the blockchain. It would also create a false sense
-of security that you're sending to who you think you are (if I take
-the name "Linus Torvalds" before he does, then it's mine and people
-might send money thinking they're paying the creator of Linux, not
-me).
+Usar pseudônimos arbitrários (por exemplo, nomes de usuário) significaria que você teria que, de alguma 
+forma, vincular o pseudônimo a uma chave pública para permitir a criptografia de chave pública/privada. 
+Isso removeria a capacidade de criar endereços/pseudônimos com segurança offline (por exemplo, antes que 
+alguém pudesse enviar dinheiro para o nome de usuário "tdumidu", você teria que anunciar na blockchain 
+que "tdumidu" é de propriedade da chave pública "a1c...", e incluir uma taxa para que outros tenham um 
+motivo para anunciá-lo), reduziria o anonimato (incentivando você a reutilizar pseudônimos) e inchava 
+desnecessariamente o tamanho da blockchain. Também criaria uma falsa sensação de segurança de que você 
+está enviando para quem acha que está (se eu pegar o nome "Linus Torvalds" antes dele, então ele é meu, 
+e as pessoas podem enviar dinheiro pensando que estão pagando o criador do Linux, não eu).
 ____
 
-By using addresses, or public keys, we achieve important goals, such as removing the need to somehow register
-a pseudonym beforehand, reducing the incentives for pseudonym reuse, avoiding
-blockchain bloat, and making it harder to impersonate other people.
+Ao usar endereços ou chaves públicas, alcançamos objetivos importantes, como eliminar a necessidade 
+de registrar um pseudônimo com antecedência, reduzir os incentivos para reutilização de pseudônimos, 
+evitar o inchaço da blockchain e dificultar a personificação de outras pessoas.
 
 [[blockchainprivacy]]
-=== Blockchain privacy
+=== Privacidade na blockchain
 
-Blockchain privacy refers to the information you disclose by
-transacting on the blockchain. It applies to all transactions,
-the ones you send as well as the ones you receive.
+A privacidade na blockchain refere-se às informações que você divulga ao transacionar na blockchain. 
+Isso se aplica a todas as transações, tanto as que você envia quanto as que você recebe.
 
-Satoshi Nakamoto ponders over on-chain privacy in section 7 of his
-https://bitcoin.org/bitcoin.pdf[Bitcoin whitepaper]:
+Satoshi Nakamoto reflete sobre a privacidade na blockchain na seção 7 de seu https://bitcoin.org/bitcoin.pdf[whitepaper do Bitcoin]:
 
 [quote, Satoshi Nakamoto, Bitcoin: A Peer-to-Peer Electronic Cash System (2008)]
 ____
-As an additional firewall, a new key pair should be used for each
-transaction to keep them from being linked to a common owner. Some
-linking is still unavoidable with multi-input transactions, which
-necessarily reveal that their inputs were owned by the same owner. The
-risk is that if the owner of a key is revealed, linking could reveal
-other transactions that belonged to the same owner.
+Como uma barreira adicional, um novo par de chaves deve ser usado para cada transação para evitar que 
+sejam vinculadas a um proprietário comum. Alguns vínculos ainda são inevitáveis em transações com várias 
+entradas, que necessariamente revelam que suas entradas eram de propriedade do mesmo proprietário. 
+O risco é que, se o proprietário de uma chave for revelado, o vínculo pode revelar outras transações 
+que pertenciam ao mesmo proprietário.
 ____
 
-The paper summarizes the main problems of blockchain privacy, namely address
-reuse and address clustering. The first is self-explaining, the latter refers to the ability to decide,
-with some level of certainty, that a set of different addresses belongs
-to the same user.
+O documento resume os principais problemas de privacidade na blockchain, ou seja, a reutilização de 
+endereços e o agrupamento de endereços. O primeiro é autoexplicativo, o segundo refere-se à capacidade 
+de determinar, com algum nível de certeza, que um conjunto de endereços diferentes pertence ao mesmo usuário.
 
-.Typical privacy leaks on the blockchain.
+.Típicos vazamentos de privacidade na blockchain.
 image::address-reuse-clustering.png[]
 
-Chris Belcher
-https://en.bitcoin.it/Privacy#Blockchain_attacks_on_privacy[wrote in
-great detail] about the different kinds of privacy leaks that can
-happen on the Bitcoin blockchain. We recommend you read at least
-the first few subsections under "`Blockchain attacks on privacy.`"
+Chris Belcher https://en.bitcoin.it/Privacy#Blockchain_attacks_on_privacy[escreveu em detalhes] sobre os 
+diferentes tipos de vazamentos de privacidade que podem ocorrer na blockchain do Bitcoin. Recomendamos 
+que você leia pelo menos as primeiras subseções em "`Ataques à privacidade na blockchain.`"
 
-The takeaway is that privacy in Bitcoin isn't perfect. It requires a
-significant amount of work to transact privately. Most people aren't
-prepared to go that far for privacy. There seems to be a clear
-trade-off between privacy and usability.
+A conclusão é que a privacidade no Bitcoin não é perfeita. É necessário um trabalho significativo para 
+transacionar de forma privada. A maioria das pessoas não está disposta a ir tão longe pela privacidade. 
+Parece haver um claro trade-off entre privacidade e usabilidade.
 
-Another important aspect of privacy is that the measures you take to protect your own privacy affect other
-users as well. If you are sloppy with your own privacy, other people might
-experience reduced privacy, too. Gregory Maxwell explains this very
-plainly on the same Bitcoin Talk discussion
-https://bitcointalk.org/index.php?topic=334316.msg3589252#msg3589252[that
-we linked above], and concludes with an example:
+Outro aspecto importante da privacidade é que as medidas que você toma para proteger sua própria privacidade 
+afetam outros usuários também. Se você for negligente com sua própria privacidade, outras pessoas podem 
+experimentar uma privacidade reduzida também. Gregory Maxwell explica isso de forma muito clara na mesma 
+discussão do Bitcoin Talk https://bitcointalk.org/index.php?topic=334316.msg3589252#msg3589252[que vinculamos acima] 
+e conclui com um exemplo:
 
 [quote, Gregory Maxwell, Bitcoin Talk forum (2013)]
 ____
-This actually works in practice, too... A nice whitehat hacker on IRC
-was playing around with brainwallet cracking and hit a phrase with
-~250 BTC in it.  We were able to identify the owner from just the
-address alone, because they'd been paid by a Bitcoin service that
-reused addresses and he was able to talk them into giving up the users
-contact information. He actually got the user on the phone, they were
-shocked and confused— but grateful to not be out their coin.  A happy
-ending there. (This isn't the only example of it, by far ... but its
-one of the more fun ones).
+Isso realmente funciona na prática, também... Um hacker whitehat amigável no IRC estava brincando com 
+cracking de brainwallet e encontrou uma frase com ~250 BTC nela. Conseguimos identificar o proprietário 
+apenas pelo endereço, porque eles haviam sido pagos por um serviço de Bitcoin que reutilizou endereços, 
+e ele conseguiu convencê-los a fornecer as informações de contato do usuário. Ele realmente conseguiu falar 
+com o usuário ao telefone, eles ficaram chocados e confusos—mas gratos por não perderem suas moedas. 
+Um final feliz lá. (Este não é o único exemplo disso, de longe ... mas é um dos mais divertidos).
 ____
 
-In this case, it all went well thanks to the philanthropically-minded
-hacker, but don't count on that next time.
+Nesse caso, tudo acabou bem graças ao hacker de bom coração, mas não conte com isso na próxima vez.
 
 [[nonblockchainprivacy]]
-=== Non-blockchain privacy
+=== Privacidade fora da blockchain
 
-While the blockchain proves to be a notorious source of privacy leaks,
-there are plenty of other leaks that don't use the blockchain, some
-sneakier than others. These range from key-loggers to network traffic
-analysis. To read up on some of these methods, please refer again to
-https://en.bitcoin.it/Privacy#Non-blockchain_attacks_on_privacy[Chris
-Belcher's piece], specifically the section "`Non-blockchain attacks on
-privacy`".
+Embora a blockchain seja uma notória fonte de vazamentos de privacidade, há muitos outros vazamentos 
+que não usam a blockchain, alguns mais sorrateiros que outros. Esses variam de key-loggers a análise de 
+tráfego de rede. Para ler sobre alguns desses métodos, consulte novamente 
+https://en.bitcoin.it/Privacy#Non-blockchain_attacks_on_privacy[o artigo de Chris Belcher], especificamente 
+a seção "`Ataques fora da blockchain à privacidade.`"
 
-Among a plethora of attacks, Belcher mentions the possibility of
-someone snooping on your internet connection, for example, your ISP:
+Entre uma infinidade de ataques, Belcher menciona a possibilidade de alguém espionar sua conexão de internet, por exemplo, seu ISP:
 
 [quote, Chris Belcher, Bitcoin wiki]
 ____
-If the adversary sees a transaction or block coming out of your node
-which did not previously enter, then it can know with near-certainty
-that the transaction was made by you or the block was mined by you. As
-internet connections are involved, the adversary will be able to link
-the IP address with the discovered bitcoin information.
+Se o adversário vir uma transação ou bloco saindo do seu nó que não entrou anteriormente, ele pode 
+saber com quase certeza que a transação foi feita por você ou o bloco foi minerado por você. Como 
+conexões de internet estão envolvidas, o adversário poderá vincular o endereço IP com as informações 
+de bitcoin descobertas.
 ____
 
 //noqr
 [[kycdbs]]
-However, among the most obvious privacy leaks are exchanges. Due to
-laws, usually referred to as KYC (Know Your Customer) and AML
-(Anti-Money Laundering), that are valid in the jurisdictions they operate in,
-exchanges and related companies often have to collect personal data
-about their users, building up big databases about which users own
-which bitcoins. These databases are great honeypots for evil
-governments and criminals who are always on the lookout for new
-victims. There are actual markets for this kind of data, where hackers
-sell data to the highest bidder. To make things worse, the companies
-that manage these databases often have little experience with
-protecting financial data, in fact many of them are young start-ups, and we know for a fact that
-several leaks have already occurred. A few examples are
-https://bitcoinmagazine.com/business/probably-the-largest-kyc-data-leak-in-history-demonstrates-the-importance-of-bitcoin-privacy[India-based
-MobiQwik] and
-https://bitcoinmagazine.com/business/hubspot-security-breach-leaks-bitcoin-users-data[HubSpot]
+No entanto, entre os vazamentos de privacidade mais óbvios estão as exchanges. Devido a leis, 
+geralmente referidas como KYC (Know Your Customer) e AML (Anti-Money Laundering), que são válidas 
+nas jurisdições em que operam, exchanges e empresas relacionadas geralmente precisam coletar dados 
+pessoais sobre seus usuários, criando grandes bancos de dados sobre quais usuários possuem quais bitcoins. 
+Esses bancos de dados são grandes alvos para governos malignos e criminosos que estão sempre à procura de novas vítimas. 
+Existem mercados reais para esse tipo de dados, onde hackers vendem dados para o maior lance. Para piorar as coisas, 
+as empresas que gerenciam esses bancos de dados geralmente têm pouca experiência em proteger dados financeiros, 
+na verdade, muitas delas são start-ups jovens, e sabemos de fato que já ocorreram vários vazamentos. 
+Alguns exemplos são https://bitcoinmagazine.com/business/probably-the-largest-kyc-data-leak-in-history-demonstrates-the-importance-of-bitcoin-privacy[MobiQwik, com sede na Índia] 
+e https://bitcoinmagazine.com/business/hubspot-security-breach-leaks-bitcoin-users-data[HubSpot].
 
-Again, protecting data against this wide range of attacks is hard, and it is likely that you
-won't be fully able to do so. You'll have to opt for the trade-off between
-convenience and privacy that works best for you.
+Novamente, proteger dados contra essa ampla gama de ataques é difícil, e é provável que você não 
+consiga fazer isso totalmente. Você terá que optar pelo trade-off entre conveniência e privacidade 
+que funciona melhor para você.
 
 [[fungibility]]
-=== Fungibility
+=== Fungibilidade
 
-Fungibility, in the context of currencies, means that one coin is
-interchangeable for any other coin of the same currency. This funny
-word was briefly touched upon in <<whyprivacyimportant>>. In the
-article discussed there, Gregory Maxwell https://bitcointalk.org/index.php?topic=334316.msg3588908#msg3588908[stated]
+Fungibilidade, no contexto de moedas, significa que uma moeda é intercambiável por 
+qualquer outra moeda da mesma denominação. Essa palavra curiosa foi brevemente mencionada 
+em <<whyprivacyimportant>>. No artigo discutido lá, Gregory Maxwell https://bitcointalk.org/index.php?topic=334316.msg3588908#msg3588908[afirmou]:
 
 [quote, Gregory Maxwell, Bitcoin Talk forum (2013)]
 ____
-Financial privacy is an essential element to fungibility in Bitcoin:
-if you can meaningfully distinguish one coin from another, then their
-fungibility is weak. If our fungibility is too weak in practice, then
-we cannot be decentralized: if someone important announces a list of
-stolen coins they won't accept coins derived from, you must carefully
-check coins you accept against that list and return the ones that
-fail.  Everyone gets stuck checking blacklists issued by various
-authorities because in that world we'd all not like to get stuck with
-bad coins. This adds friction and transactional costs and makes
-Bitcoin less valuable as a money.
+A privacidade financeira é um elemento essencial para a fungibilidade no Bitcoin: se você pode 
+distinguir significativamente uma moeda de outra, então sua fungibilidade é fraca. Se nossa 
+fungibilidade for muito fraca na prática, então não podemos ser descentralizados: se alguém 
+importante anunciar uma lista de moedas roubadas que eles não aceitarão moedas derivadas, 
+você deve verificar cuidadosamente as moedas que aceita contra essa lista e devolver as que falharem. 
+Todos acabam verificando listas negras emitidas por várias autoridades porque, nesse mundo, ninguém 
+gostaria de ficar com moedas ruins. Isso adiciona fricção e custos transacionais e torna o Bitcoin 
+menos valioso como dinheiro.
 ____
 
-Here, he speaks about the dangers derived from a lack of fungibility. Suppose that you
-have a UTXO. That UTXO's history can normally be traced back several
-hops, fanning out to multitudes of previous outputs. If any of those
-outputs were involved in any illegal, unwanted, or suspicious
-activity, then some potential recipients of your coin might
-reject it. If you think that your payees will verify your coins
-against some centralized whitelist or blacklist service, you might
-start checking the coins you receive too, just to be on the safe side. The result is that
-bad fungibility will bolster even worse fungibility.
+Aqui, ele fala sobre os perigos decorrentes da falta de fungibilidade. Suponha que você tenha um UTXO. 
+O histórico desse UTXO normalmente pode ser rastreado por vários saltos, se espalhando para múltiplos 
+outputs anteriores. Se algum desses outputs esteve envolvido em qualquer atividade ilegal, indesejada 
+ou suspeita, alguns potenciais destinatários de sua moeda podem rejeitá-la. Se você achar que seus pagadores 
+verificarão suas moedas contra algum serviço centralizado de listas brancas ou negras, você pode começar 
+a verificar as moedas que recebe também, apenas para garantir. O resultado é que uma fungibilidade ruim 
+vai fomentar uma fungibilidade ainda pior.
 
-Adam Back and Matt Corallo
-https://btctranscripts.com/scalingbitcoin/milan-2016/fungibility-overview/[gave
-a presentation about fungibility] at Scaling Bitcoin in Milan in
-2016. They were thinking along the same lines:
+Adam Back e Matt Corallo
+https://btctranscripts.com/scalingbitcoin/milan-2016/fungibility-overview/[fizeram uma apresentação sobre fungibilidade] 
+na Scaling Bitcoin em Milão, em 2016. Eles estavam pensando da mesma forma:
 
 [quote, Matt Corallo and Adam Back, Fungibility Overview (2016)]
 ____
-You need fungibility for bitcoin to function. If you receive coins and
-can’t spend them, then you start to doubt whether you can spend
-them. If there are doubts about coins you receive, then people are
-going to go to taint services and check whether “are these coins
-blessed” and then people are going to refuse to trade. What this does
-is it transitions bitcoin from a decentralized permissionless system
-into a centralized permissioned system where you have an “IOU” from
-the blacklist providers.
+Você precisa de fungibilidade para o bitcoin funcionar. Se você recebe moedas e não pode gastá-las, 
+então começa a duvidar se poderá gastá-las. Se houver dúvidas sobre as moedas que você recebe, então 
+as pessoas vão procurar serviços de checagem de contaminação e verificar se "essas moedas são abençoadas" e, 
+em seguida, as pessoas vão se recusar a negociar. O que isso faz é transformar o bitcoin de um sistema 
+descentralizado sem permissão em um sistema centralizado com permissão, onde você tem um "IOU" dos provedores 
+de listas negras.
 ____
 
-It seems that privacy and fungibility go hand-in-hand. Fungibility will
-weaken if privacy is weak, for example as coins from unwanted
-people may become blacklisted. In the same way, privacy will weaken if fungibility is
-weak: if there is a blacklist, you will have to ask the blacklist providers about which coins
-to accept, thereby possibly revealing your IP address, email address, and
-other sensitive information. These two features are so intertwined that it's hard to
-talk about either of them in isolation.
+Parece que a privacidade e a fungibilidade andam de mãos dadas. A fungibilidade enfraquecerá 
+se a privacidade for fraca, por exemplo, à medida que as moedas de pessoas indesejadas podem 
+se tornar incluídas em listas negras. Da mesma forma, a privacidade enfraquecerá se a fungibilidade 
+for fraca: se houver uma lista negra, você terá que perguntar aos provedores da lista negra sobre 
+quais moedas aceitar, possivelmente revelando assim seu endereço IP, endereço de e-mail e outras 
+informações confidenciais. Essas duas características são tão entrelaçadas que é difícil falar de 
+uma delas isoladamente.
 
 [[privacymeasures]]
-=== Privacy measures
+=== Medidas de privacidade
 
-Several techniques have been developed to help people protecting themselves from privacy
-leaks. Among the most obvious ones is, as
-noted by Nakamoto in <<blockchainprivacy>>, using unique
-addresses for every transaction, but several others exist. We're not
-going to teach you how to become a privacy ninja. However, Bitcoin Q+A has
-a https://bitcoiner.guide/privacytips/[quick summary of
-privacy-enhancing technologies], somewhat ordered by
-how hard they are to implement.
-When you read it, you'll notice
-that Bitcoin privacy often has to do with stuff outside of Bitcoin.
-For example, you shouldn't brag about your bitcoins, and you should use Tor and VPN. The
-post also lists some measures directly related to Bitcoin:
+Várias técnicas foram desenvolvidas para ajudar as pessoas a se protegerem contra vazamentos 
+de privacidade. Entre as mais óbvias, como mencionado por Nakamoto em <<blockchainprivacy>>, 
+está o uso de endereços exclusivos para cada transação, mas várias outras existem. Não vamos 
+te ensinar como se tornar um ninja da privacidade. No entanto, Bitcoin Q+A tem um 
+https://bitcoiner.guide/privacytips/[resumo rápido das tecnologias que melhoram a privacidade], 
+ordenado de acordo com a dificuldade de implementação. Quando você lê-lo, perceberá que a privacidade 
+no Bitcoin muitas vezes tem a ver com coisas fora do Bitcoin. Por exemplo, você não deve se gabar 
+de seus bitcoins e deve usar Tor e VPN. O post também lista algumas medidas diretamente relacionadas 
+ao Bitcoin:
 
-Full node:: If you don't use your own full node, you will leak lots of
-information about your wallet to servers on the internet. Running a
-full node is a great first step.
+Full node:: Se você não usa seu próprio full node, você vazará muitas informações sobre 
+sua carteira para servidores na internet. Executar um full node é um ótimo primeiro passo.
 
-Lightning Network:: Several protocols exist on top of Bitcoin, for
-example the Lightning Network and Blockstream's Liquid sidechain.
+Lightning Network:: Vários protocolos existem sobre o Bitcoin, por exemplo, a Lightning Network 
+e a sidechain Liquid da Blockstream.
 
-CoinJoin:: A way for multiple people to merge their transactions into
-one, making it harder to do chain analysis.
+CoinJoin:: Uma maneira para várias pessoas fundirem suas transações em uma só, dificultando 
+a análise de cadeia.
 
-In
-https://btctranscripts.com/breaking-bitcoin/2019/breaking-bitcoin-privacy/[a
-talk] at the Breaking Bitcoin conference, Chris Belcher gave an
-interesting practical example of how privacy has been improved.
+Em
+https://btctranscripts.com/breaking-bitcoin/2019/breaking-bitcoin-privacy/[uma palestra] na 
+conferência Breaking Bitcoin, Chris Belcher deu um exemplo prático interessante de como a 
+privacidade foi melhorada.
 
-[quote,Chris Belcher in "Breaking Bitcoin Privacy", Breaking Bitcoin conference (2019)]
+[quote,Chris Belcher em "Breaking Bitcoin Privacy", Breaking Bitcoin conference (2019)]
 ____
-They were a bitcoin casino. Online gambling is not allowed in
-the US. Any customers of Coinbase that deposited straight to Bustabit
-would have their accounts shutdown because Coinbase was monitoring for
-this. Bustabit did a few things. They did something called change
-avoidance where you go through– and you see if you can construct a
-transaction that has no change output. This saves miner fees and also
-hinders analysis. Also, they imported their heavily-used reused
-deposit addresses into joinmarket. At this point, coinbase.com
-customers never got banned. It seems Coinbase’s surveillance service
-was unable to do the analysis after this, so it is possible to break
-these algorithms.
+Eles eram um cassino de bitcoin. Jogos de azar online não são permitidos nos EUA. Qualquer 
+cliente da Coinbase que depositasse diretamente na Bustabit teria sua conta encerrada porque 
+a Coinbase estava monitorando isso. A Bustabit fez algumas coisas. Eles fizeram algo chamado 
+de evitação de troco, onde você verifica se pode construir uma transação que não tenha saída de troco. 
+Isso economiza taxas de minerador e também dificulta a análise. Além disso, eles importaram seus 
+endereços de depósito muito usados e reutilizados no joinmarket. A partir desse ponto, os clientes 
+da coinbase.com nunca foram banidos. Parece que o serviço de vigilância da Coinbase não conseguiu 
+fazer a análise depois disso, então é possível quebrar esses algoritmos.
 ____
 
-He also mentioned this example, among others, on the
-https://en.bitcoin.it/Privacy[Privacy page] on the Bitcoin wiki.
+Ele também mencionou este exemplo, entre outros, na
+https://en.bitcoin.it/Privacy[página de privacidade] no wiki do Bitcoin.
 
-Note how better privacy can be achieved by building systems on top of
-Bitcoin, as is the case with Lightning Network:
+Observe como a privacidade pode ser melhorada construindo sistemas em cima do Bitcoin, 
+como é o caso da Lightning Network:
 
-.Layers on top of Bitcoin can add privacy.
+.Camadas em cima do Bitcoin podem adicionar privacidade.
 image::privacy.png[width=50%]
 
-We noted in <<trustlessness>> that the need for trust
-can only increase with layers on top, but that doesn't seem to be the
-case for privacy, which can be improved or made worse arbitrarily in
-layers on top. Why is that? Any layer on top of Bitcoin, as explained
-in <<layeredscaling>>, must use on-chain
-transactions occasionally, otherwise it wouldn't be "`on top of
-Bitcoin`". Privacy-enhancing layers generally try to use the base layer
-as little as possible to minimize the amount of information revealed.
+Notamos em <<trustlessness>> que a necessidade de confiança só pode aumentar com camadas 
+em cima, mas isso não parece ser o caso da privacidade, que pode ser melhorada ou piorada 
+arbitrariamente em camadas adicionais. Por que isso? Qualquer camada em cima do Bitcoin, 
+como explicado em <<layeredscaling>>, deve usar transações na cadeia ocasionalmente, caso 
+contrário, não seria "`em cima do Bitcoin`". As camadas que melhoram a privacidade geralmente 
+tentam usar a camada base o mínimo possível para minimizar a quantidade de informações reveladas.
 
-The above are somewhat technical ways to improve your privacy. But
-there are other ways. At the beginning of this chapter, we said that
-Bitcoin is a pseudonymous system. This means that users in Bitcoin
-aren't known by their real names or other personal data, but by their
-public keys. A public key is a pseudonym for a user, and a user can
-have multiple pseudonyms. In an ideal world, your in-person identity
-is decoupled from your Bitcoin pseudonyms. Unfortunately, due to the
-privacy problems described in this chapter, this decoupling usually
-degrades over time.
+As acima são formas um tanto técnicas de melhorar sua privacidade. Mas há outras maneiras. 
+No início deste capítulo, dissemos que o Bitcoin é um sistema pseudônimo. Isso significa 
+que os usuários no Bitcoin não são conhecidos por seus nomes reais ou outros dados pessoais, 
+mas por suas chaves públicas. Uma chave pública é um pseudônimo para um usuário, e um usuário 
+pode ter vários pseudônimos. Em um mundo ideal, sua identidade em pessoa é desacoplada de seus 
+pseudônimos de Bitcoin. Infelizmente, devido aos problemas de privacidade descritos neste capítulo, 
+esse desacoplamento geralmente se degrada com o tempo.
 
-To mitigate the risks of having your personal data revealed is to not
-give it out in the first place nor to give it to centralized services,
-which build big databases that can leak (see <<nonblockchainprivacy>>). An article by
-Bitcoin Q+A https://bitcoiner.guide/nokyconly/[explains KYC] and the
-dangers derived from it. It also suggests some steps you can take to improve
-your situation.
+Para mitigar os riscos de ter seus dados pessoais revelados, não forneça-os em primeiro lugar 
+nem os entregue a serviços centralizados, que constroem grandes bancos de dados que podem vazar 
+(veja <<nonblockchainprivacy>>). Um artigo de Bitcoin Q+A https://bitcoiner.guide/nokyconly/[explica KYC] 
+e os perigos decorrentes disso. Também sugere alguns passos que você pode tomar para melhorar sua situação.
 
 [quote,"Bitcoin Q+A, noKYC only, Avoid the creep", bitcoiner.guide]
 ____
-Thankfully there are some options out there to purchase Bitcoin via no
-KYC sources. These are all P2P (peer to peer) exchanges where you are
-trading directly with another individual and not a centralised third
-party. Unfortunately some sell other coins as well as bitcoin so we
-urge you to take care.
+Felizmente, existem algumas opções para comprar Bitcoin por meio de fontes sem KYC. 
+Estas são todas exchanges P2P (peer-to-peer) onde você negocia diretamente com outro 
+indivíduo e não com uma terceira parte centralizada. Infelizmente, alguns vendem outras 
+moedas além de bitcoin, então recomendamos que você tome cuidado.
 ____
 
 //noqr
-The article suggests you avoid using exchanges that require KYC/AML
-and instead trade in private, or use decentralized exchanges like
-https://bisq.network/[bisq].
+O artigo sugere que você evite usar exchanges que exigem KYC/AML e, em vez disso, negocie em 
+privado, ou use exchanges descentralizadas como https://bisq.network/[bisq].
 
-For more in-depth reading about countermeasures, refer to the
-previously mentioned https://en.bitcoin.it/wiki/Privacy#Methods_for_improving_privacy_.28non-blockchain.29[wiki article on privacy], starting at "`Methods for improving privacy (non-blockchain)`".
+Para leitura mais aprofundada sobre contramedidas, consulte o artigo mencionado anteriormente 
+https://en.bitcoin.it/wiki/Privacy#Methods_for_improving_privacy_.28non-blockchain.29[artigo wiki sobre privacidade], 
+começando em "`Métodos para melhorar a privacidade (fora da blockchain)`".
 
-=== Conclusion
+=== Conclusão
 
-Privacy is very important but hard to achieve. There is no privacy
-silver bullet. To get decent privacy in Bitcoin, you have to take
-active measures, some of which are costly and time-consuming.
+A privacidade é muito importante, mas difícil de alcançar. Não há uma bala de prata para a privacidade. 
+Para obter uma privacidade decente no Bitcoin, você precisa tomar medidas ativas, algumas das quais 
+são caras e demoradas.

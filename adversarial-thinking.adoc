@@ -1,201 +1,199 @@
-== Adversarial thinking
+== Pensamento Adversarial
 
 image::adversarialthinking-banner.jpg[]
 
-This chapter addresses _adversarial thinking_, a mindset that focuses
-on what could go wrong and how adversaries might act. We start out
-by discussing Bitcoin's security assumptions and security model, after which
-we explain how ordinary users can improve
-their self-sovereignty and Bitcoin's full node decentralization by thinking adversarially. Then, we
-look into some actual threats to Bitcoin as well as into the adversary's mind.
-Lastly, we talk about the _axiom of resistance_ which
-can help you understand why people are working on Bitcoin in the
-first place.
+Este capítulo aborda o _pensamento adversarial_, uma mentalidade que se concentra em
+o que pode dar errado e como os adversários podem agir. Começamos
+discutindo as suposições de segurança do Bitcoin e o modelo de segurança, após o qual
+explicamos como os usuários comuns podem melhorar
+sua soberania e a descentralização de nós completos do Bitcoin pensando de forma adversarial. Em seguida,
+analisamos algumas ameaças reais ao Bitcoin, bem como a mente do adversário.
+Por fim, falamos sobre o _axioma da resistência_ que
+pode ajudar você a entender por que as pessoas estão trabalhando no Bitcoin
+em primeiro lugar.
 
-When discussing security within various systems, it's important to understand
-what the security assumptions are. A typical security assumption in
-Bitcoin is "`the discrete logarithm problem is hard to solve`", which,
-simply put, means it's practically impossible to find a private key
-that corresponds to a particular public key. Another pretty strong
-security assumption is that a majority of the network's hashpower is
-honest, meaning that they play by the rules. If these assumptions are
-proven wrong, then Bitcoin is in trouble.
+Ao discutir segurança em vários sistemas, é importante entender
+quais são as suposições de segurança. Uma suposição de segurança típica no
+Bitcoin é "`o problema do logaritmo discreto é difícil de resolver`", o que,
+simplificando, significa que é praticamente impossível encontrar uma chave privada
+que corresponda a uma chave pública específica. Outra suposição de segurança bastante forte
+é que a maioria do poder de hash da rede é
+honesta, ou seja, eles seguem as regras. Se essas suposições forem
+provadas erradas, então o Bitcoin está em apuros.
 
-In 2015 Andrew Poelstra
-https://btctranscripts.com/scalingbitcoin/hong-kong-2015/security-assumptions/[gave
-a talk] at the Scaling Bitcoin conference in Hong Kong, during which he
-analyzed Bitcoin's security assumptions. He starts by noticing that many systems
-disregard adversaries to some extent; for example, it's really hard to
-protect a building against all types of adversarial events. Instead, we generally
-accept the possibility that someone may burn the building down, and to some extent prevent
-this and other adversarial behaviors through law enforcement etc.
-// See greg maxwell's analogy of the building: https://youtu.be/Gs9lJTRZCDc?t=2799
+Em 2015, Andrew Poelstra
+https://btctranscripts.com/scalingbitcoin/hong-kong-2015/security-assumptions/[deu
+uma palestra] na conferência Scaling Bitcoin em Hong Kong, durante a qual ele
+analisou as suposições de segurança do Bitcoin. Ele começa observando que muitos sistemas
+desconsideram adversários até certo ponto; por exemplo, é realmente difícil
+proteger um prédio contra todos os tipos de eventos adversariais. Em vez disso, geralmente
+aceitamos a possibilidade de que alguém possa incendiar o prédio e, até certo ponto, prevenir
+esse e outros comportamentos adversariais por meio da aplicação da lei, etc.
+// Veja a analogia de greg maxwell sobre o prédio: https://youtu.be/Gs9lJTRZCDc?t=2799
 
-But online things are different:
+Mas as coisas online são diferentes:
 
 [quote, Andrew Poelstra, Security Assumptions at Scaling Bitcoin Hong Kong (2015)]
 ____
-However, online we don’t have this. We have pseudonymous and anonymous
-behavior, anyone can connect to everyone and hurt the system. If it’s
-possible to adversarially hurt the system, then they will do it. We
-cannot assume they will be visible and that they will be caught.
+No entanto, online não temos isso. Temos comportamento pseudônimo e anônimo,
+qualquer pessoa pode se conectar a todos e prejudicar o sistema. Se for
+possível prejudicar adversarialmente o sistema, então eles o farão. Não podemos
+assumir que eles serão visíveis e que serão capturados.
 ____
 
-The consequence is that all known weaknesses in Bitcoin must somehow be taken
-care of, otherwise they will be exploited. After all, Bitcoin
-is the greatest honey pot in the world.
+A consequência é que todas as fraquezas conhecidas no Bitcoin devem ser de alguma forma cuidadas,
+caso contrário, elas serão exploradas. Afinal, o Bitcoin
+é o maior pote de mel do mundo.
 
-Poelstra goes on to mention how Bitcoin is a new kind of system; it's
-more nebulous than, for example, a signing protocol which has very
-clear-cut security assumptions.
+Poelstra continua mencionando como o Bitcoin é um novo tipo de sistema; é
+mais nebuloso do que, por exemplo, um protocolo de assinatura que tem muito
+claras suposições de segurança.
 
-On his personal blog, software engineer Jameson Lopp,
-https://blog.lopp.net/bitcoins-security-model-a-deep-dive/[dives into this]:
+Em seu blog pessoal, o engenheiro de software Jameson Lopp,
+https://blog.lopp.net/bitcoins-security-model-a-deep-dive/[mergulha fundo nisso]:
 
 [quote, Jameson Lopp, Bitcoin’s Security Model: A Deep Dive (2016)]
 ____
-In reality, the bitcoin protocol was and is being built without a
-formally defined specification or security model. The best that we can
-do is to study the incentives and behavior of actors within the system
-in order to better understand and attempt to describe it.
+Na realidade, o protocolo do bitcoin foi e está sendo construído sem uma
+especificação formalmente definida ou modelo de segurança. O melhor que podemos
+fazer é estudar os incentivos e o comportamento dos atores dentro do sistema
+para entender melhor e tentar descrevê-lo.
 ____
 
-So, we have a system that seems to be working in practice, but that we can't
-formally prove to be secure. A proof is probably not possible due to
-the complexity of the system itself.
+Então, temos um sistema que parece estar funcionando na prática, mas que não podemos
+provar formalmente que é seguro. Uma prova provavelmente não é possível devido à
+complexidade do próprio sistema.
 
-=== Not only for Bitcoin experts
+=== Não apenas para especialistas em Bitcoin
 
-The importance of adversarial thinking also extends to everyday
-Bitcoin users to some degree, not only to hardcore Bitcoin developers and experts. 
-Ragnar Lifthasir mentions in a
-https://bitcoinwords.github.io/tweetstorm-on-adversarial-thinking[tweetstorm] how simplistic narratives around
-Bitcoin - for example, "`just HODL`" - can be degrading to Bitcoin itself, and
-concludes by saying
+A importância do pensamento adversarial também se estende aos usuários comuns
+de Bitcoin até certo ponto, não apenas aos desenvolvedores hardcore e especialistas em Bitcoin.
+Ragnar Lifthasir menciona em um
+https://bitcoinwords.github.io/tweetstorm-on-adversarial-thinking[tweetstorm] como as narrativas simplistas em torno
+do Bitcoin - por exemplo, "`apenas HODL`" - podem ser degradantes para o próprio Bitcoin, e
+conclui dizendo
 
 [quote, Ragnar Lifthasir, Twitter (2020)]
 ____
-To make Bitcoin and ourselves stronger we need to think like the
-software engineers who contribute to Bitcoin. They peer review,
-mercilessly seeking flaws. At their tech events they talk about every
-which way a proposal can fail. They think adversarially. They’re
-conservative
+Para tornar o Bitcoin e nós mesmos mais fortes, precisamos pensar como os
+engenheiros de software que contribuem para o Bitcoin. Eles fazem revisão por pares,
+buscando implacavelmente falhas. Em seus eventos técnicos, eles falam sobre todas as
+formas como uma proposta pode falhar. Eles pensam de forma adversarial. Eles são
+conservadores.
 ____
 
-He refers to these simplistic narratives as monomanias. Through this definition he's saying that by
-focusing on a single thing - for example, "`just HODL`"- you risk to overlook 
-the arguably more important stuff, such as keeping your Bitcoin secure or doing your
-best to use Bitcoin in a trustless manner.
+Ele se refere a essas narrativas simplistas como monomanias. Através dessa definição, ele está dizendo que ao
+focar em uma única coisa - por exemplo, "`apenas HODL`" - você corre o risco de negligenciar
+coisas talvez mais importantes, como manter seu Bitcoin seguro ou fazer o
+melhor possível para usar o Bitcoin de forma descentralizada.
 
 [[threats]]
-=== Threats
+=== Ameaças
 
-There are a lot of known weaknesses in Bitcoin, and many of them are
-actively being exploited. To get a glimpse of that, have a look at the
-https://en.bitcoin.it/wiki/Weaknesses[Weaknesses page] on
-Bitcoin wiki. There are mentioned a wide variety of problems, such as
-wallet theft and denial-of-service attacks.
+Existem muitas fraquezas conhecidas no Bitcoin, e muitas delas estão
+sendo ativamente exploradas. Para ter uma ideia disso, dê uma olhada na
+https://en.bitcoin.it/wiki/Weaknesses[página de Fraquezas]
+na wiki do Bitcoin. Lá são mencionados uma ampla variedade de problemas, como
+roubo de carteiras e ataques de negação de serviço.
 
-[quote, Various authors, Bitcoin wiki]
+[quote, Vários autores, Bitcoin wiki]
 ____
-If an attacker attempts to fill the network with clients that they
-control, you would then be very likely to connect only to attacker
-nodes. Although Bitcoin never uses a count of nodes for anything,
-completely isolating a node from the honest network can be helpful in
-the execution of other attacks.
+Se um atacante tentar encher a rede com clientes que eles
+controlam, você provavelmente se conectará apenas a nós de atacantes.
+Embora o Bitcoin nunca use uma contagem de nós para nada,
+isolar completamente um nó da rede honesta pode ser útil na
+execução de outros ataques.
 ____
 
-This type of attack is called _Sybil attack_, and it occurs whenever a
-single entity controls multiple nodes in a network and uses them to appear
-as multiple entities.
+Esse tipo de ataque é chamado de _ataque Sybil_, e ocorre sempre que uma
+entidade controla vários nós em uma rede e os usa para parecer
+como várias entidades.
 
-As the quote also mentions, the Sybil attack is not effective on the
-Bitcoin network because there is no voting through nodes or other numerable entities, but rather
-through computing power (see <<minerdecentralization>>). Nonetheless, this flat
-structure leaves the system susceptible to other attacks.
-The Bitcoin wiki page also outlines other possible attacks, such as information hiding
-(often referred to as _eclipse attack_), and the way Bitcoin Core implements
-some heuristic countermeasures against such attacks.
+Como a citação também menciona, o ataque Sybil não é eficaz na
+rede Bitcoin porque não há votação através de nós ou outras entidades numeráveis, mas sim
+através do poder de computação (veja <<minerdecentralization>>). No entanto, essa estrutura plana
+deixa o sistema suscetível a outros ataques.
+A página da wiki do Bitcoin também descreve outros possíveis ataques, como o ocultamento de informações
+(frequentemente referido como _ataque de eclipse_), e a maneira como o Bitcoin Core implementa
+algumas contramedidas heurísticas contra tais ataques.
 
-The above are examples of real threats that need to be taken care of.
+Os acima são exemplos de ameaças reais que precisam ser tratadas.
 
 [.float-group]
 --
 [[fig-sabotage-manual]]
-.Excerpt from the Simple Sabotage Field Manual
+.Excerto do Manual de Sabotagem Simples
 image::sabotage-manual.png[role="right half-width"]
 
 [[sabotage]]
-To better understand the adversary's mind, it might be helpful to
-get a glimpse into how they operate. A US government body named
-Office of Strategic Services, which operated during World War II and had among its purposes to
-conduct espionage, perform sabotage and spread propaganda,
-produced a https://www.gutenberg.org/ebooks/26184[manual]
-for their personnel on how to properly sabotage the enemy. Its title was "`Simple
-Sabotage Field Manual`" and contained concrete tips on infiltrating
-the enemy to make their lives hard. The tips range from burning
-down warehouses to causing wear to drills in order to decrease the enemy's
-efficiency.
+Para entender melhor a mente do adversário, pode ser útil
+ter uma visão de como eles operam. Um órgão do governo dos EUA chamado
+Office of Strategic Services, que operou durante a Segunda Guerra Mundial e tinha entre seus propósitos
+realizar espionagem, sabotagem e espalhar propaganda,
+produziu um https://www.gutenberg.org/ebooks/26184[manual]
+para seu pessoal sobre como sabotar adequadamente o inimigo. Seu título era "`Simple
+Sabotage Field Manual`" e continha dicas concretas sobre como se infiltrar
+no inimigo para dificultar suas vidas. As dicas variam de incendiar
+armazéns a causar desgaste em brocas para diminuir a eficiência do inimigo.
 
-For example, there is a section (<<fig-sabotage-manual>>) about how an
-infiltrator can disrupt organizations. It's not hard to see how such
-tactics could be used to target the Bitcoin development process (see
-<<opensource>>), which is open for anyone to participate in. A
-dedicated attacker can keep stalling progress by endless concerns of
-irrelevant issues, haggle over precise wordings, and attempt to reiterate discussions
-that have already been comprehensively addressed. The attacker can also hire
-a troll army to multiply their own effectiveness; we can call this a social
-Sybil attack. Using a social Sybil attack, they can make it look like there's
-more resistance against a proposed change than there actually is.
+Por exemplo, há uma seção (<<fig-sabotage-manual>>) sobre como um
+infiltrado pode interromper organizações. Não é difícil ver como essas
+táticas poderiam ser usadas para atingir o processo de desenvolvimento do Bitcoin (veja
+<<opensource>>), que está aberto para qualquer pessoa participar. Um
+atacante dedicado pode continuar atrasando o progresso com preocupações intermináveis de
+questões irrelevantes, discutir sobre palavras precisas e tentar reiterar discussões
+que já foram abordadas de forma abrangente. O atacante também pode contratar
+um exército de trolls para multiplicar sua própria eficácia; podemos chamar isso de ataque Sybil social.
+Usando um ataque Sybil social, eles podem fazer parecer que há
+mais resistência a uma mudança proposta do que realmente existe.
 
-This highlights how a determined state can and will do everything in
-its power to destroy the enemy, including breaking it down from
-the inside. Since Bitcoin is a form of money that competes with
-established fiat currencies, chances are that states will regard
-Bitcoin as an enemy.
+Isso destaca como um estado determinado pode e fará tudo ao seu
+alcance para destruir o inimigo, incluindo destruí-lo por
+dentro. Como o Bitcoin é uma forma de dinheiro que compete com
+moedas fiduciárias estabelecidas, há grandes chances de que os estados considerem
+o Bitcoin como um inimigo.
 --
 
 [[axiomofresistance]]
 Eric Voskuil
-https://github.com/libbitcoin/libbitcoin-system/wiki/Axiom-of-Resistance[writes
-on his Cryptoeconomics wiki page] about what he calls the "`axiom of
-resistance`":
+https://github.com/libbitcoin/libbitcoin-system/wiki/Axiom-of-Resistance[escreve
+em sua página da wiki Cryptoeconomics] sobre o que ele chama de "`axioma da
+resistência`":
 
 [quote, Eric Voskuil, Cryptoeconomics wiki (2017)]
 ____
-In other words there is an assumption that it is _possible_ for a
-system to resist state control. This is not accepted as a fact but
-deemed to be a reasonable assumption, due to empirical study of
-behavior of similar systems, on which to base the system.
+Em outras palavras, há uma suposição de que é _possível_ para um
+sistema resistir ao controle estatal. Isso não é aceito como um fato, mas
+considerado uma suposição razoável, devido ao estudo empírico
+do comportamento de sistemas similares, com base no qual o sistema é construído.
 
-*One who does not accept the axiom of resistance is contemplating an
-entirely different system than Bitcoin.* If one assumes it is _not
-possible_ for a system to resist state controls, conclusions do not
-make sense in the context of Bitcoin - just as conclusions in
-spherical geometry contradict Euclidean. How can Bitcoin be
-permissionless or censorship-resistant without the axiom? The
-contradiction leads one to make obvious errors in an attempt to
-rationalize the conflict.
+*Quem não aceita o axioma da resistência está contemplando um
+sistema totalmente diferente do Bitcoin.* Se alguém assume que é _não
+possível_ para um sistema resistir ao controle estatal, as conclusões não
+fazem sentido no contexto do Bitcoin - assim como as conclusões na
+geometria esférica contradizem a Euclidiana. Como o Bitcoin pode ser
+permissionless ou resistente à censura sem o axioma? A
+contradição leva a cometer erros óbvios na tentativa de
+racionalizar o conflito.
 ____
 
-What he's essentially saying is that only when one assumes it's possible to
-create a system that states can't control, is it meaningful to try.
+O que ele está essencialmente dizendo é que apenas quando se assume que é possível
+criar um sistema que os estados não podem controlar, é significativo tentar.
 
-This means that to work on Bitcoin you should accept the axiom of
-resistance, otherwise you'd better spend your time on other
-projects. Acknowledging that axiom helps you focusing your development
-efforts on the real problems at hand: coding around state-level
-adversaries. In other words, think adversarially.
+Isso significa que para trabalhar no Bitcoin você deve aceitar o axioma de
+resistência, caso contrário, é melhor gastar seu tempo em outros
+projetos. Reconhecer esse axioma ajuda a focar seus esforços de desenvolvimento
+nos problemas reais em questão: codificar em torno de adversários em nível estatal.
+Em outras palavras, pense de forma adversarial.
 
-=== Conclusion
+=== Conclusão
 
-A decentralized system can't have accountability outside the system
-itself, therefore Bitcoin must prevent malicious behavior more
-rigorously than traditional systems. Adversarial thinking is
-imperative in such a system.
+Um sistema descentralizado não pode ter responsabilidade fora do próprio sistema,
+portanto, o Bitcoin deve prevenir comportamentos maliciosos mais
+rigorosamente do que os sistemas tradicionais. O pensamento adversarial é
+imperativo em tal sistema.
 
-To keep Bitcoin safe you need to know its enemies and their
-incentives. Most of the threats seem to boil down to nation states,
-who have enourmous economic power, through taxation and money
-printing. They probably won't give up their money printing privileges
-easily.
+Para manter o Bitcoin seguro, você precisa conhecer seus inimigos e seus
+incentivos. A maioria das ameaças parece se resumir a estados-nação,
+que têm um enorme poder econômico, através da tributação e impressão de dinheiro.
+Eles provavelmente não vão desistir facilmente de seus privilégios de impressão de dinheiro.

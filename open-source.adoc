@@ -2,46 +2,38 @@
 
 image::opensource-banner.jpg[]
 
-Bitcoin is built using open source software. In this chapter we analyze
-what this means, how maintenance of the software works, and how open
-source software in Bitcoin allows for permissionless
-development. We dip our toes into _selection cryptography_, which
-deals with the selection and use of libraries in cryptographic
-systems. The chapter includes a section about Bitcoin's review process, followed by another one on the ways Bitcoin developers get funded. The last section talks
-about how Bitcoin's open source culture can look really weird from the
-outside, and why this perceived weirdness is really a sign of good
-health.
+Bitcoin é construído utilizando software de código aberto. Neste capítulo, analisamos
+o que isso significa, como funciona a manutenção do software, e como o
+software de código aberto no Bitcoin permite o desenvolvimento sem permissões.
+Exploramos brevemente _seleção criptográfica_, que trata da escolha e uso de
+bibliotecas em sistemas criptográficos. O capítulo inclui uma seção sobre o
+processo de revisão do Bitcoin, seguida por outra sobre as formas como os
+desenvolvedores de Bitcoin são financiados. A última seção discute como a cultura
+de código aberto do Bitcoin pode parecer realmente estranha de fora, e por que
+essa estranheza percebida é, na verdade, um sinal de boa saúde.
 
-Most Bitcoin softwares, and especially Bitcoin Core, is open
-source. This means that the source code of the software is made
-available to the general public for scrutiny, tinkering, modification,
-and redistribution. The definition of open source at
-https://opensource.org/osd[] includes, among others, the following
-important points:
+A maioria dos softwares de Bitcoin, e especialmente o Bitcoin Core, são de código
+aberto. Isso significa que o código-fonte do software é disponibilizado ao público
+para escrutínio, modificação e redistribuição. A definição de código aberto em
+https://opensource.org/osd[] inclui, entre outros, os seguintes pontos importantes:
 
 [quote, The Open Source Definition, Open Source Initiative website]
 ____
-Free Redistribution:: The license shall not restrict any party from
-selling or giving away the software as a component of an aggregate
-software distribution containing programs from several different
-sources. The license shall not require a royalty or other fee for such
-sale.
-Source Code:: The program must include source code, and must allow
-distribution in source code as well as compiled form. Where some form
-of a product is not distributed with source code, there must be a
-well-publicized means of obtaining the source code for no more than a
-reasonable reproduction cost, preferably downloading via the Internet
-without charge. The source code must be the preferred form in which a
-programmer would modify the program. Deliberately obfuscated source
-code is not allowed. Intermediate forms such as the output of a
-preprocessor or translator are not allowed.
-Derived Works:: The license must allow modifications and derived
-works, and must allow them to be distributed under the same terms as
-the license of the original software.
+Free Redistribution:: A licença não deve restringir nenhuma parte de vender ou doar 
+o software como um componente de uma distribuição de software agregada contendo programas 
+de várias fontes diferentes. A licença não deve exigir um royalty ou outra taxa por essa venda.
+Source Code:: O programa deve incluir código-fonte e permitir a distribuição tanto em código-fonte 
+quanto em forma compilada. Onde alguma forma de um produto não é distribuída com código-fonte, deve 
+haver um meio bem divulgado de obter o código-fonte por não mais do que um custo razoável de reprodução, 
+preferencialmente baixando pela Internet sem custo. O código-fonte deve ser a forma preferida em que um 
+programador modificaria o programa. Código-fonte deliberadamente ofuscado não é permitido. Formas intermediárias, 
+como a saída de um pré-processador ou tradutor, não são permitidas.
+Derived Works:: A licença deve permitir modificações e trabalhos derivados, e deve permitir que eles 
+sejam distribuídos sob os mesmos termos da licença do software original.
 ____
 
-Bitcoin Core adheres to this definition by being distributed under the
-https://github.com/bitcoin/bitcoin/blob/master/COPYING[MIT License]:
+O Bitcoin Core adere a essa definição sendo distribuído sob a
+https://github.com/bitcoin/bitcoin/blob/master/COPYING[Licença MIT]:
 
 ----
 The MIT License (MIT)
@@ -60,442 +52,415 @@ The above copyright notice and this permission notice shall be included in
 all copies or substantial portions of the Software.
 ----
 
-As noted in <<donttrustverify>>, it's important for users to be able
-to verify that the Bitcoin software they run "`works as
-advertised`". To do that, they must have unrestricted access to
-the source code of the software they wish to verify.
+Como mencionado em <<donttrustverify>>, é importante que os usuários possam
+verificar que o software Bitcoin que utilizam "`funciona conforme anunciado`".
+Para isso, eles devem ter acesso irrestrito ao código-fonte do software que
+desejam verificar.
 
-In the upcoming sections we dive into
-some other interesting aspects of open source software in
-Bitcoin.
+Nas seções a seguir, mergulhamos em alguns outros aspectos interessantes do
+software de código aberto no Bitcoin.
 
 [[softwaremaintenance]]
-=== Software maintenance
+=== Manutenção do software
 
-Bitcoin Core's source code is maintained in a Git repository hosted on
-https://github.com/bitcoin/bitcoin[GitHub]. Anyone can clone that very
-repository without asking for any permission, and then inspect, build, or make
-changes to it locally. This means that there are many thousands of
-copies of the repository spread throughout the globe. These are
-all copies of the same repository, so what makes this specific GitHub
-Bitcoin Core repository so special? Technically it's not special at all,
-but socially it has become the focal point of Bitcoin development.
+O código-fonte do Bitcoin Core é mantido em um repositório Git hospedado no
+https://github.com/bitcoin/bitcoin[GitHub]. Qualquer pessoa pode clonar esse 
+repositório sem pedir permissão e, em seguida, inspecionar, construir ou fazer 
+alterações nele localmente. Isso significa que existem milhares de cópias do 
+repositório espalhadas por todo o mundo. Estas são todas cópias do mesmo repositório, 
+então o que torna esse repositório específico do GitHub tão especial? Tecnicamente, 
+não é especial de forma alguma, mas socialmente tornou-se o ponto focal do desenvolvimento do Bitcoin.
 
-Bitcoin and security expert Jameson Lopp
-explains this very
-well in a https://blog.lopp.net/who-controls-bitcoin-core-/[blog post] titled "`Who Controls Bitcoin Core?`":
+O especialista em Bitcoin e segurança Jameson Lopp 
+explica isso muito bem em um https://blog.lopp.net/who-controls-bitcoin-core-/[post no blog] intitulado "`Quem controla o Bitcoin Core?`":
 
 [quote, Jameson Lopp, Who Controls Bitcoin Core? (2018)]
 ____
-Bitcoin Core is a focal point for development of the Bitcoin protocol
-rather than a point of command and control. If it ceased to exist for
-any reason, a new focal point would emerge — the technical
-communications platform upon which it’s based (currently the GitHub
-repository) is a matter of convenience rather than one of definition /
-project integrity. In fact, we have already seen Bitcoin’s focal point
-for development change platforms and even names!
+Bitcoin Core é um ponto focal para o desenvolvimento do protocolo Bitcoin, 
+em vez de um ponto de comando e controle. Se ele deixasse de existir por qualquer motivo, 
+um novo ponto focal surgiria - a plataforma de comunicação técnica sobre a qual se baseia 
+(atualmente o repositório GitHub) é uma questão de conveniência, em vez de definição / integridade 
+do projeto. Na verdade, já vimos o ponto focal do desenvolvimento do Bitcoin mudar de plataformas 
+e até de nomes!
 ____
 
-He goes on to explain how Bitcoin Core's software is maintained and
-secured against malicious code changes. The general takeaway from this
-full article is summarized at its very end:
+Ele continua explicando como o software do Bitcoin Core é mantido e protegido
+contra alterações maliciosas no código. A principal conclusão de todo o artigo está resumida em seu final:
 
 [quote, Jameson Lopp, Who Controls Bitcoin Core? (2018)]
 ____
-No one controls Bitcoin.
+Ninguém controla o Bitcoin.
 
-No one controls the focal point for Bitcoin development.
+Ninguém controla o ponto focal para o desenvolvimento do Bitcoin.
 ____
 
-Bitcoin Core developer Eric Lombrozo talks further about the
-development process in his
-https://medium.com/@elombrozo/the-bitcoin-core-merge-process-74687a09d81d[Medium
-post] titled "`The Bitcoin Core Merge Process`".
+O desenvolvedor do Bitcoin Core Eric Lombrozo fala mais sobre o processo de desenvolvimento 
+em seu https://medium.com/@elombrozo/the-bitcoin-core-merge-process-74687a09d81d[post no Medium] 
+intitulado "`O Processo de Mesclagem (Merge) do Bitcoin Core`".
 
 [quote, Eric Lombrozo on Medium.com, The Bitcoin Core Merge Process (2017)]
 ____
-Anyone can fork the code base repository and make arbitrary changes to
-their own repository. They can build a client from their own
-repository and run that instead if they want. They can also make
-binary builds for other people to run.
+Qualquer pessoa pode fazer um fork do repositório de código base e fazer alterações 
+arbitrárias em seu próprio repositório. Eles podem compilar um cliente a partir de 
+seu próprio repositório e executá-lo, se quiserem. Eles também podem fazer compilações 
+binárias para outras pessoas executarem.
 
-If someone wants to merge a change they’ve made in their own
-repository into Bitcoin Core, they can submit a pull request. Once
-submitted, anyone can review the changes and comment on them
-regardless of whether or not they have commit access to Bitcoin Core
-itself.
+Se alguém quiser mesclar uma mudança que fez em seu próprio repositório no Bitcoin Core, 
+pode enviar um pull request. Uma vez submetido, qualquer pessoa pode revisar as mudanças 
+e comentar sobre elas, independentemente de ter ou não acesso de commit ao Bitcoin Core.
 ____
 
-It should be noted that pull requests can take a very long time
-before being merged to the repository by maintainers, and that's usually due to a lack
-of review, see <<review>>, which is often due to a lack of _reviewers_.
+Vale a pena notar que os pull requests podem levar muito tempo para serem mesclados ao 
+repositório pelos mantenedores, e isso geralmente se deve à falta de revisão, ver <<review>>, 
+que é frequentemente causada pela falta de _revisores_.
 
-Lombrozo also talks about the process that surrounds consensus changes, but that's a
-bit beyond the scope of this chapter. See <<upgrading>> for more information on how the Bitcoin protocol gets upgraded.
+Lombrozo também fala sobre o processo que envolve mudanças de consenso, mas isso está um pouco 
+além do escopo deste capítulo. Veja <<upgrading>> para mais informações sobre como o protocolo 
+Bitcoin é atualizado.
 
-=== Permissionless development
+=== Desenvolvimento sem permissões
 
-We've established that anyone can write code for Bitcoin Core
-without asking for any permission, but not necessarily have it merged to the main
-Git repository. This affects any modification, from changing color schemes of the graphical
-user interface, to the way peer-to-peer messages are formatted, and even
-consensus rules, i.e. the set of rules that define a valid
-blockchain.
+Estabelecemos que qualquer pessoa pode escrever código para o Bitcoin Core sem pedir permissão, 
+mas isso não significa necessariamente que ele será mesclado ao repositório Git principal. 
+Isso afeta qualquer modificação, desde a alteração de esquemas de cores da interface gráfica 
+do usuário até a forma como as mensagens peer-to-peer são formatadas e até mesmo as regras de 
+consenso, ou seja, o conjunto de regras que define uma blockchain válida.
 
-Probably equally important is that users are free
-to develop systems on top of Bitcoin, without asking for any
-permission. We've seen countless successful software projects that were
-built on top of Bitcoin, such as:
+Provavelmente, igualmente importante é que os usuários são livres para desenvolver sistemas 
+em cima do Bitcoin, sem pedir permissão. Vimos inúmeros projetos de software bem-sucedidos 
+que foram construídos sobre o Bitcoin, como:
 
 //noqr
-Lightning Network:: A payment network that allows for fast payment of
-very small amounts. It requires very few on-chain Bitcoin
-transactions. Various inter-operable implementations exist, such as
-https://github.com/ElementsProject/lightning[Core Lightning],
-https://github.com/lightningnetwork/lnd[LND],
-https://github.com/ACINQ/eclair[Eclair], and
+Lightning Network:: Uma rede de pagamento que permite o pagamento rápido de quantias muito pequenas. 
+Requer poucas transações de Bitcoin na cadeia. Existem várias implementações interoperáveis, 
+como https://github.com/ElementsProject/lightning[Core Lightning], 
+https://github.com/lightningnetwork/lnd[LND], 
+https://github.com/ACINQ/eclair[Eclair], e 
 https://github.com/lightningdevkit[Lightning Dev Kit].
-CoinJoin:: Multiple parties collaborate to combine their payments into
-a single transaction to make address clustering
-(explained in <<blockchainprivacy>>) harder. Various implementations exist.
-Sidechains:: This system can lock a coin on Bitcoin's blockchain in order to
-unlock it on some other blockchain. This allows for bitcoins to be
-moved to some other blockchain, namely a sidechain, so as to use the features available
-on that sidechain. Examples include
-https://github.com/ElementsProject/elements[Blockstream's Elements].
-OpenTimestamps:: It allows you to https://opentimestamps.org/[timestamp a
-document] on Bitcoin's blockchain in a private way. You can then use
-that timestamp to prove that a document must have existed prior to a certain time.
+CoinJoin:: Várias partes colaboram para combinar seus pagamentos em uma única transação para dificultar 
+o agrupamento de endereços (explicado em <<blockchainprivacy>>). Existem várias implementações.
+Sidechains:: Esse sistema pode bloquear uma moeda na blockchain do Bitcoin para desbloqueá-la em 
+outra blockchain. Isso permite que bitcoins sejam movidos para outra blockchain, chamada de sidechain, 
+para usar os recursos disponíveis nessa sidechain. Exemplos incluem https://github.com/ElementsProject/elements[Elements da Blockstream].
+OpenTimestamps:: Permite que você https://opentimestamps.org/[timestamp um documento] na blockchain 
+do Bitcoin de maneira privada. Você pode então usar esse timestamp para provar que um documento deve 
+ter existido antes de um certo tempo.
 
-Without permissionless development, many of these projects would
-not have been possible. As stated in <<neutrality>>,
-if developers had to ask for permission to build protocols on top of
-Bitcoin, only the protocols allowed by the central developer granting committee 
-would be developed.
+Sem desenvolvimento sem permissões, muitos desses projetos não teriam sido possíveis. Como afirmado em <<neutrality>>, 
+se os desenvolvedores tivessem que pedir permissão para construir protocolos em cima do Bitcoin, apenas os protocolos 
+permitidos pelo comitê central de desenvolvedores seriam desenvolvidos.
 
-It is common for systems like the ones listed above to be themselves
-licensed as open source software, which in turn allows for people to
-contribute, re-use, or review their code without
-asking for any permission. Open source has become the gold standard of
-Bitcoin software licensing.
+É comum que sistemas como os listados acima sejam licenciados como software de código aberto, 
+o que, por sua vez, permite que as pessoas contribuam, reutilizem ou revisem seu código sem 
+pedir permissão. O código aberto tornou-se o padrão ouro de licenciamento de software Bitcoin.
 
-=== Pseudonymous development
+=== Desenvolvimento pseudônimo
 
-Not having to ask for permission to develop Bitcoin software brings an
-interesting and important option to the table: you can write and
-publish code, in Bitcoin Core or any other open source project,
-without revealing your identity.
+Não ter que pedir permissão para desenvolver software Bitcoin traz uma opção interessante e 
+importante: você pode escrever e publicar código, no Bitcoin Core ou em qualquer outro projeto 
+de código aberto, sem revelar sua identidade.
 
-Many developers choose this option by operating under a pseudonym
-and trying to keep it detached from their true identity. The reasons
-for doing this can vary from developer to developer. One pseudonymous
-user is ZmnSCPxj. Among other projects, he contributes to Bitcoin
-Core and Core Lightning, one of several implementations of Lightning
-Network. https://zmnscpxj.github.io/about.html[He writes] on his web page:
+Muitos desenvolvedores escolhem essa opção operando sob um pseudônimo e tentando mantê-lo 
+desvinculado de sua verdadeira identidade. Os motivos para fazer isso podem variar de desenvolvedor 
+para desenvolvedor. Um usuário pseudônimo é ZmnSCPxj. Entre outros projetos, ele contribui para o 
+Bitcoin Core e para o Core Lightning, uma das várias implementações do Lightning Network. 
+https://zmnscpxj.github.io/about.html[Ele escreve] em sua página na web:
 
-[quote,ZmnSCPxj on his GitHub page]
+[quote,ZmnSCPxj em sua página no GitHub]
 ____
-I am ZmnSCPxj, a randomly-generated Internet person. My pronouns are
-he/him/his.
+Eu sou ZmnSCPxj, uma pessoa da Internet gerada aleatoriamente. Meus pronomes são ele/dele.
 
-I understand that humans instinctively desire to know my
-identity. However, I think my identity is largely immaterial, and
-prefer to be judged by my work.
+Entendo que os seres humanos têm o desejo instintivo de conhecer minha
+identidade. No entanto, acho que minha identidade é largamente irrelevante e
+prefiro ser julgado pelo meu trabalho.
 
-If you are wondering whether to donate or not, and wondering what my
-cost of living or my income is, please understand that properly
-speaking, you should donate to me based on the utility you find my
-articles and my work on Bitcoin and the Lightning Network.
+Se você está se perguntando se deve doar ou não, e se questiona sobre meu
+custo de vida ou minha renda, entenda que, falando propriamente, você deve 
+doar para mim com base na utilidade que encontra em meus artigos e meu trabalho 
+sobre Bitcoin e Lightning Network.
 ____
 
-In his case, the reason for using a pseudonym is to be judged on his
-merits and not on who the person or persons behind the
-pseudonym is or are. Interestingly, he revealed in an
-https://www.coindesk.com/markets/2020/06/29/many-bitcoin-developers-are-choosing-to-use-pseudonyms-for-good-reason/[article on
-CoinDesk] that
-the pseudonym was created for a different reason.
+No caso dele, a razão para usar um pseudônimo é ser julgado por seus
+méritos e não por quem a pessoa ou pessoas por trás do
+pseudônimo é ou são. Curiosamente, ele revelou em um
+https://www.coindesk.com/markets/2020/06/29/many-bitcoin-developers-are-choosing-to-use-pseudonyms-for-good-reason/[artigo no CoinDesk] que
+o pseudônimo foi criado por um motivo diferente.
 
-[quote, Many Bitcoin Developers Are Choosing to Use Pseudonyms – For Good Reason on CoinDesk (2021)]
+[quote, Muitos desenvolvedores de Bitcoin estão optando por usar pseudônimos – Por bons motivos no CoinDesk (2021)]
 ____
-My initial reason [for using a pseudonym] was simply that I was
-concerned [about] making a massive mistake; thus ZmnSCPxj was
-originally intended to be a disposable pseudonym that could be
-abandoned in such a case. However it seems to have garnered a mostly
-positive reputation, so I have retained it
+Minha razão inicial [para usar um pseudônimo] era simplesmente que eu estava
+preocupado em cometer um erro colossal; assim, ZmnSCPxj foi
+originalmente planejado para ser um pseudônimo descartável que poderia ser
+abandonado em tal caso. No entanto, parece que ele conquistou uma reputação
+majoritariamente positiva, então eu o mantive.
 ____
 
-Using a pseudonym indeed allows you to speak more freely without putting
-your personal reputation at risk should you say something stupid or
-make some big mistake. As it turned out, his pseudonym got very
-reputable and in 2019
-https://twitter.com/spiralbtc/status/1204815615678177280[he even got a
-development grant], which is in itself a testament to Bitcoin's
-permissionless nature.
+Usar um pseudônimo realmente permite que você fale mais livremente sem colocar
+sua reputação pessoal em risco caso diga algo estúpido ou
+cometa um grande erro. Como se viu, o pseudônimo dele se tornou muito
+respeitado e, em 2019,
+https://twitter.com/spiralbtc/status/1204815615678177280[ele até recebeu uma doação para desenvolvimento], o que por si só é um testemunho da
+natureza sem permissão do Bitcoin.
 
-Arguably, the most well-known pseudonym in Bitcoin is Satoshi
-Nakamoto. It's unclear why he chose to be pseudonymous, but
-with hindsight it was probably a good decision for multiple reasons:
+Provavelmente, o pseudônimo mais conhecido no Bitcoin é Satoshi
+Nakamoto. Não está claro por que ele escolheu ser pseudônimo, mas
+com o benefício da retrospectiva, foi provavelmente uma boa decisão por vários motivos:
 
-* As many people speculate that Nakamoto owns a lot of bitcoin, it's
-imperative for his financial and personal safety to keep his identity
-unknown.
-* Since his identity is unknown, there is no possibility of prosecuting anyone, which
-  gives various government authorities a hard time.
-* There is no authoritative person to look up to, making Bitcoin more
-  meritocratic and resilient against blackmailing.
+* Como muitas pessoas especulam que Nakamoto possui uma grande quantidade de bitcoins, é
+imperativo para sua segurança financeira e pessoal manter sua identidade
+desconhecida.
+* Como sua identidade é desconhecida, não há possibilidade de processar alguém, o que
+  dificulta a ação de várias autoridades governamentais.
+* Não há uma pessoa autoritária a quem recorrer, tornando o Bitcoin mais
+  meritocrático e resiliente contra chantagens.
 
-Notice that these points don't just hold true for Satoshi Nakamoto, but for
-anyone working in Bitcoin or holding significant amounts of the
-currency, to varying degrees.
+Observe que esses pontos não se aplicam apenas a Satoshi Nakamoto, mas a
+qualquer pessoa que trabalhe com Bitcoin ou que possua quantidades significativas da
+moeda, em graus variados.
 
 [[selectioncryptography]]
-=== Selection cryptography
+=== Criptografia de seleção
 
-Open source developers often make use of open source libraries developed by
-other people. This is a natural and awesome part of any healthy
-ecosystem. But Bitcoin software deals with real money and, in light of this, developers need to be extra careful when choosing which third party libraries it should depend on.
+Desenvolvedores de código aberto frequentemente utilizam bibliotecas de código aberto desenvolvidas por
+outras pessoas. Isso é uma parte natural e incrível de qualquer ecossistema saudável.
+Mas o software Bitcoin lida com dinheiro real e, à luz disso, os desenvolvedores precisam ser 
+extremamente cuidadosos ao escolher as bibliotecas de terceiros das quais dependerão.
 
-In a philosophical
-https://btctranscripts.com/greg-maxwell/2015-04-29-gmaxwell-bitcoin-selection-cryptography/[talk
-about cryptography], Gregory Maxwell wants to
-redefine the term "`cryptography`" which he believes to be too narrow. He
-explains that fundamentally _information wants to be free_, and
-makes his definition of cryptography based on that:
+Em uma filosófica
+https://btctranscripts.com/greg-maxwell/2015-04-29-gmaxwell-bitcoin-selection-cryptography/[palestra filosófica sobre criptografia], Gregory Maxwell quer
+redefinir o termo "`criptografia`", que ele acredita ser muito restrito. Ele
+explica que, fundamentalmente, _a informação deseja ser livre_, e
+faz sua definição de criptografia baseada nisso:
 
-[quote, Gregory Maxwell, Bitcoin Selection Cryptography (2015)]
+[quote, Gregory Maxwell, Criptografia de Seleção do Bitcoin (2015)]
 ____
-*Cryptography* is the art and science we use to fight the fundamental
-nature of information, to bend it to our political and moral will, and
-to direct it to human ends against all chance and efforts to
-oppose it.
+*Criptografia* é a arte e a ciência que usamos para combater a natureza fundamental da informação, 
+dobrá-la à nossa vontade política e moral e direcioná-la para fins humanos contra todas as chances 
+e esforços para se opor a ela.
 ____
 
-He then introduces the term _selection cryptography_, referred to as the art
-of selecting cryptographic tools, and explains why it is an
-important part of cryptography. It revolves around how to select
-cryptographic libraries, tools, and practices, or as he says "`the
-cryptosystem of picking cryptosystems`".
+Ele então introduz o termo _criptografia de seleção_, referindo-se à arte
+de selecionar ferramentas criptográficas, e explica por que isso é uma
+parte importante da criptografia. Isso gira em torno de como selecionar
+bibliotecas, ferramentas e práticas criptográficas, ou como ele diz, "`o
+cripto sistema de escolher cripto sistemas`".
 
-Using concrete examples, he shows how selection cryptography can
-easily go horribly wrong, and also proposes a list of questions
-you could ask yourself when practicing it.
-Below is a distilled version of that list:
+Usando exemplos concretos, ele mostra como a criptografia de seleção pode
+facilmente dar muito errado, e também propõe uma lista de perguntas
+que você poderia fazer a si mesmo ao praticá-la.
+Abaixo está uma versão resumida dessa lista:
 
 [start=1]
-. Is the software intended for your purposes?
-. Are the cryptographic considerations being taken seriously?
-. The review process... is there one?
-. What is the experience of the authors?
-. Is the software documented?
-. Is the software portable?
-. Is the software tested?
-. Does the software adopt best practices?
+. O software é adequado para seus propósitos?
+. As considerações criptográficas estão sendo levadas a sério?
+. O processo de revisão... existe um?
+. Qual é a experiência dos autores?
+. O software é documentado?
+. O software é portátil?
+. O software é testado?
+. O software adota as melhores práticas?
 
-While this is not the ultimate guide to success, it can be very helpful
-to go through these points when doing selection cryptography.
+Embora isso não seja o guia definitivo para o sucesso, pode ser muito útil
+passar por esses pontos ao fazer criptografia de seleção.
 
 //noqr
-Due to the issues mentioned above by Maxwell, Bitcoin Core tries
-really hard to
-https://github.com/bitcoin/bitcoin/blob/master/doc/dependencies.md[minimize its exposure to third party libraries]. Of course, you can't
-eradicate all external dependencies, otherwise you'd have to write everything by yourself,
-from font rendering to implementation of system calls.
+Devido às questões mencionadas acima por Maxwell, o Bitcoin Core se esforça
+bastante para
+https://github.com/bitcoin/bitcoin/blob/master/doc/dependencies.md[minimizar sua exposição a bibliotecas de terceiros]. Claro, você não pode
+erradicar todas as dependências externas, caso contrário, teria que escrever tudo por conta própria,
+desde renderização de fontes até a implementação de chamadas de sistema.
 
 [[review]]
-=== Review
+=== Revisão
 
-This section is named "`Review`", rather than "`Code review`", because
-Bitcoin's security relies heavily on review at multiple levels, not
-just source code. Moreover, different ideas require review at different
-levels: a consensus rule change would require a deeper review
-at more levels compared to a color scheme change or a typo fix.
+Esta seção é intitulada "`Revisão`", em vez de "`Revisão de Código`", porque
+a segurança do Bitcoin depende fortemente de revisão em múltiplos níveis, não
+apenas do código-fonte. Além disso, diferentes ideias requerem revisão em diferentes
+níveis: uma mudança nas regras de consenso exigiria uma revisão mais profunda
+em mais níveis em comparação com uma mudança no esquema de cores ou a correção de um erro de digitação.
 
-On its way to final adoption, an idea usually flows through 
-several phases of discussion and review. 
-Some of these phases are listed below:
+No caminho para a adoção final, uma ideia geralmente passa por
+várias fases de discussão e revisão.
+Algumas dessas fases estão listadas abaixo:
 
-. An idea is posted on the Bitcoin-dev mailing list
-. The idea is formalized into a Bitcoin Improvement Proposal (BIP)
-. The BIP is implemented in a pull request (PR) to Bitcoin Core
-. Deployment mechanisms are discussed
-. Some competing deployment mechanisms are implemented in pull
-requests to Bitcoin Core
-. Pull requests are merged to the master branch
-. Users choose whether to use the software or not
+. Uma ideia é postada na lista de e-mails Bitcoin-dev
+. A ideia é formalizada em uma Proposta de Melhoria do Bitcoin (BIP)
+. O BIP é implementado em um pull request (PR) para o Bitcoin Core
+. Mecanismos de implantação são discutidos
+. Alguns mecanismos de implantação concorrentes são implementados em pull
+requests para o Bitcoin Core
+. Os pull requests são mesclados no branch master
+. Os usuários escolhem se querem ou não usar o software
 
-At each of these phases people with different points of view and
-backgrounds review the available information, be it the source code, a
-BIP, or just a loosely described idea. The phases are usually not performed
-in any strict top-down manner, indeed multiple phases can happen
-simultaneously, and sometimes you go back and forth between
-them. Different people may also provide feedback during different phases.
+Em cada uma dessas fases, pessoas com diferentes pontos de vista e
+experiências revisam as informações disponíveis, seja o código-fonte, um
+BIP ou apenas uma ideia vagamente descrita. As fases geralmente não são realizadas
+de maneira estrita de cima para baixo; de fato, várias fases podem acontecer
+simultaneamente, e às vezes você vai e volta entre
+elas. Diferentes pessoas também podem fornecer feedback durante diferentes fases.
 
-One of the most prolific code reviewers on Bitcoin Core is Jon
-Atack. He wrote
-https://jonatack.github.io/articles/how-to-review-pull-requests-in-bitcoin-core[a
-blog post] about how to review pull requests in Bitcoin Core. He
-emphasizes that a good code reviewer focuses on how to best add value.
+Um dos revisores de código mais prolíficos no Bitcoin Core é Jon
+Atack. Ele escreveu
+https://jonatack.github.io/articles/how-to-review-pull-requests-in-bitcoin-core[um
+post no blog] sobre como revisar pull requests no Bitcoin Core. Ele
+enfatiza que um bom revisor de código se concentra em como adicionar valor da melhor forma.
 
-[quote, Jon Atack, How to Review Pull Requests in Bitcoin Core (2020)]
+[quote, Jon Atack, Como Revisar Pull Requests no Bitcoin Core (2020)]
 ____
-As a newcomer, the goal is to try to add value, with friendliness and
-humility, while learning as much as possible.
+Como iniciante, o objetivo é tentar adicionar valor, com simpatia e
+humildade, enquanto aprende o máximo possível.
 
-A good approach is to make it not about you, but rather "How can I
-best serve?"
-____
-
-He highlights the fact that review is a truly limiting factor in Bitcoin
-Core. Lots of good ideas get stuck in a limbo where no review occurs, pending. Notice that
-reviewing is not only beneficial to Bitcoin, but also a great way to learn about the software while providing
-value to it, at the same time. Atack's rule of thumb is to review 5-15 PRs before
-making any PR of your own. Again, your focus should be on how to best serve the community,
-not on how to get your own code merged. On top of this, he stresses the
-importance of doing review at the right level: is this the time for
-nits and typos, or does the developer need more of a conceptually-oriented 
-review?
-
-[quote, Jon Atack, How to Review Pull Requests in Bitcoin Core (2020)]
-____
-A useful first question when beginning a review can be, "What is most
-needed here at this time?" Answering this question requires experience
-and accumulated context, but it is a useful question in deciding how
-you can add the most value in the least time.
+Uma boa abordagem é não fazer disso sobre você, mas sim "Como posso
+servir da melhor forma?"
 ____
 
-The second half of the post consists of some useful hands-on technical
-guidance on how to actually do the reviewing, and provides links to
-important documentation for further reading.
+Ele destaca o fato de que a revisão é um fator limitante no Bitcoin
+Core. Muitas boas ideias ficam presas em um limbo onde nenhuma revisão ocorre, pendentes. Observe que
+revisar não é apenas benéfico para o Bitcoin, mas também uma ótima maneira de aprender sobre o software enquanto
+adiciona valor a ele, ao mesmo tempo. A regra geral de Atack é revisar de 5 a 15 PRs antes
+de fazer qualquer PR seu. Novamente, seu foco deve ser em como servir melhor à comunidade,
+não em como fazer seu próprio código ser mesclado. Além disso, ele destaca a
+importância de fazer a revisão no nível certo: é hora de
+nits e erros de digitação, ou o desenvolvedor precisa de uma revisão mais orientada ao conceito?
 
-Bitcoin Core developer and code reviewer Gloria Zhao has written
-https://github.com/glozow/bitcoin-notes/blob/master/review-checklist.md[an
-article] containing questions she usually asks herself during a
-review. She also states what she considers to be a good review.
-
-[quote, Gloria Zhao, Common PR Review Questions on GitHub (2022)]
+[quote, Jon Atack, Como Revisar Pull Requests no Bitcoin Core (2020)]
 ____
-I personally think a good review is one where I've asked myself a lot
-of pointed questions about the PR and been satisfied with the answers
-to them. +
+Uma boa primeira pergunta ao começar uma revisão pode ser: "O que é mais
+necessário aqui neste momento?" Responder a essa pergunta requer experiência
+e contexto acumulado, mas é uma pergunta útil para decidir como
+você pode adicionar mais valor no menor tempo possível.
+____
+
+A segunda metade do post consiste em algumas orientações práticas úteis sobre como 
+realmente realizar a revisão e fornece links para
+documentação importante para leitura adicional.
+
+A desenvolvedora do Bitcoin Core e revisora de código Gloria Zhao escreveu
+https://github.com/glozow/bitcoin-notes/blob/master/review-checklist.md[um
+artigo] contendo perguntas que ela geralmente faz a si mesma durante uma
+revisão. Ela também afirma o que considera uma boa revisão.
+
+[quote, Gloria Zhao, Perguntas Comuns de Revisão de PR no GitHub (2022)]
+____
+Pessoalmente, acho que uma boa revisão é aquela em que me fiz muitas
+perguntas específicas sobre o PR e fiquei satisfeita com as respostas
+para elas. +
 ...[snip]... +
-Naturally, I start with conceptual questions, then approach-related
-questions, and then implementation questions. Generally, I personally
-think it's useless to leave C++ syntax-related comments on a draft PR,
-and would feel rude going back to "does this make sense" after the
-author has addressed 20+ of my code organization suggestions.
+Naturalmente, começo com perguntas conceituais, depois perguntas relacionadas à abordagem e, 
+por fim, perguntas sobre a implementação. Geralmente, acho inútil deixar comentários relacionados 
+à sintaxe C++ em um PR em rascunho, e me sentiria rude ao voltar a "isso faz sentido?" depois que o
+autor já abordou mais de 20 de minhas sugestões de organização de código.
 ____
 
-Her idea that a good review should focus on what's most needed at
-a specific point in time aligns well with Jon Atack's advice. She
-proposes a list of questions that you may ask yourself at various levels of the review process, but stresses
-that this list is not in any way exhaustive nor
-a straight-out recipe. The list is illustrated with real-life
-examples from GitHub.
+A ideia dela de que uma boa revisão deve se concentrar no que é mais necessário em
+um momento específico está alinhada com o conselho de Jon Atack. Ela
+propõe uma lista de perguntas que você pode se fazer em vários níveis do processo de revisão, mas enfatiza
+que essa lista não é de forma alguma exaustiva nem
+uma receita pronta. A lista é ilustrada com exemplos da vida real
+do GitHub.
 
-=== Funding
+=== Financiamento
 
-Lots of people work with Bitcoin open source development, either for Bitcoin
-Core or for other projects. Many do it in their spare time without
-getting any compensation, but some developers are also getting paid to
-do it.
+Muitas pessoas trabalham com desenvolvimento de código aberto para o Bitcoin, seja para o Bitcoin
+Core ou para outros projetos. Muitos o fazem em seu tempo livre sem
+receber nenhuma compensação, mas alguns desenvolvedores também são pagos para
+fazê-lo.
 
-Companies, individuals, and organizations who have an interest in
-Bitcoin's continued success can donate funds to developers, either
-directly or through organizations that in turn distribute the funds to
-individual developers.
-There are also a number of Bitcoin-focused companies that
-hire skilled developers to let them work full-time on Bitcoin.
+Empresas, indivíduos e organizações que têm interesse no
+sucesso contínuo do Bitcoin podem doar fundos para desenvolvedores, seja
+diretamente ou por meio de organizações que, por sua vez, distribuem os fundos para
+desenvolvedores individuais.
+Há também várias empresas focadas em Bitcoin que
+contratam desenvolvedores qualificados para deixá-los trabalhar em tempo integral no Bitcoin.
 
-=== Culture shock
+=== Choque cultural
 
-People sometimes get the impression that there's a lot of infighting
-and endless heated debates among Bitcoin developers, and that they are
-incapable of making decisions.
+Às vezes, as pessoas têm a impressão de que há muitas brigas internas
+e debates acalorados intermináveis entre os desenvolvedores de Bitcoin, e que eles são
+incapazes de tomar decisões.
 
-For example, the Taproot deployment mechanism, described in <<taproot-deployment>>,
-was discussed over a long period of time during which two "`camps`" formed. One
-wanted to "`fail`" the upgrade if miners hadn't overwhelmingly
-voted for the new rules after a certain moment, while the other
-wanted to enforce the rules after that moment no matter what. Michael Folkson
-summarizes the arguments from the two camps in an
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-February/018380.html[email]
-to the Bitcoin-dev mailing list.
+Por exemplo, o mecanismo de implantação do Taproot, descrito em <<taproot-deployment>>,
+foi discutido por um longo período de tempo durante o qual se formaram dois "`campos`". Um
+queria "`falhar`" a atualização se os mineradores não tivessem votado esmagadoramente
+nas novas regras após um determinado momento, enquanto o outro
+queria impor as regras após esse momento, não importando o que acontecesse. Michael Folkson
+resume os argumentos dos dois campos em um
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-February/018380.html[e-mail]
+para a lista de e-mails Bitcoin-dev.
 
-The debate went on seemingly forever, and it was really hard to
-see any consensus on this forming any time soon. This got people
-frustrated and as a result the heat intensified. Gregory Maxwell (as user nullc) worried
-https://www.reddit.com/r/Bitcoin/comments/hrlpnc/technical_taproot_why_activate/fyqbn8s/?utm_source=share&utm_medium=web2x&context=3[on
-Reddit] that the lengthy discussions would make the
-upgrade less safe.
+O debate continuou aparentemente para sempre, e era realmente difícil
+ver qualquer consenso sobre isso se formando em breve. Isso deixou as pessoas
+frustradas e, como resultado, a intensidade aumentou. Gregory Maxwell (como usuário nullc) preocupou-se
+https://www.reddit.com/r/Bitcoin/comments/hrlpnc/technical_taproot_why_activate/fyqbn8s/?utm_source=share&utm_medium=web2x&context=3[no
+Reddit] que as discussões prolongadas tornariam a
+atualização menos segura.
 
-[quote, Gregory Maxwell on Reddit, Is Taproot development moving too fast or too slow?]
+[quote, Gregory Maxwell no Reddit, O desenvolvimento do Taproot está indo rápido ou devagar demais?]
 ____
-At this juncture, additional waiting isn't adding more review and
-certainty. Instead, additional delay is sapping inertia and
-potentially increasing risk somewhat as people start forgetting
-details, delaying work on downstream usage (like wallet support), and
-not investing as much additional review effort as they would be
-investing if they felt confident about the activation timeframe.
+Neste ponto, esperar mais não está acrescentando mais revisão e
+certeza. Em vez disso, a demora adicional está drenando inércia e
+aumentando potencialmente o risco, à medida que as pessoas começam a esquecer
+detalhes, atrasando o trabalho no uso subsequente (como suporte a carteiras) e
+não investindo tanto esforço adicional na revisão quanto investiriam
+se sentissem confiança sobre o cronograma de ativação.
 ____
 
-Eventually, this dispute got resolved thanks to a new proposal by
-David Harding and Russel O'Connor called Speedy Trial, which entailed a comparatively shorter signaling period for miners to
-lock in activation of Taproot, or fail fast. If they activated it
-during that window of time, then Taproot would be deployed approximately 6 months
-later. This upgrade is covered in more detail in <<upgrading>>.
+Eventualmente, essa disputa foi resolvida graças a uma nova proposta de
+David Harding e Russel O'Connor chamada Speedy Trial, que implicava em um período de sinalização comparativamente mais curto para que os mineradores
+bloqueassem a ativação do Taproot, ou falhassem rapidamente. Se eles ativassem durante esse período, então o Taproot seria implantado aproximadamente 6 meses
+depois. Esta atualização é coberta em mais detalhes em <<upgrading>>.
 
-Someone who's not used to Bitcoin's development process would probably think that
-these heated debates look awfully bad and even toxic. There are at
-least two factors that make them look bad, in some people's eyes:
+Alguém que não está acostumado ao processo de desenvolvimento do Bitcoin provavelmente pensaria que
+esses debates acalorados parecem muito ruins e até tóxicos. Existem pelo menos dois fatores que fazem 
+parecerem ruins, aos olhos de algumas pessoas:
 
-* Compared to closed source companies, all debates happen in the open,
-  unedited. A software company like Google would never let its employees
-  debate proposed features in the open, indeed it would at most publish a
-  statement about the company's stance on the subject. This makes
-  companies look more harmonic compared to Bitcoin.
-* Since Bitcoin is permissionless, anyone is allowed to voice
-  their opinions. This is fundamentally different from a closed source
-  company that has a handful of people with an opinion, usually
-  like-minded people. The plethora of opinions expressed within Bitcoin is simply
-  staggering compared to, for example, PayPal.
+* Em comparação com empresas de código fechado, todos os debates acontecem abertamente,
+  sem edição. Uma empresa de software como o Google nunca permitiria que seus funcionários
+  debatessem publicamente recursos propostos; de fato, no máximo publicaria uma
+  declaração sobre a posição da empresa sobre o assunto. Isso faz com que as
+  empresas pareçam mais harmônicas em comparação com o Bitcoin.
+* Como o Bitcoin é permissivo, qualquer pessoa pode expressar
+  suas opiniões. Isso é fundamentalmente diferente de uma empresa de código fechado,
+  que tem um punhado de pessoas com opinião, geralmente
+  pessoas de mentalidade semelhante. A quantidade de opiniões expressas dentro do Bitcoin é simplesmente
+  impressionante em comparação, por exemplo, com o PayPal.
 
-Most Bitcoin developers would argue that this openness brings about a good and
-healthy environment, and even that it is necessary for producing the best
-outcome.
+A maioria dos desenvolvedores de Bitcoin argumentaria que essa abertura traz um ambiente bom e
+saudável e até que é necessária para produzir o melhor
+resultado.
 
-As hinted in <<threats>>, the second
-bullet above can be very beneficial but comes with a downside. An attacker could use stalling
-tactics, like the ones outlined in the https://www.gutenberg.org/ebooks/26184[Simple
-Sabotage Field Manual], to distort the decision making and development
-process.
+Como mencionado em <<threats>>, o segundo
+ponto acima pode ser muito benéfico, mas vem com uma desvantagem. 
+Um atacante pode usar táticas de procrastinação, como as descritas 
+no https://www.gutenberg.org/ebooks/26184[Manual de Sabotagem Simples], 
+para distorcer o processo de tomada de decisão e desenvolvimento.
 
-Another thing worth mentioning is that, as noted in <<selectioncryptography>>,
-since Bitcoin is money and Bitcoin Core secures unfathomable amounts
-of money, security in this context is not taken lightly. This is why seasoned Bitcoin Core
-developers might appear very hard-headed, which attitude is
-usually warranted. Indeed, a feature with a weak rationale behind it is not going to be
-accepted. The same would happen if it broke the
-reproducible builds (described in <<donttrustverify>>), added new dependencies, or
-if the code didn't follow Bitcoin's
-https://github.com/bitcoin/bitcoin/blob/master/doc/developer-notes.md[best
-practices].
+Outra coisa que vale a pena mencionar é que, como observado em <<selectioncryptography>>,
+como o Bitcoin é dinheiro e o Bitcoin Core protege quantidades incomensuráveis
+de dinheiro, a segurança neste contexto não é tratada de maneira leviana. Isso explica por que desenvolvedores experientes do Bitcoin Core podem parecer muito obstinados, uma atitude que é
+geralmente justificada. De fato, um recurso com uma justificativa fraca não será
+aceito. O mesmo aconteceria se ele quebrasse os
+builds reprodutíveis (descritos em <<donttrustverify>>), adicionasse novas dependências, ou
+se o código não seguisse as
+https://github.com/bitcoin/bitcoin/blob/master/doc/developer-notes.md[melhores práticas do Bitcoin].
 
-New (and old) developers can get frustrated by this. But, as is customary in
-open source software, you can always fork the repository, merge
-whatever you want to your own fork, and build and run your own binary.
+Desenvolvedores novos (e antigos) podem ficar frustrados com isso. Mas, como é costume no
+software de código aberto, você sempre pode fazer um fork do repositório, mesclar
+o que quiser em seu próprio fork, e construir e executar seu próprio binário.
 
-=== Conclusion
+=== Conclusão
 
-Bitcoin Core and most other Bitcoin software is open source, which
-means that anyone is free to distribute, modify, and use the software
-as they please. The Bitcoin Core repository on GitHub is currently the
-focal point of Bitcoin development, but that status can change if
-people start to distrust its maintainers, or the website itself.
+O Bitcoin Core e a maioria dos outros softwares de Bitcoin são de código aberto, o que
+significa que qualquer pessoa pode distribuir, modificar e usar o software
+como quiser. O repositório do Bitcoin Core no GitHub é atualmente o
+ponto focal do desenvolvimento do Bitcoin, mas esse status pode mudar se
+as pessoas começarem a desconfiar de seus mantenedores, ou do próprio site.
 
-Open source allows for permissionless development in, and on top of
-Bitcoin. Whether you write code, review code or protocols; open source
-is what enables you to do it, pseudonomously or not.
+O código aberto permite o desenvolvimento permissivo no, e sobre o
+Bitcoin. Se você escreve código, revisa código ou protocolos; o código aberto
+é o que permite que você faça isso, de forma pseudônima ou não.
 
-The development process around Bitcoin is radically open, which can
-make Bitcoin look like a toxic and inefficient place, but that's what
-keeps Bitcoin resilient against malicious actors.
+O processo de desenvolvimento em torno do Bitcoin é radicalmente aberto, o que pode
+fazer o Bitcoin parecer um lugar tóxico e ineficiente, mas é isso que
+mantém o Bitcoin resiliente contra atores mal-intencionados.
+

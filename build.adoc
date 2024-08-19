@@ -1,107 +1,114 @@
 [appendix]
-== Feedback and contribution
+== Feedback e contribuição
 
-The project is maintained on
-https://github.com/bitcoin-dev-philosophy/btcphilosophy[GitHub]. If you have
-any improvements, corrections or suggestions to make, either open a
-new issue there or submit a pull request.
+O projeto é mantido no
+https://github.com/bitcoin-dev-philosophy/btcphilosophy[GitHub]. Se você tiver
+qualquer melhoria, correção ou sugestão para fazer, abra uma
+nova issue lá ou envie um pull request.
 
 === Build
 
-The book is written in https://asciidoctor.org/[Asciidoctor]. The main
-file for the book is link:btcphilosophy.adoc[]. This file then
-``include::``s each chapter as a separate file.
+O livro é escrito em https://asciidoctor.org/[Asciidoctor]. O arquivo principal
+do livro é link:btcphilosophy.adoc[]. Este arquivo então
+``include::`` cada capítulo como um arquivo separado.
 
-There's also a separate asciidoctor file, link:sources/sources.adoc[],
-that collects all the copied resources that the book refers to. They
-are kept separate to not make browsing the book itself too heavy.
+Há também um arquivo asciidoctor separado, link:sources/sources.adoc[],
+que coleta todos os recursos copiados aos quais o livro se refere. Eles
+são mantidos separados para não tornar a navegação no livro muito pesada.
 
-Before you build, you need to install some dependencies:
+Antes de construir, você precisa instalar algumas dependências:
 
-* `asciidoctor`, See
-  https://docs.asciidoctor.org/asciidoctor/latest/install/[installation
-  instructions]
-* The `asciidoctor-diagram` extension to `asciidoctor`. See
-  https://docs.asciidoctor.org/diagram-extension/latest/#installation[installation
-  instructions]
+* `asciidoctor`, Veja
+  https://docs.asciidoctor.org/asciidoctor/latest/install/[instruções de
+  instalação]
+* A extensão `asciidoctor-diagram` para `asciidoctor`. Veja
+  https://docs.asciidoctor.org/diagram-extension/latest/#installation[instruções de
+  instalação]
 * Gnu `make`
 
-To build this book, clone the GitHub repository:
+Para construir este livro, clone o repositório GitHub:
 
 ----
 $ git clone https://github.com/bitcoin-dev-philosophy/btcphilosophy.git
 $ cd btcphilosophy
 ----
 
-and then build using any of the two methods below
+e depois construa usando qualquer um dos dois métodos abaixo
 
-==== Manually using `asciidoctor`
+==== Manualmente usando `asciidoctor`
 
-Use this option if you just want to casually build the book and read
-the end result locally. It requires only `asciidoctor` to be present
-on your computer. This method won't give you QR codes to links in the
-margin.
+Use esta opção se você só quiser construir o livro casualmente e ler
+o resultado final localmente. Requer apenas que o `asciidoctor` esteja
+presente em seu computador. Este método não gerará QR codes para links na
+margem.
 
 ----
 $ asciidoctor -v btcphilosophy.adoc
 ----
 
-The `-v` flag is recommended and instructs asciidoctor to be verbose,
-which means it will show invalid references and other issues. The
-above command will result in a file `btcphilosophy.html` in your
-current directory that you can view in any browser, for example:
+A flag `-v` é recomendada e instrui o asciidoctor a ser verboso,
+o que significa que ele mostrará referências inválidas e outros problemas. O
+comando acima resultará em um arquivo `btcphilosophy.html` em seu
+diretório atual que você pode visualizar em qualquer navegador, por exemplo:
 
 ----
 $ brave-browser btcphilosophy.html
 ----
 
-The source material is collected and maintained as a separate book
-under the `sources` folder. To build it:
+O material de origem é coletado e mantido como um livro separado
+na pasta `sources`. Para construí-lo:
 
 ----
 $ asciidoctor -v sources/sources.adoc
 ----
 
-This will result in a file `sources/sources.html` that you can open in
-a web browser in the same way as the main book.
+Isso resultará em um arquivo `sources/sources.html` que você pode abrir em
+um navegador da web da mesma forma que o livro principal.
 
-==== Using Gnu `make`
+==== Usando Gnu `make`
 
-If you have access to the `make` command on a linux machine you can build using
+Se você tiver acesso ao comando `make` em uma máquina Linux, você pode construir usando
 
 ----
 $ make
 ----
 
-This will create a `build` directory and build both the main book
-(lands in `build/btcphilosophy.html`) and the sources book (lands in
-`build/sources/sources.html`). 
+Isso criará um diretório `build` e construirá tanto o livro principal
+(que ficará em `build/btcphilosophy.html`) quanto o livro de fontes (que ficará em
+`build/sources/sources.html`).
 
-If you have ImageMagick installed, `make` will reduce the size of some
-images for faster download over the web. Otherwise it'll write a
-warning message saying that the images will not be resized.
+Se você tiver o ImageMagick instalado, o `make` reduzirá o tamanho de algumas
+imagens para um download mais rápido pela web. Caso contrário, ele escreverá uma
+mensagem de aviso dizendo que as imagens não serão redimensionadas.
 
-This method of building is usually preferred as it keeps the source
-tree separate from ascriidoctor output files, reduces the
-size of pictures to make it more appropriate for serving the book
-on the web, and produces QR codes in the margin for the links.
+Este método de construção é geralmente preferido, pois mantém a árvore de
+origem separada dos arquivos de saída do asciidoctor, reduz o
+tamanho das imagens para torná-las mais apropriadas para servir o livro
+na web e produz QR codes na margem para os links.
 
-==== Build a PDF
+==== Construir um PDF
 
-If you have `asciidoctor-pdf` installed, you can create a PDF that
-gives a better looking result than first generating html and then
-"`Print To PDF`" from that. Create the PDF by issuing
-`asciidoctor-pdf` manually, or by using `make pdf`. To issue the
-command manually:
+Se você tiver o `asciidoctor-pdf` instalado, pode criar um PDF que
+dá um resultado de melhor qualidade do que primeiro gerar html e depois
+usar "`Print To PDF`" a partir disso. Crie o PDF emitindo
+`asciidoctor-pdf` manualmente ou usando `make pdf`. Para emitir o
+comando manualmente:
 
 ----
 $ asciidoctor-pdf btcphilosophy.adoc
 ----
 
-The result will be written to `btcphilosophy.pdf`. To use `make`:
+O resultado será escrito em `btcphilosophy.pdf`. Para usar `make`:
 
 ----
 $ make pdf
 ----
 
-The result will be written to `build/btcphilosophy.pdf`.
+O resultado será escrito em `build/btcphilosophy.pdf`.
+
+**Este trabalho é uma tradução do original, que foi licenciado sob a Creative Commons Attribution 4.0 International (CC BY 4.0).
+Foi realizada uma adaptação para incluir uma nova capa com o branding da Scalar School.
+Para mais informações sobre a licença, acesse: https://creativecommons.org/licenses/by/4.0/legalcode**
+
+
+

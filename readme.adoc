@@ -1,14 +1,13 @@
-== About this book
+== Sobre este livro
 
-_Bitcoin Development Philosophy_ is a guide for Bitcoin developers
-who already understand the basics of concepts and processes such as Proof-of-Work, block
-building, and the transaction life cycle, and who want to level up by
-gaining a deeper understanding of Bitcoin's design trade-offs and
-philosophy. It should help new developers absorb the most important
-lessons of over a decade of Bitcoin development and public debate, while providing them with
-a useful context for evaluating new ideas (good ones and bad ones!).
+_Bitcoin Development Philosophy_ é um guia para desenvolvedores de Bitcoin
+que já entendem os conceitos básicos e processos como Proof-of-Work, construção de blocos
+e o ciclo de vida das transações, e que desejam avançar adquirindo uma compreensão mais 
+profunda dos trade-offs de design do Bitcoin e sua filosofia. Deve ajudar novos desenvolvedores 
+a absorver as lições mais importantes de mais de uma década de desenvolvimento e debate 
+público do Bitcoin, ao mesmo tempo que fornece um contexto útil para avaliar novas ideias (boas e ruins!).
 
-Table of contents overview:
+Visão geral do índice:
 
 :oldstyle: {xrefstyle}
 :xrefstyle: full
@@ -26,46 +25,51 @@ Table of contents overview:
 
 :xrefstyle: {oldstyle}
 
-Your feedback and contributions are most welcome! Instructions for
-building and contributing can be found in <<appendixbuild>>.
+Seu feedback e contribuições são muito bem-vindos! Instruções para
+construção e contribuição podem ser encontradas em <<appendixbuild>>.
 
-=== What to expect?
+=== O que esperar?
 
-As stated above, this is a practical guide for Bitcoin developers. However, Bitcoin is a broad and complex subject and we couldn't possibly cover all of its aspects here. With this book, we
-hope to discuss the necessary features to get your development activity started as well as to enable you to further explore it on your own.
+Como afirmado acima, este é um guia prático para desenvolvedores de Bitcoin. 
+No entanto, o Bitcoin é um assunto amplo e complexo e não poderíamos cobrir todos 
+os seus aspectos aqui. Com este livro, esperamos discutir os recursos necessários 
+para iniciar sua atividade de desenvolvimento, bem como permitir que você explore 
+isso por conta própria.
 
-There are lots of people involved in Bitcoin; as some of them have opposing opinions, here you may find
-resources that express contradictory ideas. However, we always
-attempt to stick to the domain of facts, where opinions do not matter.
+Existem muitas pessoas envolvidas no Bitcoin; como algumas delas têm opiniões opostas, 
+aqui você pode encontrar recursos que expressam ideias contraditórias. No entanto, 
+sempre tentamos nos ater ao domínio dos fatos, onde as opiniões não importam.
 
-=== Who wrote this?
+=== Quem escreveu isto?
 
-The main author of this book is Kalle Rosenbaum, and Linnéa Rosenbaum contributed as a co-author. This work
-was commissioned and funded by https://learning.chaincode.com/[Chaincode Labs], a development center that runs educational
-programs for developers who want to learn about Bitcoin development.
+O autor principal deste livro é Kalle Rosenbaum, e Linnéa Rosenbaum contribuiu como coautora. 
+Este trabalho foi encomendado e financiado por https://learning.chaincode.com/[Chaincode Labs], 
+um centro de desenvolvimento que oferece programas educacionais para desenvolvedores que desejam 
+aprender sobre o desenvolvimento do Bitcoin.
 
-Kalle is the author of https://rosenbaum.se/book/[_Grokking Bitcoin_] (Manning Publications) and is a 
-seasoned software developer. He's been working professionally with Bitcoin-related development since 
-2015.
+Kalle é o autor de https://rosenbaum.se/book/[_Grokking Bitcoin_] (Manning Publications) e é 
+um desenvolvedor de software experiente. Ele trabalha profissionalmente com desenvolvimento 
+relacionado ao Bitcoin desde 2015.
 
-Linnéa has a Ph.D. in Electronic Systems. She is the Swedish translator of https://konsensus.network/product/lilla-boken-om-bitcoin/[_The Little Bitcoin Book_] and co-translator of https://konsensus.network/product/sverige-bitcoinstandarden/[_The Bitcoin Standard_].  She is also on the board of the Swedish Bitcoin Association. Her background is in firmware development with a recent shift towards software development.
+Linnéa tem um Ph.D. em Sistemas Eletrônicos. Ela é a tradutora sueca de 
+https://konsensus.network/product/lilla-boken-om-bitcoin/[_The Little Bitcoin Book_] 
+e co-tradutora de https://konsensus.network/product/sverige-bitcoinstandarden/[_The Bitcoin Standard_]. 
+Ela também faz parte do conselho da Associação Sueca de Bitcoin. Seu histórico é em desenvolvimento 
+de firmware, com uma mudança recente para desenvolvimento de software.
 
+=== Como isso está organizado?
 
+O livro está dividido em capítulos, cada um cobrindo um tópico fundamental dentro do Bitcoin. 
+Cada capítulo guia você pelas informações relevantes relacionadas ao foco do capítulo, 
+com a adição de links e códigos QR que levarão você a artigos ou vídeos que recomendamos 
+ler ou assistir. O material reportado foi escrito por indivíduos que estudam o desenvolvimento 
+do Bitcoin há muito tempo.
 
-=== How is this organized?
-
-The book is sectioned into chapters, each covering a pivotal topic within Bitcoin. Every
-chapter guides you through the relevant information related to the chapter's focus, with the addition of links and QR codes that will take you to articles or
-videos that we recommend reading or watching. The reported material was written by individuals who have
-studied Bitcoin development for a long time.
-
-The links refer to external resources on platforms we cannot
-control. We have therefore saved the linked articles locally in this
-repository, along with the information on where it was copied from and when. The
-resources are collected in link:sources/sources.html[a separate
-document] (`sources/sources.adoc`) and organized by the chapter they are
-linked to. The links found in the chapters refer to the original
-sources, which should be found online, but in case you don't have an internet connection, the links
-appear dead, or the information seems severely changed, you can read the
-content locally instead.
-
+Os links referem-se a recursos externos em plataformas que não podemos controlar. 
+Portanto, salvamos os artigos vinculados localmente neste repositório, junto com as 
+informações de onde foram copiados e quando. Os recursos estão coletados em 
+link:sources/sources.html[um documento separado] (`sources/sources.adoc`) e organizados 
+pelo capítulo ao qual estão vinculados. Os links encontrados nos capítulos referem-se às 
+fontes originais, que devem ser encontradas online, mas caso você não tenha conexão à internet, 
+os links apareçam mortos ou as informações pareçam severamente alteradas, você pode ler o conteúdo 
+localmente em vez disso.

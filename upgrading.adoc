@@ -1,531 +1,505 @@
-== Upgrading
+== Atualizações
 
 image::upgrading-banner.jpg[]
 
-Upgrading Bitcoin in a safe way can be extremely difficult. Some
-changes take several years to roll out. In this chapter, we learn
-about the common vocabulary around upgrading Bitcoin, and explore some
-examples of historic upgrades to its protocol as well as the insights that we gained
-from them. Finally, we talk about chain splits and the risks and costs 
-related to them.
+Atualizar o Bitcoin de maneira segura pode ser extremamente difícil. Algumas
+mudanças levam vários anos para serem implementadas. Neste capítulo, aprendemos
+sobre o vocabulário comum em torno da atualização do Bitcoin e exploramos alguns
+exemplos de atualizações históricas em seu protocolo, bem como as lições que tiramos
+delas. Por fim, falamos sobre divisões de cadeia e os riscos e custos
+relacionados a elas.
 
-To get in tune for this chapter, you should read
-https://bitcointalk.org/dec/p1.html[David Harding's piece on harmony
-and discord].
+Para se sintonizar com este capítulo, você deve ler
+https://bitcointalk.org/dec/p1.html[O artigo de David Harding sobre harmonia
+e discord].
 
-[quote, David Harding, Harmony and Discord]
+[quote, David Harding, Harmonia e Discórdia]
 ____
-Bitcoin experts talk often of consensus, whose meaning is abstract and
-hard to pin down. But the word consensus evolved from the Latin word
-concentus, "a singing together,
-harmony,"[1] so let us talk
-not of Bitcoin consensus but of Bitcoin harmony.
+Especialistas em Bitcoin falam frequentemente sobre consenso, cujo significado é abstrato e
+difícil de definir. Mas a palavra consenso evoluiu da palavra latina
+concentus, "um cantar juntos,
+harmonia,"[1] então vamos falar
+não de consenso do Bitcoin, mas de harmonia do Bitcoin.
 
-Harmony is what makes Bitcoin work. Thousands of full nodes each work
-independently to verify the transactions they receive are valid,
-producing a harmonious agreement about the state of the Bitcoin ledger
-without any node operator needing to trust anyone else. It's similar
-to a chorus where each member sings the same song at the same time to
-produce something far more beautiful than any of them could produce
-alone.
+A harmonia é o que faz o Bitcoin funcionar. Milhares de full nodes trabalham
+independentemente para verificar se as transações que recebem são válidas,
+produzindo um acordo harmonioso sobre o estado do livro-razão do Bitcoin
+sem que nenhum operador de node precise confiar em mais ninguém. É semelhante
+a um coro em que cada membro canta a mesma música ao mesmo tempo para
+produzir algo muito mais bonito do que qualquer um deles poderia produzir
+sozinho.
 
-The result of Bitcoin harmony is a system where bitcoins are safe not
-just from petty thieves (provided you keep your keys secure) but also
-from endless inflation, mass or targeted confiscation, or simply the
-bureaucratic morass that is the legacy financial system.
-____
-
-This chapter discusses how Bitcoin can be upgraded without causing
-discord. Staying in harmony, i.e. maintaining consensus, is indeed one of the biggest
-challenges in Bitcoin development. There are lots of nuances to
-upgrade mechanisms, which might be best understood by studying actual cases of
-previous upgrades. For this reason, the chapter puts much focus on historic examples, and
-it starts by setting the stage with some useful vocabulary.
-
-=== Vocabulary
-
-According to Wikipedia,
-https://en.wikipedia.org/wiki/Forward_compatibility[_forward
-compatibility_]
-refers to the condition in which an old software can process data
-created by newer softwares, ignoring the parts it doesn't understand.
-
-[quote, Forward compatibility, Wikipedia]
-____
-A standard supports forward compatibility if a product that complies
-with earlier versions can "gracefully" process input designed for
-later versions of the standard, ignoring new parts which it does not
-understand.
+O resultado da harmonia do Bitcoin é um sistema onde os bitcoins estão seguros não
+apenas de ladrões comuns (desde que você mantenha suas chaves seguras), mas também
+da inflação infinita, confisco em massa ou direcionado, ou simplesmente da
+confusão burocrática que é o sistema financeiro legado.
 ____
 
-Vice versa,
-https://en.wikipedia.org/wiki/Backward_compatibility[_backward
-compatibility_] refers to when data from an old software is usable
-on newer
-softwares. A change is said to be fully compatible if it's both forward
-and backward compatible.
+Este capítulo discute como o Bitcoin pode ser atualizado sem causar
+discórdia. Manter a harmonia, ou seja, manter o consenso, é de fato um dos maiores
+desafios no desenvolvimento do Bitcoin. Existem muitas nuances nos
+mecanismos de atualização, que podem ser melhor compreendidas estudando casos reais de
+atualizações anteriores. Por esse motivo, o capítulo foca muito em exemplos históricos e
+começa estabelecendo o cenário com algum vocabulário útil.
 
-A change to the Bitcoin consensus rules is said to be a *soft fork* if
-it is fully compatible. This is the most common way to upgrade
-Bitcoin, for a number of reasons that we'll discuss further in this
-chapter. If a change to the Bitcoin consensus rules is backward
-compatible but not forward compatible, it is called a *hard fork*.
+=== Vocabulário
 
-For a technical overview of soft forks and hard forks, please read
-https://rosenbaum.se/book/grokking-bitcoin-11.html[chapter 11 of
-Grokking Bitcoin]. It explains these terms and also dives into the
-upgrade mechanisms. It's recommended, although not strictly
-necessary, to get a grip on this before you continue reading.
+De acordo com a Wikipedia,
+https://en.wikipedia.org/wiki/Forward_compatibility[_compatibilidade com versões futuras_]
+refere-se à condição em que um software antigo pode processar dados
+criados por softwares mais novos, ignorando as partes que ele não entende.
+
+[quote, Compatibilidade com versões futuras, Wikipedia]
+____
+Um padrão suporta compatibilidade com versões futuras se um produto que está em conformidade
+com versões anteriores pode "processar graciosamente" a entrada projetada para
+versões mais recentes do padrão, ignorando novas partes que ele não
+entende.
+____
+
+Vice-versa,
+https://en.wikipedia.org/wiki/Backward_compatibility[_compatibilidade com versões anteriores_] refere-se a quando dados de um software antigo são utilizáveis
+em softwares mais novos.
+Uma mudança é dita totalmente compatível se for compatível tanto com versões futuras
+quanto com versões anteriores.
+
+Uma mudança nas regras de consenso do Bitcoin é considerada um *soft fork* se
+for totalmente compatível. Esta é a maneira mais comum de atualizar
+o Bitcoin, por várias razões que discutiremos mais adiante neste
+capítulo. Se uma mudança nas regras de consenso do Bitcoin for compatível com versões anteriores
+mas não com versões futuras, é chamada de *hard fork*.
+
+Para uma visão técnica sobre soft forks e hard forks, leia o
+https://rosenbaum.se/book/grokking-bitcoin-11.html[capítulo 11 do
+Grokking Bitcoin]. Ele explica esses termos e também aprofunda-se nos
+mecanismos de atualização. É recomendado, embora não seja estritamente
+necessário, compreender isso antes de continuar a leitura.
 
 [[historic-upgrades]]
-=== Historic upgrades
+=== Atualizações históricas
 
-Bitcoin is not the same today as it was when the genesis block was
-created. Several upgrades have been made throughout the years. In 2017, Eric
+O Bitcoin não é o mesmo hoje que era quando o bloco gênesis foi
+criado. Várias atualizações foram feitas ao longo dos anos. Em 2017, Eric
 Lombrozo
-https://btctranscripts.com/breaking-bitcoin/2017/changing-consensus-rules-without-breaking-bitcoin/[spoke
-at the Breaking Bitcoin conference]
-about Bitcoin's different upgrading mechanisms, pointing out how much they
-have evolved over time. He even explained how Satoshi Nakamoto
-once upgraded Bitcoin through a hard fork.
+https://btctranscripts.com/breaking-bitcoin/2017/changing-consensus-rules-without-breaking-bitcoin/[falou
+na conferência Breaking Bitcoin]
+sobre os diferentes mecanismos de atualização do Bitcoin, apontando como eles
+evoluíram ao longo do tempo. Ele até explicou como Satoshi Nakamoto
+uma vez atualizou o Bitcoin por meio de um hard fork.
 
 //noqr
-[quote, Eric Lombrozo, Changing Consensus Rules Without Breaking Bitcoin at Breaking Bitcoin conference (2017)]
+[quote, Eric Lombrozo, Mudando Regras de Consenso Sem Quebrar o Bitcoin na conferência Breaking Bitcoin (2017)]
 ____
-There was actually a hard-fork in bitcoin that Satoshi did that we
-would never do it this way- it’s a pretty bad way to do it. If you
-look at the git commit description here
+Houve na verdade um hard fork no Bitcoin que Satoshi fez que nós
+nunca faríamos dessa forma - é uma maneira bastante ruim de fazer isso. Se você
+olhar para a descrição do commit no git aqui
 [https://github.com/bitcoin/bitcoin/commit/757f0769d8360ea043f469f3a35f6ec204740446[757f076]],
-he says something about reverted makefile.unix wx-config version
-0.3.6. Right. That’s all it says. It has no indication that it has a
-breaking change at all. He was basically hiding it in there. He also
-https://bitcointalk.org/index.php?topic=626.msg6451#msg6451[posted to
-bitcointalk] and said, please upgrade to 0.3.6 ASAP. We fixed an
-implementation bug where it is possible that bogus transactions can be
-displayed as accepted. Do not accept bitcoin payments until you
-upgrade to 0.3.6. If you can’t upgrade right away, then it would be
-best to shutdown your bitcoin node until you do. And then on top of
-that, I don’t know why he decided to do this as well, he decided to
-add some optimizations in the same code. Fix a bug and add some
-optimizations.
+ele diz algo sobre reverter makefile.unix versão wx-config
+0.3.6. Certo. Isso é tudo o que diz. Não há nenhuma indicação de que seja uma
+mudança significativa. Ele basicamente estava escondendo isso lá. Ele também
+https://bitcointalk.org/index.php?topic=626.msg6451#msg6451[postou no
+bitcointalk] e disse, por favor, atualizem para 0.3.6 o mais rápido possível. Corrigimos um
+bug de implementação onde é possível que transações falsas possam ser
+exibidas como aceitas. Não aceitem pagamentos em bitcoin até que
+atualizem para 0.3.6. Se não puderem atualizar imediatamente, seria
+melhor desligar o seu node do Bitcoin até que o façam. E além disso,
+não sei por que ele decidiu fazer isso também, ele decidiu
+adicionar algumas otimizações no mesmo código. Corrigir um bug e adicionar algumas
+otimizações.
 ____
 
-He points out that, be it intentionally or not, this hard fork created
-opportunities for future soft forks, namely the Script operators
-(opcodes) OP_NOP1-OP_NOP10. We'll look more into this
-code change in <<cve-2010-5141>>. These opcodes have
-been used for two soft
-forks so far:
+Ele aponta que, intencionalmente ou não, esse hard fork criou
+oportunidades para futuros soft forks, nomeadamente os operadores de Script
+(opcodes) OP_NOP1-OP_NOP10. Vamos olhar mais de perto essa
+mudança de código em <<cve-2010-5141>>. Esses opcodes foram
+utilizados para dois soft
+forks até agora:
 https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki[BIP65]
-(OP_CHECKLOCKTIMEVERIFY), and
+(OP_CHECKLOCKTIMEVERIFY), e
 https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki[BIP113]
 (OP_SEQUENCEVERIFY).
 
-Lombrozo also provides an overview of the way upgrade mechanisms have evolved
-throughout the years, up until 2017. Since then, only one other
-major upgrade, Taproot (analyzed in <<taproot-deployment>>),
-has been deployed. The long and somewhat chaotic process that led to its activation has helped us gain further insights on upgrading mechanisms in Bitcoin.
+Lombrozo também fornece uma visão geral de como os mecanismos de atualização evoluíram
+ao longo dos anos, até 2017. Desde então, apenas uma outra
+grande atualização, Taproot (analisada em <<taproot-deployment>>),
+foi implantada. O longo e um tanto caótico processo que levou à sua ativação nos ajudou a ganhar mais 
+insights sobre os mecanismos de atualização no Bitcoin.
 
 [[segwit-upgrade]]
-==== Segwit upgrade
+==== Atualização do Segwit
 
-While all the upgrades preceding Segwit had been more or less
-painless, this one was different. When Segwit activation code was released, in October 2016, there seemed to be overwhelming
-support for it among Bitcoin users, but for some reason miners
-didn't signal support for this upgrade, which stalled the activation
-with no resolution in sight.
+Enquanto todas as atualizações anteriores ao Segwit foram mais ou menos
+indolores, esta foi diferente. Quando o código de ativação do Segwit foi lançado, em outubro de 2016, 
+parecia haver um apoio esmagadorpara ele entre os usuários de Bitcoin, mas por algum motivo os mineradores
+não sinalizaram apoio para essa atualização, o que estagnou a ativação
+sem uma resolução à vista.
 
-Aaron van Wirdum describes this winding road in his Bitcoin Magazine
-article
-https://bitcoinmagazine.com/technical/the-long-road-to-segwit-how-bitcoins-biggest-protocol-upgrade-became-reality[The
-Long Road To Segwit]. He starts by explaining what Segwit is and how
-that taps into the block size debate. Van Wirdum then outlines the
-turn of events that led to its final activation. At the center of
-this process was an upgrade mechanism called _user activated soft
-fork_, or UASF for short, that was proposed by user Shaolinfry.
+Aaron van Wirdum descreve essa estrada sinuosa em seu artigo na Bitcoin Magazine
+https://bitcoinmagazine.com/technical/the-long-road-to-segwit-how-bitcoins-biggest-protocol-upgrade-became-reality[A
+Longa Estrada para o Segwit]. Ele começa explicando o que é o Segwit e como
+isso se relaciona com o debate sobre o tamanho dos blocos. Van Wirdum então delineia a
+sucessão de eventos que levou à sua ativação final. No centro
+desse processo estava um mecanismo de atualização chamado _soft fork ativado pelo usuário_,
+ou UASF em resumo, que foi proposto pelo usuário Shaolinfry.
 
-[quote, Aaron van Wirdum, The Long Road To Segwit on Bitcoin Magazine (2017)]
+[quote, Aaron van Wirdum, The Long Road To Segwit na Bitcoin Magazine (2017)]
 ____
-Shaolinfry proposed an alternative: a user activated soft fork
-(UASF). Instead of hash power activation, a user activated soft fork
-would have a “‘flag day activation’ where nodes begin enforcement at a
-predetermined time in the future.” As long as such a UASF is enforced
-by an economic majority, this should compel a majority of miners to
-follow (or activate) the soft fork.
-____
-
-Among other things, he cites Shaolinfry's email to the Bitcoin-dev
-mailing list. In that occasion Shaolinfry
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-February/013643.html[argued
-against miner activated soft forks], listing a number of problems
-with them.
-
-[quote, Shaolinfry, Bitcoin-dev mailing list (2017)]
-____
-Firstly, it requires trusting the hash power will validate after activation. 
-The BIP66 soft fork was a case where 95% of the hashrate was signaling 
-readiness but in reality about half was not actually validating the upgraded 
-rules and mined upon an invalid block by mistake[1].
-
-Secondly, miner signalling has a natural veto which allows a small percentage 
-of hashrate to veto node activation of the upgrade for everyone. To date, soft 
-forks have taken advantage of the relatively centralised mining landscape where 
-there are relatively few mining pools building valid blocks; as we move towards 
-more hashrate decentralization, it's likely that we will suffer more and more 
-from "upgrade inertia" which will veto most upgrades.
+Shaolinfry propôs uma alternativa: um soft fork ativado pelo usuário
+(UASF). Em vez de ativação pela potência de hash, um soft fork ativado pelo usuário
+teria uma "ativação por data marcada", onde os nodes começariam a aplicação em um
+momento predeterminado no futuro. Desde que tal UASF seja aplicado
+por uma maioria econômica, isso deve compelir uma maioria de mineradores a
+seguir (ou ativar) o soft fork.
 ____
 
-Shaolinfry also drew attention to a common misinterpretation of miner signaling: people generally
-thought that it was a means by which miners could decide upon protocol upgrades, rather than an action that helped
-coordinate upgrades. Due to this misunderstanding, miners might have also felt
-obliged to proclaim in public their views on a certain soft fork, as if that
-gave weight to the proposal.
+Entre outras coisas, ele cita o e-mail de Shaolinfry para a lista de discussão Bitcoin-dev.
+Naquela ocasião, Shaolinfry
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-February/013643.html[argumentou
+contra soft forks ativados por mineradores], listando uma série de problemas
+com eles.
 
-The UASF proposal is, in a nutshell, a "`flag day`" on which nodes
-start enforcing specific new rules. That way, miners don't have to
-make a collective effort to coordinate the upgrade, but _can_ trigger activation
-earlier than the flag day if enough blocks signal support.
-
-[quote, Shaolinfry, Bitcoin-dev mailing list (2017)]
+[quote, Shaolinfry, lista de discussão Bitcoin-dev (2017)]
 ____
-My suggestion is to have the best of both worlds. Since a user
-activated soft fork needs a relatively long lead time before
-activation, we can combine with BIP9 to give the option of a faster
-hash power coordinated activation or activation by flag day, whichever
-is the sooner. In both cases, we can leverage the warning systems in
-BIP9. The change is relatively simple, adding an activation-time
-parameter which will transition the BIP9 state to LOCKED_IN before the
-end of the BIP9 deployment timeout.
+Em primeiro lugar, requer confiar que a potência de hash validará após a ativação. 
+O soft fork do BIP66 foi um caso em que 95% do hashrate estava sinalizando 
+prontidão, mas na realidade cerca de metade não estava realmente validando as regras atualizadas e 
+mineraram um bloco inválido por engano[1].
+
+Em segundo lugar, a sinalização dos mineradores tem um veto natural, que permite a uma pequena porcentagem 
+do hashrate vetar a ativação do node para a atualização para todos. Até agora, os soft 
+forks têm se aproveitado do panorama relativamente centralizado da mineração, onde 
+há relativamente poucos pools de mineração construindo blocos válidos; à medida que avançamos para uma maior 
+descentralização do hashrate, é provável que soframos cada vez mais 
+com a "inércia da atualização", que vetará a maioria das atualizações.
 ____
 
-This idea caught a lot of interest, but didn't seem to reach near
-unanimous support, which caused concern for a potential chain
-split. The article by Aaron van Wirdum explains how this finally got
-resolved thanks to
+Shaolinfry também chamou a atenção para uma interpretação comum equivocada da sinalização dos mineradores: 
+as pessoas geralmente pensavam que era um meio pelo qual os mineradores podiam decidir sobre as atualizações 
+do protocolo, em vez de uma ação que ajudava a coordenar as atualizações. Devido a esse mal-entendido, os 
+mineradores podem ter se sentido obrigados a proclamar publicamente suas opiniões sobre um determinado soft fork, 
+como se isso desse peso à proposta.
+
+A proposta de UASF é, em poucas palavras, uma "`data marcada`" na qual os nodes
+começam a aplicar novas regras específicas. Dessa forma, os mineradores não precisam
+fazer um esforço coletivo para coordenar a atualização, mas _podem_ desencadear a ativação
+antes da data marcada se um número suficiente de blocos sinalizar apoio.
+
+[quote, Shaolinfry, lista de discussão Bitcoin-dev (2017)]
+____
+Minha sugestão é ter o melhor dos dois mundos. Como um soft fork ativado pelo usuário precisa de um tempo de 
+preparação relativamente longo antes da ativação, podemos combinar com o BIP9 para dar a opção de uma ativação 
+coordenada pela potência de hash mais rápida ou ativação por data marcada, o que 
+ocorrer primeiro. Em ambos os casos, podemos aproveitar os sistemas de alerta 
+no BIP9. A mudança é relativamente simples, adicionando um parâmetro de tempo de ativação que 
+transicionará o estado BIP9 para LOCKED_IN antes do 
+fim do tempo limite de implantação do BIP9.
+____
+
+Essa ideia gerou muito interesse, mas não parecia alcançar um apoio quase
+unânime, o que causou preocupação com uma possível divisão da cadeia.
+O artigo de Aaron van Wirdum explica como isso foi finalmente resolvido graças ao
 https://github.com/bitcoin/bips/blob/master/bip-0091.mediawiki[BIP91],
-authored by James Hilliard.
+autoria de James Hilliard.
 
-[quote, Aaron van Wirdum, The Long Road To Segwit on Bitcoin Magazine (2017)]
+[quote, Aaron van Wirdum, The Long Road To Segwit na Bitcoin Magazine (2017)]
 ____
-Hilliard proposed a slightly complex but clever solution that would
-make everything compatible: Segregated Witness activation as proposed
-by the Bitcoin Core development team, the BIP148 UASF and the New York
-Agreement activation mechanism. His BIP91 could keep Bitcoin whole —
-at least throughout SegWit activation.
-____
-
-There were some more complicating factors involved (e.g. the so-called
-"New York Agreement"), that this BIP had to take into consideration.
-We encourage you to read Van Wirdum's article in full to learn about
-the many interesting details in this story.
-
-==== Post-Segwit discussion
-
-After the Segwit deployment, a discussion about deployment mechanisms
-emerged. As noted by Eric Lombrozo in
-https://btctranscripts.com/breaking-bitcoin/2017/changing-consensus-rules-without-breaking-bitcoin/[his
-talk at the Breaking Bitcoin conference]
-and by
-Shaolinfry (see <<segwit-upgrade>> above), a miner activated soft fork isn't the ideal upgrade
-mechanism.
-
-[quote, Eric Lombrozo, Changing Consensus Rules Without Breaking Bitcoin at Breaking Bitcoin conference (2017)]
-____
-At some point we’re probably going to want to add more features to the
-bitcoin protocol. This is a big philosophical question we’re asking
-ourselves. Do we do a UASF for the next one? What about a hybrid
-approach? Miner activated by itself has been ruled out. bip9 we’re not
-going to use again.
+Hilliard propôs uma solução ligeiramente complexa, mas inteligente, que
+tornaria tudo compatível: ativação do Segregated Witness conforme proposto
+pela equipe de desenvolvimento do Bitcoin Core, o UASF BIP148 e o mecanismo de ativação do Acordo de Nova York. 
+Seu BIP91 poderia manter o Bitcoin inteiro – pelo menos durante a ativação do SegWit.
 ____
 
-In January 2020, Matt Corallo
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-January/017547.html[sent
-an email] to the Bitcoin-dev mailing list that started a discussion on
-future soft fork deployment mechanisms. He listed five goals that he
-thought were essential in an upgrade. David Harding
-https://bitcoinops.org/en/newsletters/2020/01/15/#discussion-of-soft-fork-activation-mechanisms[summarizes
-them in a Bitcoin Optech newsletter] as:
+Havia alguns fatores complicadores adicionais envolvidos (por exemplo, o chamado
+"Acordo de Nova York"), que este BIP teve que levar em consideração.
+Recomendamos que você leia o artigo de Van Wirdum na íntegra para conhecer
+os muitos detalhes interessantes dessa história.
+
+==== Discussão pós-Segwit
+
+Após a implantação do Segwit, uma discussão sobre mecanismos de implantação
+emergiu. Como observado por Eric Lombrozo em
+https://btctranscripts.com/breaking-bitcoin/2017/changing-consensus-rules-without-breaking-bitcoin/[sua
+palestra na conferência Breaking Bitcoin]
+e por
+Shaolinfry (veja <<segwit-upgrade>> acima), um soft fork ativado por mineradores não é o mecanismo de atualização ideal.
+
+[quote, Eric Lombrozo, Mudando Regras de Consenso Sem Quebrar o Bitcoin na conferência Breaking Bitcoin (2017)]
+____
+Em algum momento, provavelmente vamos querer adicionar mais recursos ao
+protocolo do bitcoin. Esta é uma grande questão filosófica que estamos
+nos perguntando. Fazemos um UASF para o próximo? E quanto a uma abordagem híbrida?
+Ativação por mineradores sozinha foi descartada. bip9 não vamos
+usar novamente.
+____
+
+Em janeiro de 2020, Matt Corallo
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-January/017547.html[enviou
+um e-mail] para a lista de discussão Bitcoin-dev que iniciou uma discussão sobre
+mecanismos futuros de implantação de soft fork. Ele listou cinco objetivos que ele
+considerava essenciais em uma atualização. David Harding
+https://bitcoinops.org/en/newsletters/2020/01/15/#discussion-of-soft-fork-activation-mechanisms[os resume em um boletim da Bitcoin Optech] como:
 
 [quote, David Harding, Bitcoin Optech newsletter #80 (2020)]
 ____
-. The ability to abort if a serious objection to the proposed
-consensus rules changes is encountered
-. The allocation of enough time after the release of updated software
-to ensure that most economic nodes are upgraded to enforce those rules
-. The expectation that the network hash rate will be roughly the same
-before and after the change, as well as during any transition
-. The prevention, as much as possible, of the creation of blocks that
-are invalid under the new rules, which could lead to false
-confirmations in non-upgraded nodes and SPV clients
-. The assurance that the abort mechanisms can’t be misused by griefers
-or partisans to withhold a widely desired upgrade with no known
-problems
+. A capacidade de abortar se uma objeção séria às mudanças propostas nas regras de consenso for encontrada
+. A alocação de tempo suficiente após o lançamento do software atualizado para garantir que a maioria dos nodes econômicos sejam atualizados para aplicar essas regras
+. A expectativa de que a taxa de hash da rede será aproximadamente a mesma antes e depois da mudança, bem como durante qualquer transição
+. A prevenção, tanto quanto possível, da criação de blocos que sejam inválidos sob as novas regras, o que poderia levar a falsas confirmações em nodes não atualizados e clientes SPV
+. A garantia de que os mecanismos de abortar não possam ser usados de forma inadequada por provocadores ou partidários para impedir uma atualização amplamente desejada sem problemas conhecidos
 ____
 
-What Corallo proposes is a combination of a miner activated soft fork
-and a user activated soft fork:
+O que Corallo propõe é uma combinação de um soft fork ativado por mineradores
+e um soft fork ativado por usuários:
 
-[quote, Matt Corallo, Modern Soft Fork Activation on Bitcoin-dev mailing list (2020)]
+[quote, Matt Corallo, Modern Soft Fork Activation na lista de discussão Bitcoin-dev (2020)]
 ____
-Thus, as something a bit more concrete, I think an activation method
-which sets the right precedent and appropriately considers the above
-goals, would be:
+Assim, como algo um pouco mais concreto, acho que um método de ativação que 
+define o precedente correto e considera adequadamente os objetivos 
+acima, seria:
 
-1) a standard BIP 9 deployment with a one-year time horizon for
-activation with 95% miner readiness, +
-2) in the case that no activation occurs within a year, a six month
-quieting period during which the community can analyze and discussion
-the reasons for no activation and, +
-3) in the case that it makes sense, a simple command-line/bitcoin.conf
-parameter which was supported since the original deployment release
-would enable users to opt into a BIP 8 deployment with a 24-month
-time-horizon for flag-day activation (as well as a new Bitcoin Core
-release enabling the flag universally).
+1) uma implantação padrão do BIP 9 com um horizonte de tempo de um ano para 
+ativação com 95% de prontidão dos mineradores, +
+2) no caso de nenhuma ativação ocorrer dentro de um ano, um período de 
+tranquilização de seis meses durante o qual a comunidade pode analisar e discutir 
+as razões para a falta de ativação e, +
+3) no caso de fazer sentido, um simples comando/bitcoin.conf 
+parâmetro que foi suportado desde o lançamento original da implantação 
+permitiria que os usuários optassem por uma implantação BIP 8 com um horizonte de 
+tempo de 24 meses para ativação por data marcada (bem como um novo lançamento do Bitcoin Core 
+ativando a data marcada universalmente).
 
-This provides a very long time horizon for more standard activation,
-while still ensuring the goals in #5 are met, even if, in those cases,
-the time horizon needs to be significantly extended to meet the goals of
-#3. Developing Bitcoin is not a race. If we have to, waiting 42 months
-ensures we're not setting a negative precedent that we'll come to regret
-as Bitcoin continues to grow.
+Isso fornece um horizonte de tempo muito longo para uma ativação mais padrão, 
+enquanto ainda garante que os objetivos do item #5 sejam atendidos, mesmo que, nesses casos, 
+o horizonte de tempo precise ser significativamente estendido para atender aos objetivos do 
+item #3. Desenvolver o Bitcoin não é uma corrida. Se for necessário, esperar 42 meses 
+garante que não estamos estabelecendo um precedente negativo que vamos nos arrepender 
+enquanto o Bitcoin continua a crescer.
 ____
 
 [[taproot-deployment]]
-==== Taproot upgrade - Speedy Trial
+==== Atualização do Taproot - Speedy Trial
 
-When Taproot was ready for deployment in October 2020, meaning all the technical details
-around its consensus rules had been implemented and had reached broad
-approval within the community, discussions on how to actually deploy it
-started to heat up. These discussions had been pretty low key up until
-that point.
+Quando o Taproot estava pronto para implantação em outubro de 2020, ou seja, todos os detalhes técnicos
+em torno de suas regras de consenso haviam sido implementados e haviam alcançado ampla
+aprovação dentro da comunidade, as discussões sobre como realmente implantar começaram a esquentar. Essas discussões haviam sido bastante discretas até
+aquele momento.
 
-Lots of proposals for activation mechanisms started floating around, and
+Muitas propostas para mecanismos de ativação começaram a circular, e
 David Harding
-https://en.bitcoin.it/wiki/Taproot_activation_proposals[summarized
-them on the Bitcoin Wiki]. In his article he explained some properties
-of BIP8, which at that time had some recent changes made in order to make it
-more flexible.
+https://en.bitcoin.it/wiki/Taproot_activation_proposals[as resumiu na Wiki do Bitcoin]. Em seu artigo, ele explicou algumas propriedades
+do BIP8, que na época tinha algumas mudanças recentes feitas para torná-lo
+mais flexível.
 
 //noqr
-[quote, David Harding, Taproot Activation Proposals on the Bitcoin Wiki (2020)]
+[quote, David Harding, Taproot Activation Proposals na Wiki do Bitcoin (2020)]
 ____
-At the time this document is being written,
+No momento em que este documento está sendo escrito,
 https://github.com/bitcoin/bips/blob/master/bip-0008.mediawiki[BIP8]
-has been drafted based on lessons learned in 2017. One notable change
-following BIPs 9+148 is that forced activation is now based on block
-height rather than median time past; a second notable change is that
-forced activation is a boolean parameter chosen when a soft fork’s
-activation parameters are set either for the initial deployment or
-updated in a later deployment.
+foi redigido com base nas lições aprendidas em 2017. Uma mudança notável
+após os BIPs 9+148 é que a ativação forçada agora é baseada na altura do bloco em vez de 
+mediana do tempo passado; uma segunda mudança notável é que
+a ativação forçada é um parâmetro booleano escolhido quando os parâmetros de ativação de um soft fork são definidos, seja para a implantação inicial ou
+atualizado em uma implantação posterior.
 
 //noqr
-BIP8 without forced activation is very similar to
+BIP8 sem ativação forçada é muito semelhante ao
 https://github.com/bitcoin/bips/blob/master/bip-0009.mediawiki[BIP9]
-version bits with timeout and delay, with the only significant
-difference being BIP8’s use of block heights compared to BIP9’s use of
-median time past. This setting allows the attempt to fail (but it can
-be retried later).
+versão bits com tempo limite e atraso, com a única diferença significativa
+sendo o uso de alturas de bloco pelo BIP8 em comparação com o uso de
+mediana do tempo passado pelo BIP9. Esta configuração permite que a tentativa falhe (mas pode
+ser tentada novamente mais tarde).
 
-BIP8 with forced activation concludes with a mandatory signaling
-period where all blocks produced in compliance with its rules must
-signal readiness for the soft fork in a way that will trigger
-activation in an earlier deployment of the same soft fork with
-non-mandatory activation. In other words, if node version x is
-released without forced activation and, later, version y is released
-that successfully forces miners to begin signaling readiness within
-the same time period, both versions will begin enforcing the new
-consensus rules at the same time.
+O BIP8 com ativação forçada conclui com um período de sinalização obrigatória
+onde todos os blocos produzidos em conformidade com suas regras devem
+sinalizar prontidão para o soft fork de uma forma que desencadeie
+ativação em uma implantação anterior do mesmo soft fork com
+ativação não obrigatória. Em outras palavras, se a versão do node x for
+lançada sem ativação forçada e, mais tarde, a versão y for lançada
+que for bem-sucedida em forçar os mineradores a começar a sinalizar prontidão dentro
+do mesmo período de tempo, ambas as versões começarão a aplicar as novas
+regras de consenso ao mesmo tempo.
 
-This flexibility of the revised BIP8 proposal makes it possible to
-express some other ideas in terms of what they would look like using
-BIP8. This provides a common factor to use for categorizing many
-different proposals.
+Essa flexibilidade da proposta revisada do BIP8 torna possível
+expressar algumas outras ideias em termos de como seriam usando
+o BIP8. Isso fornece um fator comum para categorizar muitas
+propostas diferentes.
 ____
 
-From this point forward the discussions became very heated, especially
-around whether `lockinontimeout` should be `true` (as in a user
-activated soft fork, referred to as "`BIP8 with forced activation`" by
-Harding) or `false` (as in a miner activated soft fork, referred to as
-"`BIP8 without forced activation`" by Harding).
+A partir deste ponto, as discussões se tornaram muito acaloradas, especialmente
+sobre se `lockinontimeout` deveria ser `true` (como em um
+soft fork ativado por usuários, referido como "`BIP8 com ativação forçada`" por
+Harding) ou `false` (como em um soft fork ativado por mineradores, referido como
+"`BIP8 sem ativação forçada`" por Harding).
 
-Among the proposals listed, one of them was titled "`Let’s see what
-happens`". For some reason, this proposal didn't get much traction
-until seven months later.
+Entre as propostas listadas, uma delas foi intitulada "`Vamos ver o que
+acontece`". Por algum motivo, essa proposta não ganhou muita tração
+até sete meses depois.
 
-During those seven months, the discussion went on and it seemed like
-there was no way to reach broad consensus over which deployment
-mechanism to use. There were mainly two camps: one that preferred
-`lockinontimeout=true` (the UASF crowd) and the other one that preferred
-`lockinontimeout=false` (the "`try and if it fails rethink`" crowd). Since
-there was no overwhelming support for any of these options, the
-debate went in circles with seemingly no way forward. Some of
-these discussions were held on IRC, in a channel called
-##taproot-activation, but
-https://gnusha.org/taproot-activation/2021-03-05.log[on March 5th 2021],
-something changed:
+Durante esses sete meses, a discussão continuou e parecia não haver como alcançar um consenso amplo sobre qual mecanismo de implantação
+usar. Havia principalmente dois grupos: um que preferia
+`lockinontimeout=true` (o grupo UASF) e o outro que preferia
+`lockinontimeout=false` (o grupo "`tente e se falhar repense`"). Como
+não havia um apoio esmagador para nenhuma dessas opções, o
+debate girava em círculos sem uma forma aparente de avançar. Algumas dessas discussões foram realizadas no IRC, em um canal chamado
+##taproot-activation, mas
+https://gnusha.org/taproot-activation/2021-03-05.log[em 5 de março de 2021],
+algo mudou:
 
-[quote, #taproot-activation IRC log]
+[quote, log do IRC #taproot-activation]
 ____
 ....
-06:42 < harding> roconnor: is somebody proposing BIP8(3m, false)?  I mentioned that the other day but I didn't see any responses.
+06:42 < harding> roconnor: alguém está propondo BIP8(3m, false)?  Eu mencionei isso outro dia, mas não vi nenhuma resposta.
  [...]
-06:43 < willcl_ark_> Amusingly, I was just thinking to myself that, vs this, the SegWit activation was actually pretty straightforward: simply a LOT=false and if it fails a UASF.
-06:43 < maybehuman> it's funny, "let's see what happens" (i.e. false, 3m) was a poular choice right at the beginning of this channel iirc
-06:44 < roconnor> harding: I think I am.  I don't know how much that is worth.  Mostly I think it would be a widely acceptable configuration based on my understanding of everyone's concerns.
-06:44 < willcl_ark_> maybehuman: becuase everybody actually wants this, even miners reckoned they could upgrade in about two weeks (or at least f2pool said that)
-06:44 < roconnor> harding: BIP8(3m,false) with an extended lockin-period.
-06:45 < harding> roconnor: oh, good.  It's been my favorite option since I first summarized the options on the wiki like seven months ago.
-06:45 <@michaelfolkson> UASF wouldn't release (true,3m) but yeah Core could release (false, 3m)
-06:45 < willcl_ark_> harding: It certainly seems like a good approach to me. _if_ that fails, then you can try an understand why, without wasting too much time
+06:43 < willcl_ark_> Curiosamente, eu estava pensando comigo mesmo que, em comparação, a ativação do SegWit foi realmente bastante simples: simplesmente um LOT=false e, se falhar, um UASF.
+06:43 < maybehuman> é engraçado, "vamos ver o que acontece" (ou seja, false, 3m) era uma escolha popular bem no começo deste canal, se bem me lembro
+06:44 < roconnor> harding: Acho que sou eu.  Não sei o quanto isso vale.  Principalmente acho que seria uma configuração amplamente aceitável com base na minha compreensão das preocupações de todos.
+06:44 < willcl_ark_> maybehuman: porque todo mundo realmente quer isso, até os mineradores disseram que poderiam atualizar em cerca de duas semanas (ou pelo menos o f2pool disse isso)
+06:44 < roconnor> harding: BIP8(3m,false) com um período de lockin estendido.
+06:45 < harding> roconnor: oh, que bom.  Tem sido minha opção favorita desde que resumi as opções na wiki, tipo, sete meses atrás.
+06:45 <@michaelfolkson> UASF não lançaria (true,3m), mas sim Core poderia lançar (false, 3m)
+06:45 < willcl_ark_> harding: Certamente parece uma boa abordagem para mim. _se_ isso falhar, então você pode tentar entender o porquê, sem desperdiçar muito tempo
 ....
 ____
 
-The "`let's see what happens`" approach finally seemed to click in
-peoples`' minds. This process would later be labeled as "`Speedy Trial`"
-due to its short signaling period. David Harding explains this idea
-to the broader community in an
-https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-March/018583.html[email
-to the Bitcoin-dev mailing list].
+A abordagem "`vamos ver o que acontece`" finalmente pareceu fazer sentido na
+mente das pessoas. Esse processo seria posteriormente rotulado como "`Speedy Trial`"
+devido ao seu curto período de sinalização. David Harding explica essa ideia
+para a comunidade mais ampla em um
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-March/018583.html[e-mail
+para a lista de discussão Bitcoin-dev].
 
-[quote, David Harding on Bitcoin-dev mailing list]
+[quote, David Harding na lista de discussão Bitcoin-dev]
 ____
-The earlier version of this proposal was documented over 200 days ago[3]
-and taproot's underlying code was merged into Bitcoin Core over 140 days
-ago.[4]  If we had started Speedy Trial at the time taproot
-was merged (which is a bit unrealistic), we would've either be less than
-two months away from having taproot or we would have moved on to the
-next activation attempt over a month ago.
+A versão anterior desta proposta foi documentada há mais de 200 dias[3]
+e o código subjacente do taproot foi incorporado ao Bitcoin Core há mais de 140 dias
+atrás.[4]  Se tivéssemos começado o Speedy Trial na época em que o taproot
+foi incorporado (o que é um pouco irrealista), estaríamos a menos de
+dois meses de distância de ter o taproot ou já teríamos passado para a
+próxima tentativa de ativação há mais de um mês.
 
-Instead, we've debated at length and don't appear to be any closer to
-what I think is a widely acceptable solution than when the mailing list
-began discussing post-segwit activation schemes over a year ago.[5]  I
-think Speedy Trial is a way to generate fast progress that will either
-end the debate (for now, if activation is successful) or give us some
-actual data upon which to base future taproot activation proposals.
+Em vez disso, debatemos exaustivamente e não parece que estejamos mais próximos de
+uma solução amplamente aceitável do que quando a lista de discussão começou a discutir esquemas de ativação pós-segwit há mais de um ano.[5]  Eu
+acho que o Speedy Trial é uma maneira de gerar progresso rápido que
+ou terminará o debate (por enquanto, se a ativação for bem-sucedida) ou nos dará alguns
+dados reais sobre os quais basear propostas futuras de ativação do taproot.
 ____
 
 //noqr
-This deployment mechanism was refined over the course of two months
-and then released in
-https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.21.1.md#taproot-soft-fork[Bitcoin
-Core version 0.21.1]. The miners quickly started signaling for this
-upgrade moving the deployment state to `LOCKED_IN`, and after a grace
-period the Taproot rules were activated mid-November 2021 in block
+Esse mecanismo de implantação foi refinado ao longo de dois meses
+e depois lançado na
+https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.21.1.md#taproot-soft-fork[versão 0.21.1 do Bitcoin
+Core]. Os mineradores rapidamente começaram a sinalizar para essa
+atualização, movendo o estado de implantação para `LOCKED_IN`, e após um período de carência as regras do Taproot foram ativadas em meados de novembro de 2021 no bloco
 https://mempool.space/block/0000000000000000000687bca986194dc2c1f949318629b44bb54ec0a94d8244[709632].
 
-==== Future deployment mechanisms
+==== Mecanismos de implantação futuros
 
-Given the problems with the recent soft forks, Segwit and Taproot,
-it's not clear how the next upgrade will be deployed. Speedy Trial was
-used to deploy Taproot, but it was used to bridge the chasm between
-the UASF and the MASF crowds, not because it has emerged as the best
-known deployment mechanism.
+Dado os problemas com os soft forks recentes, Segwit e Taproot,
+não está claro como a próxima atualização será implantada. Speedy Trial foi
+usado para implantar o Taproot, mas foi usado para preencher o abismo entre
+os grupos UASF e MASF, não porque tenha surgido como o melhor
+mecanismo de implantação conhecido.
 
 [[upgrading-risks]]
-=== Risks
+=== Riscos
 
-During the activation of any fork, be it hard or soft, miner activated or user
-activated, there's the risk of a long-lasting chain split. A split that
-lingers for more than a few blocks can cause severe damage to the
-sentiment around Bitcoin as well as to its price. But above all, it
-would cause great confusion over what Bitcoin is. Is Bitcoin this
-chain or that chain?
+Durante a ativação de qualquer fork, seja ele hard ou soft, ativado por mineradores ou por usuários, existe o risco de uma divisão de cadeia prolongada. Uma divisão que
+se prolonga por mais de alguns blocos pode causar danos severos ao
+sentimento em torno do Bitcoin, bem como ao seu preço. Mas acima de tudo, causaria grande confusão sobre o que é o Bitcoin. O Bitcoin é esta
+cadeia ou aquela cadeia?
 
-The risk with a user activated soft fork is that the new rules get
-activated even if the majority of the hash power doesn't support
-them. This scenario would result in a long-lasting chain split, which
-would persist until the majority of the hash power adopts the new
-rules. It could be especially hard to incentivize miners to switch to
-the new chain if they had already mined blocks after the split on the
-old chain, because by switching branch they would be abandoning their
-own block rewards. However, it's worth mentioning a remarkable episode: in March 2013
-a long-lasting split, explained in <<march2013split>>, occurred due to an
-unintentional hard fork and, contrary to this incentive, two major mining pools made the decision to
-abandon their branch of the split in order to restore consensus.
+O risco com um soft fork ativado por usuários é que as novas regras sejam
+ativadas mesmo que a maioria da potência de hash não as suporte.
+Este cenário resultaria em uma divisão de cadeia prolongada, que
+persistiria até que a maioria da potência de hash adotasse as novas
+regras. Poderia ser especialmente difícil incentivar os mineradores a mudar para
+a nova cadeia se eles já tivessem minerado blocos após a divisão na
+cadeia antiga, porque ao mudar de ramo estariam abandonando suas próprias recompensas de bloco. No entanto, vale a pena mencionar um episódio notável: em março de 2013
+ocorreu uma divisão prolongada, explicada em <<march2013split>>, devido a um
+hard fork não intencional e, ao contrário desse incentivo, dois grandes pools de mineração tomaram a decisão de
+abandonar seu ramo da divisão para restaurar o consenso.
 
-On the other hand, the risk with a miner activated soft fork is a consequence of the fact that miners can engage
-in false signaling, which means that the actual share of the hash
-power that supports the change could be smaller than it looks. If the actual
-support doesn't comprise a majority of the hash power, we'd probably
-see a long-lasting chain split similar to the one described in the
-previous paragraph. This, or at least a similar issue, has happened in
-reality when BIP66 was deployed (see <<bip66-splits>>), but it got resolved
-within 6 blocks or so.
+Por outro lado, o risco com um soft fork ativado por mineradores é consequência do fato de que os mineradores podem se envolver em
+sinalização falsa, o que significa que a participação real da potência de hash que apoia a mudança pode ser menor do que parece. Se o suporte real não
+compreender a maioria da potência de hash, provavelmente veremos uma divisão de cadeia prolongada semelhante à descrita no
+parágrafo anterior. Isso, ou pelo menos um problema semelhante, aconteceu na
+realidade quando o BIP66 foi implantado (veja <<bip66-splits>>), mas foi resolvido
+em cerca de 6 blocos ou algo assim.
 
-==== Costs of a split
+==== Custos de uma divisão
 
 Jimmy Song
-https://btctranscripts.com/breaking-bitcoin/2017/socialized-costs-of-hard-forks/[spoke
-about the costs associated with hard forks] at Breaking Bitcoin in
-Paris, but much of what he said applies to a chain split due to a failed soft
-fork as well. He spoke about _negative externalities_, and defined them as the
-price someone else has to pay for your own actions.
+https://btctranscripts.com/breaking-bitcoin/2017/socialized-costs-of-hard-forks/[falou
+sobre os custos associados a hard forks] na conferência Breaking Bitcoin em
+Paris, mas muito do que ele disse se aplica a uma divisão de cadeia devido a um soft
+fork falho também. Ele falou sobre _externalidades negativas_ e as definiu como o
+preço que outra pessoa tem que pagar por suas próprias ações.
 
-[quote, Jimmy Song, Socialized Costs Of Hard Forks at Breaking Bitcoin conference (2017)]
+[quote, Jimmy Song, Custos Socializados de Hard Forks na conferência Breaking Bitcoin (2017)]
 ____
-The classic example of a negative externality is a factory. Maybe they
-are producing– maybe it’s an oil refinery and they produce a good that
-is good for the economy but they also produce something that is a
-negative externality, like pollution. It’s not just something that
-everyone has to pay for, to clean up, or suffer from. But it’s also
-2nd and 3rd order effects, like more traffic going towards the factory
-as a result of more workers that need to go there. You might also
-have- you might endanger some wildlife around there. It’s not that
-everyone has to pay for the negative externalities, it might be
-specific people, like people who were previously using that road or
-animals that were near that factory, and they are also paying for the
-cost of that factory.
-____
-
-In the context of Bitcoin, he exemplifies negative externalities using
-Bitcoin Cash (bcash), which is a hard fork of Bitcoin created shortly
-prior to that conference in 2017. He categorizes the negative externalities of
-a hard fork into one-time costs and permanent costs.
-
-Among the many examples of one-time costs, he mentions the ones incurred by exchanges.
-
-[quote, Jimmy Song, Socialized Costs Of Hard Forks at Breaking Bitcoin conference (2017)]
-____
-So we have a bunch of exchanges and they had a lot of one-time costs
-that they had to pay. The first thing that happened is that deposits
-and withdrawals had to be halted for a day or two for these exchanges
-because they didn’t know what would happen. Many of these exchanges
-had to dip into cold storage because their users were demanding
-bcash. It’s part of their fidicuiary duty, they have to do that. You
-also have to audit the new software. This is something that we had to
-do at itbit. We want to spend bcash- how do we do it? We have to
-download electron cash? Does it have malware? We have to go and
-audit it. We had like 10 days to figure out if this was okay
-or not. And then you have to decide, are we going to just allow a
-one-time withdrawal, or are we going to list this new coin? For an
-exchange to lis ta new coin, it’s not easy- there’s all sorts of new
-procedures for cold storage, signing, deposits, withdrawals. Or you
-could just have this one-off event where you give them their bcash at
-some point and then you never think about it again. But that has its
-problems too. And finally, and whatever way you do it, withdrawals or
-listing– you are going to need new infrastructure to work with this
-token in some way, even if it’s a one-time withdrawal. You need some
-way to give these tokens to your users. Again, short-notice. Right? No
-time to do this, has to be done quickly.
+O exemplo clássico de uma externalidade negativa é uma fábrica. Talvez eles
+estejam produzindo - talvez seja uma refinaria de petróleo e eles produzam um bem que
+é bom para a economia, mas também produzem algo que é uma
+externalidade negativa, como poluição. Não é apenas algo que
+todos têm que pagar para limpar ou sofrer. Mas também são
+efeitos de segunda e terceira ordem, como mais tráfego indo em direção à fábrica
+como resultado de mais trabalhadores que precisam ir para lá. Você pode
+também ter - você pode colocar em perigo alguma vida selvagem ao redor. Não é que
+todos tenham que pagar pelas externalidades negativas, pode ser
+pessoas específicas, como as pessoas que estavam usando aquela estrada anteriormente ou
+animais que estavam perto daquela fábrica, e eles também estão pagando pelo
+custo daquela fábrica.
 ____
 
-He also lists the one-time costs incurred by merchants, payment processors,
-wallets, miners, and users, as well as some of the permanent costs,
-for example privacy loss and a higher risk of reorgs.
+No contexto do Bitcoin, ele exemplifica externalidades negativas usando
+o Bitcoin Cash (bcash), que é um hard fork do Bitcoin criado pouco
+antes daquela conferência em 2017. Ele categoriza as externalidades negativas de
+um hard fork em custos únicos e custos permanentes.
 
-Indeed, when a split happens and the chain with the most general
-rules becomes stronger than the chain with the stricter rules, a reorg
-will occur. This will have a severe impact on all transactions carried
-out in the wiped-out branch. For these reasons it's really important
-to try avoiding chain splits at all times.
+Entre os muitos exemplos de custos únicos, ele menciona os incorridos pelas exchanges.
 
-=== Conclusion
+[quote, Jimmy Song, Custos Socializados de Hard Forks na conferência Breaking Bitcoin (2017)]
+____
+Então, temos um monte de exchanges e elas tiveram muitos custos únicos
+que tiveram que pagar. A primeira coisa que aconteceu foi que os depósitos
+e retiradas tiveram que ser interrompidos por um ou dois dias para essas exchanges
+porque eles não sabiam o que aconteceria. Muitas dessas exchanges
+tiveram que recorrer a cold storage porque seus usuários estavam exigindo
+bcash. É parte do seu dever fiduciário, eles têm que fazer isso. Você
+também tem que auditar o novo software. Isso é algo que tivemos
+que fazer na itbit. Queremos gastar bcash - como fazemos isso? Temos que
+baixar o electron cash? Ele tem malware? Tivemos que
+auditá-lo. Tivemos como 10 dias para descobrir se isso estava ok
+ou não. E então você tem que decidir, vamos permitir uma
+retirada única ou vamos listar essa nova moeda? Para uma
+exchange listar uma nova moeda, não é fácil - há todo tipo de novos
+procedimentos para cold storage, assinaturas, depósitos, retiradas. Ou você
+poderia simplesmente ter este evento único onde você dá o
+bcash para seus usuários em algum momento e nunca mais pensa nisso.
+Mas isso tem seus problemas também. E, finalmente, e de qualquer maneira que você faça, retiradas ou
+listagem - você precisará de nova infraestrutura para trabalhar com este
+token de alguma forma, mesmo que seja uma retirada única. Você precisa de alguma
+forma de dar esses tokens aos seus usuários. De novo, com pouco
+aviso. Certo? Sem tempo para fazer isso, tem que ser feito rapidamente.
+____
 
-Bitcoin grows and evolves with time. Different upgrade mechanisms
-have been used over the years and the learning curve is steep. More
-and more sophisticated and robust methods keep being invented, as we
-learn more about how the network reacts.
+Ele também lista os custos únicos incorridos por comerciantes, processadores de pagamento,
+carteiras, mineradores e usuários, bem como alguns dos custos permanentes,
+por exemplo, perda de privacidade e um maior risco de reorganizações (reorgs).
 
-To keep Bitcoin in harmony, soft forks have proven to be the way
-forward, but the big question is still not fully answered: how do we
-safely deploy soft forks without causing discord?
+De fato, quando ocorre uma divisão e a cadeia com as regras mais gerais
+se torna mais forte do que a cadeia com as regras mais rígidas, ocorrerá uma reorganização.
+Isso terá um impacto severo em todas as transações realizadas no ramo
+eliminado. Por essas razões, é realmente importante
+tentar evitar divisões de cadeia a todo custo.
+
+=== Conclusão
+
+O Bitcoin cresce e evolui com o tempo. Diferentes mecanismos de atualização
+foram usados ao longo dos anos e a curva de aprendizado é íngreme. Métodos
+cada vez mais sofisticados e robustos continuam sendo inventados, à medida que
+aprendemos mais sobre como a rede reage.
+
+Para manter o Bitcoin em harmonia, os soft forks têm se mostrado o caminho
+a seguir, mas a grande questão ainda não foi totalmente respondida: como
+implantar soft forks com segurança sem causar discórdia?

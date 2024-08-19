@@ -1,61 +1,55 @@
 [appendix]
-== Discussion Questions
+== Perguntas para Discussão
 
-These discussion questions are not just a recap of the content in "`Bitcoin development philosophy`", they are meant to encourage you to research further so make sure to go out and explore.
+Essas perguntas para discussão não são apenas um resumo do conteúdo em "`Filosofia do desenvolvimento do Bitcoin`", elas são feitas para incentivá-lo a pesquisar mais, então certifique-se de explorar mais.
 
+=== Descentralização
 
-=== Decentralization
+* A descentralização é difícil. Por que passamos por todo esse esforço para fazê-la funcionar? Poderíamos optar por uma abordagem híbrida, onde algumas partes são centralizadas e outras não?
+* A descentralização introduz o problema do gasto duplo, ou o problema do gasto duplo exige descentralização? Como Satoshi resolveu o problema do gasto duplo?
+* Em quais aspectos o Bitcoin ainda é mais propenso à censura, e por que a censura é algo tão ruim? Existem argumentos a favor da censura?
+* Afirma-se que o Bitcoin é permissão nula. Existem outros métodos de pagamento que você poderia considerar de permissão nula, desnecessária para seu uso?
 
-* Decentralization is hard. Why do we go through all of this hassle to make it work? Could we opt for a hybrid approach, where some parts are centralized and others aren't?
-* Does decentralization introduce the double spending problem, or does the double spending problem require decentralization? How did Satoshi solve the double spending problem?
-* In which aspects is Bitcoin still most prone to censorship, and why is censorship such a bad thing? Are there any arguments in favor of censorship?
-* It is stated that Bitcoin is permissionless. Are there any other payment methods you could consider permissionless?
+=== Confiança Nula
 
+* A confiança nula é frequentemente um espectro, não binário. Quais aspectos do Bitcoin são mais confiáveis e quais tipicamente envolvem um nível mais alto de confiança? Eles podem ser mitigados?
+* Você quer executar um nó completo para poder validar completamente todas as transações. Você baixa o Bitcoin Core de https://bitcoin.org/en/download. Onde você colocou sua confiança, e onde você é totalmente sem confiança?
+* É possível construir um sistema de confiança nula em cima de um sistema confiável?
 
-=== Trustlessness
+=== Privacidade
 
-* Trustlessness is often a spectrum, not binary. Which aspects of Bitcoin are rather trustless, and which typically involve a higher level of trust? Can they be mitigated?
-* You want to run a full node to be able to fully validate all transactions. You download Bitcoin Core from https://bitcoin.org/en/download. Where did you place trust, and where are you fully trustless?
-* Can you build a trustless system on top of a trusted system?
+* Quais são alguns benefícios importantes que um usuário obtém ao manter uma boa privacidade ao interagir com o Bitcoin? Quais são alguns benefícios altruístas para a rede?
+* Como o reuso de endereços afeta sua privacidade?
+* O Bitcoin usa um modelo UTXO, enquanto algumas criptomoedas alternativas usam um modelo de conta. Quais são as implicações dessa escolha na privacidade?
 
+=== Oferta Finita
 
-=== Privacy
+* Qual é a relação entre a oferta finita do Bitcoin e sua emissão de moedas através da transação de coinbase? Qual é a relação entre a emissão de moedas e o orçamento de segurança, e como eles estão em conflito?
+* Quais parâmetros Satoshi poderia ter ajustado para alterar o limite de oferta do Bitcoin? O que mudaria se ele tivesse decidido limitar a oferta em 1 milhão? E se fosse 1 trilhão?
+* Por que algumas pessoas defendem um aumento na oferta de Bitcoin? Você acha que isso vai acontecer?
 
-* What are some important benefits a user gains when he maintains good privacy when interacting with Bitcoin? What are some altruistic benefits for the network?
-* How does reusing addresses affect your privacy?
-* Bitcoin uses a UTXO model, whereas some alternative cryptocurrencies use an account model. What are the implications of this choice on privacy?
+=== Atualizações
 
+* O que é o Speedy Trial e por que foi necessário para ativar o Taproot?
+* Por que precisamos de um percentual tão alto de mineradores para atualizar em um softfork? Por que o limiar não é apenas 51%?
 
-=== Finite supply
+=== Pensamento Adversarial
 
-* What is the relation between Bitcoin's finite supply and its coin issuance through the coinbase transaction? What is the relation between coin issuance and security budget, and how are they at odds?
-* What parameters could Satoshi have tweaked to change Bitcoin's supply cap? What would change if he had decided to cap the supply to 1 million? What about 1 trillion?
-* Why are some people advocating for an increase in Bitcoin supply? Do you think this will happen?
+* O que é um ataque Sybil, e por que uma rede descentralizada é tão propensa a ele?
+* Por que é importante que todos os jogadores na rede Bitcoin - e não apenas os desenvolvedores - pensem de forma adversarial?
 
-=== Upgrading
-* What is Speedy Trial and why was it necessary to activate Taproot?
-* Why do we need such a high percentage of miners to upgrade in a softfork? Why is the threshold not just 51%?
+=== Código Aberto
 
+* Apenas um punhado de mantenedores tem as permissões necessárias no GitHub para fazer merge de código no repositório https://github.com/bitcoin/bitcoin[Bitcoin Core]. Isso não é contraditório com uma rede permissionless?
+* O processo de desenvolvimento de código aberto é suscetível a um ataque Sybil? Se sim, como você o enfrentaria?
+* Quais são os benefícios e desvantagens de confiar em bibliotecas de código aberto de terceiros, e qual é a abordagem adotada com o Bitcoin Core?
+* De que maneiras precisamos de revisão além da revisão de código? Como determinar quanto de revisão é suficiente?
+* Como garantimos que sempre haverá pessoas com expertise suficientes trabalhando no Bitcoin? O que acontece quando não há, e como avaliamos sua integridade e intenções?
 
-=== Adversarial thinking
+=== Escalabilidade
 
-* What is a sybil attack, and what makes a decentralized network so prone to it?
-* Why is it important that all players in the Bitcoin network - and not just developers - think adversarially?
-
-
-=== Open source
-
-* Only a handful of maintainers have the necessary GitHub permissions to merge code into into the https://github.com/bitcoin/bitcoin[Bitcoin Core] repository. Isn't that at odds with a permissionless network?
-* Is the open source development process prone to a sybil attack? If so, how would you counter that?
-* What are the benefits and downsides of relying on third party open source libraries, and what is the approach taken with Bitcoin Core?
-* In which ways do we need review beyond just code review? How to determine how much review is enough?
-* How do we ensure there will always be sufficient people with expertise working on Bitcoin? What happens when there aren't, and how do we asses their integrity and intentions?
-
-
-=== Scaling
-
-* It is argued that sharding offers scaling benefits at the cost of complexity. Why should we or should we not adopt technological improvements because they are difficult to understand, even if they appear technologically sound?
-* What are some examples of inward scaling methods introduced in Bitcoin?
-* Why is vertical scaling much more difficult in a decentralized system? What about horizontal scaling?
-* We don't seem to be anywhere near having consensus on how we could onboard the entire world onto Bitcoin. Shouldn't Satoshi have at least thought of a path of getting there, before mining the first block in 2009?
-* How would you classify (vertical, horizontal, inward, or not a scaling technique) each of the following: sharding, blocksize increase, SegWit, SPV nodes, centralized exchanges, Lightning Network, block interval decrease, Taproot, sidechains
+* Argumenta-se que o sharding oferece benefícios de escalabilidade ao custo de complexidade. Por que devemos ou não adotar melhorias tecnológicas porque são difíceis de entender, mesmo que pareçam tecnicamente sólidas?
+* Quais são alguns exemplos de métodos de escalabilidade interna introduzidos no Bitcoin?
+* Por que a escalabilidade vertical é muito mais difícil em um sistema descentralizado? E quanto à escalabilidade horizontal?
+* Parece que ainda estamos longe de ter um consenso sobre como poderíamos colocar o mundo inteiro no Bitcoin. Satoshi não deveria ao menos ter pensado em um caminho para chegar lá, antes de minerar o primeiro bloco em 2009?
+* Como você classificaria (vertical, horizontal, interna ou não uma técnica de escalabilidade) cada um dos seguintes: sharding, aumento de tamanho de bloco, SegWit, nós SPV, exchanges centralizadas, Lightning Network, diminuição do intervalo de bloco, Taproot, sidechains.

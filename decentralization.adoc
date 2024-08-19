@@ -1,336 +1,329 @@
-== Decentralization
+== Descentralização
 
 image::decentralization-banner.jpg[]
 
-This chapter analyzes what decentralization is and why it's
-essential for Bitcoin to function. We distinguish between the
-decentralization of miners and that of full nodes, and discuss what
-they bring to the table for censorship resistance, one of Bitcoin's
-most central properties. The discussion then shifts
-to understanding neutrality - or permissionlessness towards users,
-miners, and developers - which is a necessary property of any
-decentralized system. Lastly, we touch upon how hard it can be to
-grasp a decentralized system like Bitcoin, and present some mental
-models that might help you grok it.
+Este capítulo analisa o que é descentralização e por que ela é
+essencial para o funcionamento do Bitcoin. Distinguimos entre a
+descentralização de mineradores e a de nós completos, e discutimos o que
+eles trazem para a resistência à censura, uma das propriedades mais
+centrais do Bitcoin. A discussão então muda
+para entender a neutralidade - ou a ausência de necessidade de permissão para usuários,
+mineradores e desenvolvedores - que é uma propriedade necessária de qualquer
+sistema descentralizado. Por fim, abordamos como pode ser difícil
+compreender um sistema descentralizado como o Bitcoin e apresentamos alguns modelos mentais que podem ajudar a entendê-lo.
 
-A system without any central point of control is referred to as being
-_decentralized_. Bitcoin is designed to avoid having a central point
-of control, or more precisely a _central point of censorship_.
-Decentralization is a means to achieve _censorship resistance_.
+Um sistema sem nenhum ponto central de controle é chamado de
+_descentralizado_. O Bitcoin é projetado para evitar ter um ponto central
+de controle, ou mais precisamente, um _ponto central de censura_.
+A descentralização é um meio para alcançar a _resistência à censura_.
 
-There are two major aspects of decentralization in Bitcoin: miner
-decentralization and full node decentralization. Miner
-decentralization refers to the fact that transaction processing isn't performed nor
-coordinated by any central entity. Full node decentralization refers to the fact that
-validation of the blocks, i.e. the data that miners output, gets done at
-the edge of the network, ultimately by its users, and not by a few
-trusted authorities.
+Existem dois principais aspectos da descentralização no Bitcoin: descentralização dos mineradores
+e descentralização dos nós completos. A descentralização dos mineradores refere-se ao fato de que o processamento das transações não é realizado nem
+coordenado por nenhuma entidade central. A descentralização dos nós completos refere-se ao fato de que
+a validação dos blocos, ou seja, os dados que os mineradores produzem, é feita na
+borda da rede, em última instância pelos seus usuários, e não por algumas
+autoridades confiáveis.
 
 [[minerdecentralization]]
-=== Miner decentralization
+=== Descentralização dos mineradores
 
-There had been attempts at creating digital currencies before Bitcoin,
-but most of them failed due to a lack of governance decentralization
-and censorship resistance.
+Houve tentativas de criar moedas digitais antes do Bitcoin,
+mas a maioria delas falhou devido à falta de descentralização na governança
+e resistência à censura.
 
-Miner decentralization in Bitcoin means that the _ordering of
-transactions_ isn't carried out by any single entity or fixed set of
-entities. It's carried out collectively by all the actors who want
-to participate in it; this miners`' collective is a dynamic set of users. Anyone can
-join or leave as they wish. This property makes Bitcoin censorship-resistant.
+A descentralização dos mineradores no Bitcoin significa que a _ordenação das
+transações_ não é realizada por nenhuma entidade única ou conjunto fixo de
+entidades. É realizada coletivamente por todos os atores que desejam
+participar disso; esse coletivo de mineradores é um conjunto dinâmico de usuários. Qualquer pessoa pode
+entrar ou sair conforme desejar. Esta propriedade torna o Bitcoin resistente à censura.
 
-If Bitcoin were centralized, it would be vulnerable to those who
-wished to censor it, such as governments. It would meet the same fate
-as earlier attempts to create digital money. In the introduction of
-https://www.blockstream.com/sidechains.pdf[a paper] titled "`Enabling
-Blockchain Innovations with Pegged Sidechains`", the authors explain
-how early versions of digital money weren't equipped for an
-adversarial environment (see also <<adversarialthinking>>):
+Se o Bitcoin fosse centralizado, ele seria vulnerável àqueles que
+desejassem censurá-lo, como governos. Ele teria o mesmo destino
+que as tentativas anteriores de criar dinheiro digital. Na introdução de
+https://www.blockstream.com/sidechains.pdf[um artigo] intitulado "`Enabling
+Blockchain Innovations with Pegged Sidechains`", os autores explicam
+como as primeiras versões de dinheiro digital não estavam preparadas para um
+ambiente adversarial (veja também <<adversarialthinking>>):
 
 [quote, various authors, Enabling Blockchain Innovations with Pegged Sidechains (2014)]
 ____
-David Chaum introduced digital cash as a research topic in 1983, in a
-setting with a central server that is trusted to prevent
-double-spending[Cha83]. To mitigate the privacy risk to individuals
-from this central trusted party, and to enforce fungibility, Chaum
-introduced the blind signature, which he used to provide a
-cryptographic means to prevent linking of the central server’s
-signatures (which represent coins), while still allowing the central
-server to perform double-spend prevention. The requirement for a
-central server became the Achilles’ heel of digital cash[Gri99]. While
-it is possible to distribute this single point of failure by replacing
-the central server’s signature with a threshold signature of several
-signers, it is important for auditability that the signers be distinct
-and identifiable. This still leaves the system vulnerable to failure,
-since each signer can fail, or be made to fail, one by one.
+David Chaum introduziu o dinheiro digital como um tópico de pesquisa em 1983, em um
+cenário com um servidor central que é confiável para prevenir
+o gasto duplo [Cha83]. Para mitigar o risco à privacidade dos indivíduos
+por parte desse servidor central confiável, e para garantir a fungibilidade, Chaum
+introduziu a assinatura cega, que ele usou para fornecer um
+método criptográfico para evitar a vinculação das assinaturas do servidor central (que representam moedas), enquanto ainda permitia que o servidor central realizasse a prevenção do gasto duplo. A exigência de um
+servidor central tornou-se o calcanhar de Aquiles do dinheiro digital [Gri99]. Embora
+seja possível distribuir esse ponto único de falha substituindo
+a assinatura do servidor central por uma assinatura threshold de vários
+signatários, é importante para a auditabilidade que os signatários sejam distintos
+e identificáveis. Isso ainda deixa o sistema vulnerável a falhas,
+pois cada signatário pode falhar, ou ser forçado a falhar, um por um.
 ____
 
-It became clear that using a central server to order transactions was
-not a viable option due to the high risk of censorship. Even if one
-replaced the central server with a federation of a fixed set of
-n servers, of which at least m must
-approve of an ordering, there would still be difficulties. The problem would indeed 
-shift to one where users must agree on this set of n servers 
-as well as on how to replace malicious servers with good ones without relying on a central authority.
+Ficou claro que usar um servidor central para ordenar transações não era
+uma opção viável devido ao alto risco de censura. Mesmo que alguém
+substituísse o servidor central por uma federação de um conjunto fixo de
+n servidores, dos quais pelo menos m devem
+aprovar uma ordenação, ainda haveria dificuldades. O problema, de fato, 
+se deslocaria para um cenário onde os usuários precisam concordar com esse conjunto de n servidores 
+assim como sobre como substituir servidores maliciosos por bons sem depender de uma autoridade central.
 
-Let's contemplate what could happen if Bitcoin were censorable. The
-censor could pressure users to identify themselves, to
-declare where their money is coming from or what they're buying with it
-before allowing their transactions to enter the blockchain.
+Vamos contemplar o que poderia acontecer se o Bitcoin fosse censurável. O
+censor poderia pressionar os usuários a se identificarem, a
+declarar de onde vem seu dinheiro ou o que estão comprando com ele
+antes de permitir que suas transações entrem na blockchain.
 
-Also, the lack of censorship resistance would allow the censor to
-coerce users into adopting new system rules. For example, they could
-impose a change that allowed them to inflate the money supply, thereby enriching
-themselves. In such an event, a user verifying blocks would have three
-options to handle the new rules:
+Além disso, a falta de resistência à censura permitiria que o censor
+coagisse os usuários a adotar novas regras do sistema. Por exemplo, eles poderiam
+impor uma mudança que permitisse inflacionar a oferta de dinheiro, enriquecendo
+assim a si próprios. Em tal caso, um usuário que verifica blocos teria três
+opções para lidar com as novas regras:
 
-* Adopt: Accept the changes and adopt them into their full node.
-* Reject: Refuse to adopt the changes; this leaves the user with a system that doesn't process
-transactions anymore, as the censor's blocks are now deemed invalid
-by the user's full node.
-* Move: Appoint a new central point of control; all of the users must figure out how
-to coordinate and then agree on the new central control point.
-If they succeed, the same issues will most likely resurface at some point in the future, considering that the system
-remained just as censorable as it was before.
+* Adotar: Aceitar as mudanças e adotá-las em seu nó completo.
+* Rejeitar: Recusar-se a adotar as mudanças; isso deixaria o usuário com um sistema que não processa
+mais transações, pois os blocos do censor agora seriam considerados inválidos
+pelo nó completo do usuário.
+* Mover: Nomear um novo ponto central de controle; todos os usuários devem descobrir como
+coordenar e depois concordar com o novo ponto de controle central.
+Se eles tiverem sucesso, os mesmos problemas provavelmente ressurgirão em algum momento no futuro, considerando que o sistema
+permaneceu tão censurável quanto era antes.
 
-None of these options are beneficial to the user.
+Nenhuma dessas opções é benéfica para o usuário.
 
-Censorship resistance through decentralization is what separates Bitcoin from
-other money systems, but it is not an easy thing to accomplish due to
-the _double-spending problem_. This is the problem of making sure no
-one can spend the same coin twice, an issue that many people thought was
-impossible to solve in a decentralized fashion. Satoshi Nakamoto
-write in his https://bitcoin.org/bitcoin.pdf[Bitcoin whitepaper] about how
-to solve the double-spending problem:
+A resistência à censura através da descentralização é o que diferencia o Bitcoin de
+outros sistemas monetários, mas não é uma coisa fácil de realizar devido
+ao _problema do gasto duplo_. Este é o problema de garantir que ninguém
+possa gastar a mesma moeda duas vezes, uma questão que muitas pessoas pensavam ser
+impossível de resolver de maneira descentralizada. Satoshi Nakamoto
+escreve em seu https://bitcoin.org/bitcoin.pdf[whitepaper do Bitcoin] sobre como
+resolver o problema do gasto duplo:
 
 [quote, Satoshi Nakamoto, Bitcoin: A Peer-to-Peer Electronic Cash System (2008)]
 ____
-In this paper, we propose a solution to the double-spending problem
-using a peer-to-peer distributed timestamp server to generate
-computational proof of the chronological order of transactions.
+Neste artigo, propomos uma solução para o problema do gasto duplo
+usando um servidor de timestamp distribuído peer-to-peer para gerar
+prova computacional da ordem cronológica das transações.
 ____
 
-Here he uses the peculiar-sounding phrase "`peer-to-peer distributed timestamp
-server`". The keyword here is _distributed_, which in this
-context means that there is no central point of control. Nakamoto then
-goes on to explain how proof-of-work is the solution. Still, no one
-explains it better than
+Aqui ele usa a frase peculiar "`servidor de timestamp distribuído peer-to-peer`".
+A palavra-chave aqui é _distribuído_, o que neste
+contexto significa que não há ponto central de controle. Nakamoto então
+prossegue explicando como a prova de trabalho é a solução. Ainda assim, ninguém
+explica isso melhor do que
 https://www.reddit.com/r/Bitcoin/comments/ddddfl/question_on_the_vulnerability_of_bitcoin/f2g9e7b/[Gregory
-Maxwell on Reddit], where he responds to someone who proposes to limit
-miners`' hash power to avoid potential 51% attacks:
+Maxwell no Reddit], onde ele responde a alguém que propõe limitar
+o poder de hash dos mineradores para evitar possíveis ataques de 51%:
 
 [[one-cpu-one-vote]]
 [quote, Gregory Maxwell, r/Bitcoin subreddit (2019)]
 ____
-A decentralized system like Bitcoin uses a public election. But you
-can't just have a vote of 'people' in a decentralized system because
-that would require a centralized party to authorize people to
-vote. Instead, Bitcoin uses a vote of computing power because it's
-possible to verify computing power without the help of any centralized
-third party.
+Um sistema descentralizado como o Bitcoin usa uma eleição pública. Mas você
+não pode simplesmente ter um voto de 'pessoas' em um sistema descentralizado porque
+isso exigiria uma parte centralizada para autorizar as pessoas a
+votar. Em vez disso, o Bitcoin usa um voto de poder computacional porque é
+possível verificar o poder computacional sem a ajuda de qualquer
+terceira parte centralizada.
 ____
 
-The post explains how the decentralized Bitcoin network can come to an
-agreement on transaction ordering through the use of proof-of-work.
-He then concludes by saying that the 51% attack is not particularly
-worrisome, compared to people not caring about or not
-understanding Bitcoin's decentralization properties.
+A postagem explica como a rede descentralizada do Bitcoin pode chegar a um
+acordo sobre a ordenação de transações através do uso da prova de trabalho.
+Ele então conclui dizendo que o ataque de 51% não é particularmente
+preocupante, em comparação com as pessoas não se importarem ou não
+entenderem as propriedades de descentralização do Bitcoin.
 
 [quote, Gregory Maxwell, r/Bitcoin subreddit (2019)]
 ____
-A far bigger risk to Bitcoin is that the public using it won't
-understand, won't care, and won't protect the decentralization
-properties that make it valuable over centralized alternatives in the
-first place.
+Um risco muito maior para o Bitcoin é que o público que o usa não
+entenda, não se importe e não proteja as propriedades de descentralização
+que o tornam valioso em relação às alternativas centralizadas.
 ____
 
-The conclusion is an important one. If people don't protect Bitcoin's
-decentralization, which is a proxy for its censorship resistance, Bitcoin
-might fall victim to centralizing powers, until it's so centralized
-that censorship becomes a thing. Then most, if not all, of its value
-proposition is gone. This brings us to the next section on full node
-decentralization.
+A conclusão é importante. Se as pessoas não protegerem a
+descentralização do Bitcoin, que é um proxy para sua resistência à censura, o Bitcoin
+pode cair vítima de poderes centralizadores, até que esteja tão centralizado
+que a censura se torne uma realidade. Então, a maior parte, senão toda, de sua proposta
+de valor desaparece. Isso nos leva à próxima seção sobre descentralização de nós completos.
 
 [[fullnodedecentralization]]
-=== Full node decentralization
+=== Descentralização de nós completos
 
-In the paragraphs above, we've mostly talked about miner decentralization and how
-centralizating miners can allow for censorship. But there's also another
-aspect of decentralization, namely _full node decentralization_.
+Nos parágrafos acima, falamos principalmente sobre a descentralização dos mineradores e como
+a centralização dos mineradores pode permitir a censura. Mas há também outro
+aspecto da descentralização, a saber, a _descentralização de nós completos_.
 
-The importance of full node decentralization is related to
-trustlessness (see <<trustlessness>>). Suppose a user stops running their own
-full node due to, for example, a prohibitive increase in the cost of
-operation. In that case, they have to interact with the Bitcoin network in some
-other way, possibly by using web wallets or lightweight wallets, which requires a certain level of trust in the providers of these services.
-The user goes from directly enforcing the network consensus rules to trusting that
-someone else will. Now suppose that most users delegate consensus enforcement to a
-trusted entity. In that case, the network can quickly spiral into centralization, and the
-network rules can be changed by conspiring malicious actors.
+A importância da descentralização dos nós completos está relacionada à
+confiança nula (veja <<trustlessness>>). Suponha que um usuário pare de executar seu próprio
+nó completo devido, por exemplo, a um aumento proibitivo no custo de
+operação. Nesse caso, ele terá que interagir com a rede Bitcoin de alguma
+outra forma, possivelmente usando carteiras web ou carteiras leves, o que exige um certo nível de confiança nos provedores desses serviços.
+O usuário passa de impor diretamente as regras de consenso da rede para confiar que
+alguém mais o fará. Agora suponha que a maioria dos usuários delegue a imposição do consenso a uma
+entidade confiável. Nesse caso, a rede pode rapidamente entrar em uma espiral de centralização, e as
+regras da rede podem ser alteradas por atores maliciosos conspirando.
 
-In
-https://bitcoinmagazine.com/technical/decentralist-perspective-bitcoin-might-need-small-blocks-1442090446[a
-Bitcoin Magazine article], Aaron van Wirdum interviews Bitcoin
-developers about their views on decentralization and the risks
-involved in increasing Bitcoin's maximum block size. This discussion
-was a hot topic during the 2014-2017 era, when many people argued over
-increasing the block size limit to allow for more transaction
-throughput.
+Em
+https://bitcoinmagazine.com/technical/decentralist-perspective-bitcoin-might-need-small-blocks-1442090446[um
+artigo da Bitcoin Magazine], Aaron van Wirdum entrevista desenvolvedores de Bitcoin
+sobre suas opiniões sobre descentralização e os riscos
+envolvidos no aumento do tamanho máximo do bloco do Bitcoin. Essa discussão
+foi um tópico quente durante a era de 2014-2017, quando muitas pessoas discutiam
+sobre o aumento do limite de tamanho do bloco para permitir maior
+throughput de transações.
 
-A powerful argument against increasing the block size is that it
-increases the cost of verification (see <<verticalscaling,the
-Scaling chapter>>). If verification cost rises, it will push some 
-users to stop running their full nodes. This, in turn, will lead to
-more people not being able to use the system in a
-trustless way. Pieter Wuille is quoted in the article, where he
-explains the risks of full node centralization.
+Um argumento poderoso contra o aumento do tamanho do bloco é que ele
+aumenta o custo de verificação (veja <<verticalscaling,o
+capítulo de Escalabilidade>>). Se o custo de verificação aumentar, isso levará alguns
+usuários a parar de executar seus nós completos. Isso, por sua vez, levará a
+mais pessoas não conseguirem usar o sistema de forma
+confiável. Pieter Wuille é citado no artigo, onde ele
+explica os riscos da centralização dos nós completos.
 
 [quote, Pieter Wuille, The Decentralist Perspective or Why Bitcoin Might Need Small Blocks (2015)]
 ____
-If lots companies run a full node, it means they all need to be
-convinced to implement a different rule set. In other words: the
-decentralization of block validation is what gives consensus rules
-their weight. But if full node count would drop very low, for instance
-because everyone uses the same web-wallets, exchanges and SPV or
-mobile wallets, regulation could become a reality. And if authorities
-can regulate the consensus rules, it means they can change anything
-that makes Bitcoin Bitcoin. Even the 21 million bitcoin limit.
+Se muitas empresas executarem um nó completo, isso significa que todas precisarão ser
+convencidas a implementar um conjunto de regras diferente. Em outras palavras: a
+descentralização da validação de blocos é o que dá peso às regras de consenso.
+Mas se o número de nós completos cair muito, por exemplo
+porque todos usam as mesmas carteiras web, exchanges e carteiras SPV ou
+móveis, a regulamentação pode se tornar uma realidade. E se as autoridades
+puderem regulamentar as regras de consenso, significa que podem mudar qualquer coisa
+que faz o Bitcoin ser Bitcoin. Até mesmo o limite de 21 milhões de bitcoins.
 ____
 
-There you go. Bitcoin users should run their own full
-nodes to deter regulators and big corporations from trying to change
-the consensus rules.
+Aí está. Os usuários de Bitcoin devem executar seus próprios nós
+completos para dissuadir reguladores e grandes corporações de tentar mudar
+as regras de consenso.
 
 [[neutrality]]
-=== Neutrality
+=== Neutralidade
 
-Bitcoin is neutral, or permissionless, as people like to call it. This
-means that Bitcoin doesn't care who you are or what you use it for.
+O Bitcoin é neutro, ou sem necessidade de permissão, como as pessoas gostam de chamar. Isso
+significa que o Bitcoin não se importa com quem você é ou para que você o usa.
 
-[quote, wumpus on freenode IRC (punctuation added), #bitcoin-core-dev 2012-04-04T17:34:04 UTC]
+[quote, wumpus on freenode IRC (pontuação adicionada), #bitcoin-core-dev 2012-04-04T17:34:04 UTC]
 ____
-bitcoin is neutral, which is a good thing, and the only way it can
-work. if it was controlled by an organisation it'd just be another
-virtual object type and I would have zero interest in it
+o bitcoin é neutro, o que é uma coisa boa, e a única maneira como ele pode
+funcionar. se fosse controlado por uma organização, seria apenas mais um
+tipo de objeto virtual e eu não teria nenhum interesse nele
 ____
 
-As long as you play by the rules, you're free to use it
-as you please, without asking anyone for permission. This includes
-_mining_, _transacting_ in, and _building protocols and services_ on top of
+Desde que você jogue pelas regras, você é livre para usá-lo
+como quiser, sem pedir permissão a ninguém. Isso inclui
+_mineração_, _transações_ e _construção de protocolos e serviços_ em cima do
 Bitcoin.
 
-* If *mining* were a permissioned process, we would need a
-central authority to select who's allowed to mine. This would most
-likely lead to miners having to sign legal contracts in which they would agree
-to censor transactions according to the whims of the central
-authority, which defeats the purpose of mining in the first place.
+* Se a *mineração* fosse um processo com necessidade de permissão, precisaríamos de uma
+autoridade central para selecionar quem tem permissão para minerar. Isso provavelmente levaria a mineradores tendo que assinar contratos legais nos quais concordariam em
+censurar transações de acordo com os caprichos da autoridade
+central, o que anularia o propósito da mineração em primeiro lugar.
 
-* If people *transacting* in Bitcoin had to provide personal
-information, declare what their transactions were for, or otherwise prove
-that they were worthy of transacting, we would also need a central
-point of authority to approve users or transactions. Again,
-this would lead to censorship and exclusion.
+* Se as pessoas que *transacionam* em Bitcoin tivessem que fornecer informações
+pessoais, declarar para que servem suas transações ou de outra forma provar
+que são dignas de transacionar, também precisaríamos de um ponto central
+de autoridade para aprovar usuários ou transações. Novamente,
+isso levaria à censura e exclusão.
 
-* If developers had to ask for permission to *build protocols* on top of
-Bitcoin, only the protocols allowed by the central developer granting committee
-would get developed. This would, due to government intervention,
-inevitably exclude all privacy-preserving protocols and all attempts
-at improving decentralization.
+* Se os desenvolvedores tivessem que pedir permissão para *construir protocolos* em cima do
+Bitcoin, apenas os protocolos permitidos pelo comitê central de desenvolvimento
+seriam desenvolvidos. Isso, devido à intervenção do governo,
+inevitavelmente excluiria todos os protocolos que preservam a privacidade e todas as tentativas
+de melhorar a descentralização.
 
-At all levels, trying to impose restrictions on who gets to use
-Bitcoin for what will hurt Bitcoin to the point where it's no longer
-living up to its value proposition.
+Em todos os níveis, tentar impor restrições sobre quem pode usar
+o Bitcoin para o quê prejudicará o Bitcoin a ponto de ele não mais
+corresponder à sua proposta de valor.
 
-Pieter Wuille https://bitcoin.stackexchange.com/a/92055/69518[answers
-a question on Stack Exchange] about how the blockchain relates to
-normal databases. He explains how permissionlessness is achievable
-through the use of proof-of-work in combination with economic
-incentives. He concludes:
+Pieter Wuille https://bitcoin.stackexchange.com/a/92055/69518[responde
+uma pergunta no Stack Exchange] sobre como a blockchain se relaciona com
+bancos de dados normais. Ele explica como a ausência de necessidade de permissão é alcançada
+através do uso da prova de trabalho em combinação com incentivos
+econômicos. Ele conclui:
 
 [quote, Pieter Wuille, Stack Exchange (2019)]
 ____
-Using trustless consensus algorithms like PoW does add something no
-other construction gives you (permissionless participation, meaning
-there is no set group of participants that can censor your changes),
-but comes at a high cost, and its economic assumptions make it pretty
-much only useful for systems that define their own
-cryptocurrency. There is probably only place in the world for one or a
-few actually used ones of these.
+Usar algoritmos de consenso sem confiança como PoW realmente adiciona algo que
+nenhuma outra construção oferece (participação sem necessidade de permissão, ou seja,
+não há um grupo definido de participantes que pode censurar suas mudanças),
+mas vem a um custo alto, e suas suposições econômicas fazem com que seja praticamente
+útil apenas para sistemas que definem sua própria
+criptomoeda. Provavelmente há espaço no mundo para apenas um ou
+alguns desses sistemas realmente usados.
 ____
 
-He explains that, in order to achieve permissionlessness, the system most
-likely needs its own currency, thereby "`limiting the use cases to
-effectively just cryptocurrencies`". This is because permissionless
-participation, or mining, requires economic incentives built into the
-system itself.
+Ele explica que, para alcançar a ausência de necessidade de permissão, o sistema provavelmente
+precisa de sua própria moeda, limitando assim os casos de uso a
+praticamente apenas criptomoedas. Isso ocorre porque a participação sem necessidade de permissão,
+ou mineração, requer incentivos econômicos embutidos no
+próprio sistema.
 
-=== Grokking decentralization
+=== Compreendendo a descentralização
 
-A compelling aspect of Bitcoin is how hard it is to grasp
-that no one controls it. There are no committees or executives in
-Bitcoin. Gregory Maxwell, again
-https://www.reddit.com/r/Bitcoin/comments/s82t2n/comment/htdte7w/?utm_source=share&utm_medium=web2x&context=3[on
-the Bitcoin subreddit], compares this to the English language in an
-intriguing way:
+Um aspecto fascinante do Bitcoin é como é difícil compreender
+que ninguém o controla. Não há comitês ou executivos no
+Bitcoin. Gregory Maxwell, novamente
+https://www.reddit.com/r/Bitcoin/comments/s82t2n/comment/htdte7w/?utm_source=share&utm_medium=web2x&context=3[no
+subreddit do Bitcoin], compara isso à língua inglesa de uma
+maneira intrigante:
 
 [quote, Gregory Maxwell, r/Bitcoin subreddit (2022)]
 ____
-Many people have a hard time understanding autonomous systems, there
-are many in their lives things like the english language-- but people
-just take them for granted and don't even think of them as
-systems. They're stuck in a centralized way of thinking where
-everything they think of as a 'thing' has an authority that
-controls it.
+Muitas pessoas têm dificuldade em entender sistemas autônomos, há
+muitos em suas vidas coisas como a língua inglesa-- mas as pessoas
+simplesmente os tomam como garantidos e nem mesmo os consideram
+sistemas. Elas estão presas em um modo de pensar centralizado onde
+tudo o que consideram um 'objeto' tem uma autoridade que
+o controla.
 
-Bitcoin doesn't focus on anything. Various people who have adopted
-Bitcoin chose of their own free will to promote it, and how they
-choose to do so is their own business. Authority fixated people may
-see these activities and believe they're some operation by the bitcoin
-authority, but no such authority exists.
+O Bitcoin não foca em nada. Várias pessoas que adotaram
+o Bitcoin escolheram, por vontade própria, promovê-lo, e como elas
+escolhem fazer isso é problema delas. Pessoas fixadas em autoridade podem
+ver essas atividades e acreditar que são alguma operação pela autoridade
+do bitcoin, mas tal autoridade não existe.
 ____
 
-.Fish schools have no leaders.
+.Cardumes de peixes não têm líderes.
 [.right.half-width.thumb,pdfwidth=300px,float=right]
 image::fishschool.jpg[]
 
-The way Bitcoin works through decentralization resembles the
-extraordinary collective intelligence found among many species in
-nature. Computer scientist Radhika Nagpal speaks in a
+A forma como o Bitcoin funciona através da descentralização se assemelha à
+inteligência coletiva extraordinária encontrada entre muitas espécies na
+natureza. A cientista da computação Radhika Nagpal fala em um
 https://www.ted.com/talks/radhika_nagpal_what_intelligent_machines_can_learn_from_a_school_of_fish[Ted
-talk] about the collective behavior of fish schools and how scientists are trying
-to mimic it using robots.
+talk] sobre o comportamento coletivo dos cardumes de peixes e como os cientistas estão tentando
+imitá-lo usando robôs.
 
 [quote, Radhika Nagpal, What intelligent machines can learn from a school of fish (2017)]
 ____
-Secondly, and the thing that I still find most remarkable, is that we
-know that there are no leaders supervising this fish school. Instead,
-this incredible collective mind behavior is emerging purely from the
-interactions of one fish and another. Somehow, there are these
-interactions or rules of engagement between neighboring fish that make
-it all work out.
+Em segundo lugar, e a coisa que ainda acho mais notável, é que sabemos
+que não há líderes supervisionando esse cardume de peixes. Em vez disso,
+esse comportamento de mente coletiva incrível está emergindo puramente das
+interações de um peixe com outro. De alguma forma, existem essas
+interações ou regras de engajamento entre os peixes vizinhos que fazem
+tudo funcionar.
 ____
 
-She points out that many systems, either natural or artificial, can and do
-work without leaders, and they are powerful and resilient. Each individual only
-interacts with their immediate surroundings, but together they form something
-tremendous.
+Ela aponta que muitos sistemas, sejam naturais ou artificiais, podem e
+funcionam sem líderes, e eles são poderosos e resilientes. Cada indivíduo apenas
+interage com seu ambiente imediato, mas juntos formam algo
+tremendo.
 
-No matter what you think about Bitcoin, its decentralized nature makes
-it difficult to control. Bitcoin exists, and there's nothing you can do
-about it. It's something to be studied, not debated.
+Não importa o que você pense sobre o Bitcoin, sua natureza descentralizada torna
+difícil controlá-lo. O Bitcoin existe, e não há nada que você possa fazer
+a respeito. É algo a ser estudado, não debatido.
 
-=== Conclusion
+=== Conclusão
 
-We distinguish between full node decentralization and mining
-decentralization. Mining decentralization is a means to achieve
-censonship resistance, while full node decentralization is what keeps
-the consensus rules of the network hard to change without broad
-support among users.
+Distinguimos entre descentralização de nós completos e descentralização de mineradores. 
+A descentralização dos mineradores é um meio para alcançar
+a resistência à censura, enquanto a descentralização dos nós completos é o que mantém
+as regras de consenso da rede difíceis de mudar sem amplo
+apoio entre os usuários.
 
-The decentralized nature of Bitcoin allows for neutrality towards
-developers, users, and miners. Anyone is free to participate without
-asking for permission.
+A natureza descentralizada do Bitcoin permite a neutralidade em relação a
+desenvolvedores, usuários e mineradores. Qualquer pessoa é livre para participar sem
+pedir permissão.
 
-Decentralized systems can be hard to wrap your head around, but there
-are some mental models that may help, for example the English
-language, or fish schools.
+Sistemas descentralizados podem ser difíceis de entender, mas
+há alguns modelos mentais que podem ajudar, como a língua
+inglesa ou cardumes de peixes.

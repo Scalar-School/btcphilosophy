@@ -1,200 +1,199 @@
-== Finite supply
+== Emissão finita
 
 image::finitesupply-banner.jpg[]
 
-This chapter looks into the bitcoin supply limit of 21 million BTC, or
-how much is it actually? We talk about how this limit is enforced
-and what one can do to verify that it's being respected. Moreover, we
-take a peek into the crystal ball and discuss the dynamics
-that will come into play when the block reward shifts from
-subsidy-based to fee-based.
+Este capítulo explora o limite de fornecimento de bitcoin de 21 milhões de BTC, ou
+quanto realmente é? Falamos sobre como esse limite é imposto
+e o que se pode fazer para verificar se está sendo respeitado. Além disso,
+damos uma espiada na bola de cristal e discutimos as dinâmicas
+que entrarão em jogo quando a recompensa de bloco passar de
+baseada em subsídio para baseada em taxas.
 
-The well-known finite supply of 21 million BTC is regarded as a
-fundamental property of Bitcoin. But is it really set in stone?
+O bem conhecido limite finito de 21 milhões de BTC é considerado uma
+propriedade fundamental do Bitcoin. Mas será que realmente está gravado em pedra?
 
-Let's start by looking at what the current consensus rules say about
-the supply of bitcoin, and how much of it will actually be
-usable. Pieter Wuille wrote a piece about this
-https://bitcoin.stackexchange.com/a/38998/69518[on Stack Exchange],
-in which he counted how many bitcoins there would be once all coins are
-mined:
-
-[quote, Pieter Wuille, Stack Exchange (2015)]
-____
-If you sum all these numbers together, you get *20999999.9769* BTC.
-____
-
-But due to a number of reasons -- such as early problems with coinbase
-transactions, miners who unintentionally claim less than allowed, and
-loss of private keys -- that upper limit will never be reached. Wuille
-concludes:
+Vamos começar olhando o que as regras de consenso atuais dizem sobre
+o fornecimento de bitcoin e quanto dele será realmente
+utilizável. Pieter Wuille escreveu um artigo sobre isso
+https://bitcoin.stackexchange.com/a/38998/69518[no Stack Exchange],
+no qual ele calculou quantos bitcoins haveriam uma vez que todas as moedas fossem
+mineradas:
 
 [quote, Pieter Wuille, Stack Exchange (2015)]
 ____
-This leaves us with *20999817.31308491* BTC (taking everything up to
-block 528333 into account)
+Se você somar todos esses números, você obtém *20999999.9769* BTC.
+____
+
+Mas devido a uma série de razões - como problemas iniciais com transações de coinbase,
+mineradores que acidentalmente reivindicam menos do que o permitido, e
+perda de chaves privadas - esse limite superior nunca será alcançado. Wuille
+conclui:
+
+[quote, Pieter Wuille, Stack Exchange (2015)]
+____
+Isso nos deixa com *20999817.31308491* BTC (levando tudo em conta até
+o bloco 528333)
 
 //noqr
-\... However, various wallets have been lost or stolen, transactions
-have been sent to the wrong address, people forgot they owned
-bitcoin. The totals of this may well be millions. People have tried to
+\... No entanto, várias carteiras foram perdidas ou roubadas, transações
+foram enviadas para o endereço errado, as pessoas esqueceram que possuíam
+bitcoin. O total dessas perdas pode muito bem ser de milhões. As pessoas tentaram
 tally known losses up
-https://bitcointalk.org/index.php?topic=7253.0[here].
+https://bitcointalk.org/index.php?topic=7253.0[aqui].
 
-This leaves us with: *???* BTC.
+Isso nos deixa com: *???* BTC.
 ____
 
-We can thus be sure that the bitcoin supply will be
-20999817.31308491 BTC at most. Any lost or unverifiably burnt coins will make
-this number lower, but we don't know by how much. The interesting
-thing is that it doesn't really matter, or better yet it does matter in a
-positive way for bitcoin holders,
-https://bitcointalk.org/index.php?topic=198.msg1647#msg1647[as
-explained] by Satoshi Nakamoto:
+Podemos, portanto, ter certeza de que o fornecimento de bitcoin será de
+no máximo 20999817.31308491 BTC. Qualquer moeda perdida ou queimada de forma não verificável reduzirá
+esse número, mas não sabemos em quanto. O interessante
+é que isso realmente não importa, ou melhor ainda, importa de forma
+positiva para os detentores de bitcoin,
+https://bitcointalk.org/index.php?topic=198.msg1647#msg1647[como
+explicado] por Satoshi Nakamoto:
 
 [quote,Satoshi Nakamoto on lost bitcoins, Bitcointalk forum (2010)]
 ____
-Lost coins only make everyone else's coins worth slightly more.  Think
-of it as a donation to everyone.
+Moedas perdidas só tornam as moedas de todos os outros um pouco mais valiosas. Pense
+nisso como uma doação para todos.
 ____
 
-The finite supply will shrink and this should, at least in theory,
-cause price deflation.
+O fornecimento finito vai diminuir e isso deve, pelo menos em teoria,
+causar deflação de preços.
 
-More important than the exact number of coins in circulation is
-the way the supply limit is enforced without any central
-authority. Alias chytrik puts it well on
+Mais importante do que o número exato de moedas em circulação é
+a maneira como o limite de fornecimento é imposto sem qualquer autoridade
+central. Alias chytrik coloca isso bem em
 https://bitcoin.stackexchange.com/a/106830/69518[Stack Exchange].
 
 [quote, chytrik, Stack Exchange (2021)]
 ____
-So the answer is that you don't have to trust someone to not increase
-the supply. You just have to run some code that will verify that they
-haven't.
+Então, a resposta é que você não precisa confiar em alguém para não aumentar
+o fornecimento. Você só precisa rodar algum código que verificará que isso
+não aconteceu.
 ____
 
-Even if some full nodes turn to the dark side and decide to
-accept blocks with higher-value coinbase transactions, all the remaining full
-nodes will simply neglect them and continue doing business as usual. Some full nodes
-may, intentionally or unintentionally (see
-<<combined-output-overflow>>), run evil
-softwares, yet the collective will robustly secure the blockchain.
-In conclusion, you can choose to trust the system without having to
-trust anyone.
+Mesmo se alguns nós completos virarem para o lado negro e decidirem
+aceitar blocos com transações de coinbase de valor maior, todos os outros nós
+completos simplesmente os negligenciarão e continuarão operando normalmente. Alguns nós completos
+podem, intencionalmente ou não (veja
+<<combined-output-overflow>>), rodar softwares
+mal-intencionados, mas o coletivo protegerá a blockchain de forma robusta.
+Em conclusão, você pode escolher confiar no sistema sem precisar
+confiar em ninguém.
 
-=== Block subsidy and transaction fees
+=== Subsídio de bloco e taxas de transação
 
-A block reward is composed of the block subsidy plus transaction
-fees. The block reward needs to cover Bitcoin's security costs. We can
-say for sure that under today's conditions with regard to block subsidy, transaction fees,
-bitcoin price, mempool size, hash power, degree of decentralization
-etc., the incentives for every player to play by the rules are high enough to preserve a
-secure monetary system.
+Uma recompensa de bloco é composta pelo subsídio de bloco mais as taxas de
+transação. A recompensa de bloco precisa cobrir os custos de segurança do Bitcoin. Podemos
+dizer com certeza que, nas condições atuais, em relação ao subsídio de bloco, taxas de transação,
+preço do bitcoin, tamanho do mempool, poder de hash, grau de descentralização
+etc., os incentivos para que cada participante siga as regras são altos o suficiente para preservar um
+sistema monetário seguro.
 
-What happens when the block subsidy approaches zero? To keep things simple, let's
-assume it actually equals zero. At this point, the system's security cost
-is covered through transaction fees only. What the future holds
-for us when this happens, we cannot know. The uncertainty factors are
-numerous and we are left to speculations. For example, Paul Sztorc's
-contribution to the subject
-https://www.truthcoin.info/blog/security-budget/[in his Truthcoin
-blog] is mostly speculations, but he has at least one solid point (please note that M2,
-as referred to by Sztorc, is a measurement of a fiat money supply):
+O que acontece quando o subsídio de bloco se aproxima de zero? Para simplificar, vamos
+assumir que ele realmente é igual a zero. Nesse ponto, o custo de segurança do sistema
+é coberto apenas pelas taxas de transação. O que o futuro nos reserva
+quando isso acontecer, não podemos saber. Os fatores de incerteza são
+numerosos e ficamos com especulações. Por exemplo, a contribuição de Paul Sztorc
+sobre o assunto
+https://www.truthcoin.info/blog/security-budget/[em seu blog Truthcoin]
+é principalmente especulativa, mas ele tem pelo menos um ponto sólido (observe que M2,
+conforme referido por Sztorc, é uma medida de oferta monetária fiduciária):
 
 [quote, 'Paul Sztorc, Security Budget in the Long Run', Truthcoin blog (2019)]
 ____
-While the two are mixed into the same “security budget”, the block
-subsidy and txn-fees are utterly and completely different. They are as
-different from each other, as “VISA’s total profits in 2017” are from
-the “total increase in M2 in 2017”.
+Embora os dois estejam misturados no mesmo "orçamento de segurança", o subsídio de bloco
+e as taxas de transação são completamente diferentes. Eles são tão
+diferentes um do outro quanto "os lucros totais da VISA em 2017" são diferentes
+do "aumento total de M2 em 2017".
 ____
 
-Today, it is holders who pay for security (via monetary inflation). Tomorrow
-it will be the spenders`' turn to somehow shoulder this burden, as
-illustrated below.
+Hoje, são os detentores que pagam pela segurança (via inflação monetária). Amanhã,
+será a vez dos gastadores de alguma forma arcar com esse fardo, como
+ilustrado abaixo.
 
-.As time goes by, the bearing of security costs will shift from holders to spenders.
+.Com o passar do tempo, o ônus dos custos de segurança passará dos detentores para os gastadores.
 image::finitesupply.png[width=60%]
 
-When transaction fees are the main motivation for mining, the
-incentives shift. Most notably, if the mempool of a miner doesn't
-contain enough transaction fees, it might become more profitable for
-that miner to rewrite Bitcoin's history rather than
-extending it. Bitcoin Optech has a specific
-https://bitcoinops.org/en/topics/fee-sniping/[section on this
-behavior], called _fee sniping_, written by David Harding:
+Quando as taxas de transação forem a principal motivação para a mineração, os
+incentivos mudarão. Mais notavelmente, se o mempool de um minerador não
+contiver taxas de transação suficientes, pode se tornar mais lucrativo para
+esse minerador reescrever a história do Bitcoin em vez de
+estendê-la. O Bitcoin Optech tem uma
+https://bitcoinops.org/en/topics/fee-sniping/[seção específica sobre esse
+comportamento], chamada _fee sniping_, escrita por David Harding:
 
 //noqr
 [quote,"David Harding, fee sniping", Bitcoin Optech website]
 ____
-Fee sniping is a problem that may occur as Bitcoin’s subsidy continues
-to diminish and transaction fees begin to dominate Bitcoin’s block
-rewards. If transaction fees are all that matter, then a miner with
-`x` percent of the hash rate has a `x` percent chance of mining the
-next block, so the expected value to them of honestly mining is `x`
-percent of the
-https://bitcoinops.org/en/newsletters/2021/06/02/#candidate-set-based-csb-block-template-construction[best
-feerate set of transactions] in their mempool.
+Fee sniping é um problema que pode ocorrer à medida que o subsídio do Bitcoin continua
+a diminuir e as taxas de transação começam a dominar as recompensas do bloco do Bitcoin. Se as taxas de transação forem tudo o que importa, então um minerador com
+`x` por cento do poder de hash tem uma chance de `x` por cento de minerar o
+próximo bloco, então o valor esperado de minerar honestamente para ele é `x`
+por cento do
+https://bitcoinops.org/en/newsletters/2021/06/02/#candidate-set-based-csb-block-template-construction[melhor
+conjunto de taxas de transação] em seu mempool.
 
-Alternatively, a miner could dishonestly attempt to re-mine the
-previous block plus a wholly new block to extend the chain. This
-behavior is referred to as fee sniping, and the dishonest miner’s
-chance of succeeding at it if every other miner is honest is
-`(x/(1-x))^2`. Even though fee sniping has an overall lower probability
-of success than honest mining, attempting dishonest mining could be
-the more profitable choice if transactions in the previous block paid
-significantly higher feerates than the transactions currently in the
-mempool—a small chance at a large amount can be worth more than a
-large chance at a small amount.
+Alternativamente, um minerador poderia tentar desonestamente re-minerar o
+bloco anterior, além de um bloco totalmente novo para estender a cadeia. Esse
+comportamento é conhecido como fee sniping, e a chance do minerador desonesto
+ter sucesso, se todos os outros mineradores forem honestos, é
+`(x/(1-x))^2`. Embora fee sniping tenha uma probabilidade geral menor
+de sucesso do que a mineração honesta, tentar a mineração desonesta pode ser
+a escolha mais lucrativa se as transações no bloco anterior pagarem
+taxas significativamente mais altas do que as transações atualmente no
+mempool — uma pequena chance de ganhar uma grande quantia pode valer mais do que uma
+grande chance de ganhar uma quantia pequena.
 ____
 
-Throwing a wet blanket over our hopes for the future is the fact that if miners start
-conducting fee sniping, this will incentivize others to do the same,
-leaving even fewer honest miners. This could severely impair the
-overall security of Bitcoin. Harding goes on to list a few
-countermeasures that can be taken, such as relying on transaction
-time locks to restrict where in the blockchain the transaction may
-appear.
+Jogando um balde de água fria sobre nossas esperanças para o futuro está o fato de que, 
+se os mineradores começarem a realizar fee sniping, isso incentivará outros a fazerem o mesmo,
+deixando ainda menos mineradores honestos. Isso poderia prejudicar gravemente a
+segurança geral do Bitcoin. Harding continua a listar algumas
+contramedidas que podem ser adotadas, como confiar em bloqueios de
+tempo de transações para restringir onde na blockchain a transação pode
+aparecer.
 
-So, given that the consensus on finite supply remains, the block
-subsidy will - thanks to
-https://github.com/bitcoin/bips/blob/master/bip-0042.mediawiki[BIP42]
-which fixed a very-long-term inflation bug - get to zero around year
-2140. Will the transaction fees thereafter be enough to secure the
-network? It's impossible to say, but we do know a few things:
+Então, dado que o consenso sobre o fornecimento finito permanece, o subsídio
+de bloco - graças ao
+https://github.com/bitcoin/bips/blob/master/bip-0042.mediawiki[BIP42],
+que corrigiu um bug de inflação de muito longo prazo - chegará a zero por volta do ano
+2140. As taxas de transação serão suficientes para garantir a
+rede a partir de então? É impossível dizer, mas sabemos algumas coisas:
 
-* A century is a _long_ time from the Bitcoin perspective. If it is
-  still around, it will have probably evolved enormously.
-* If an overwhelming economic majority finds it necessary to change
-  the rules and introduce for example a perpetual annual 0.1% or 1%
-  monetary inflation, the supply of bitcoin will no longer be finite.
-* With zero block subsidy and an empty or nearly empty mempool, things
-  can become shaky due to fee sniping.
+* Um século é um _longo_ tempo do ponto de vista do Bitcoin. Se ele ainda
+  existir, provavelmente terá evoluído enormemente.
+* Se uma esmagadora maioria econômica achar necessário mudar
+  as regras e introduzir, por exemplo, uma inflação monetária anual perpétua de 0,1% ou 1%,
+  o fornecimento de bitcoin não será mais finito.
+* Com subsídio de bloco zero e um mempool vazio ou quase vazio, as coisas
+  podem se tornar instáveis devido ao fee sniping.
 
-Since the transition to a fee-only block reward is so far in the future, it
-might be wise not to jump to conclusions and try to fix the potential
-issues while we can. For example, Peter Todd thinks there's an actual risk that Bitcoin's
-security budget won't be enough in the future, and consequently argues for a small
-perpetual inflation in Bitcoin. However, he also thinks it's not a
-good idea to discuss such an issue at this time, as
-https://www.whatbitcoindid.com/podcast/peter-todd-on-the-essence-of-bitcoin[he said on the What
-Bitcoin Did podcast]:
+Como a transição para uma recompensa de bloco baseada apenas em taxas está tão longe no futuro, pode
+ser sensato não tirar conclusões precipitadas e tentar resolver os possíveis
+problemas enquanto podemos. Por exemplo, Peter Todd acha que existe um risco real de que o
+orçamento de segurança do Bitcoin não seja suficiente no futuro e, consequentemente, argumenta a favor de uma pequena
+inflação perpétua no Bitcoin. No entanto, ele também acha que não é uma
+boa ideia discutir essa questão agora, como
+https://www.whatbitcoindid.com/podcast/peter-todd-on-the-essence-of-bitcoin[ele disse no podcast What
+Bitcoin Did]:
 
 [quote,Peter Todd on security budget, What Bitcoin Did podcast (2019)]
 ____
-But, that’s a risk like 10, 20 years in the future. That is a very
-long time. And, by then, who the hell knows what the risks are?
+Mas, esse é um risco para daqui a 10, 20 anos no futuro. Isso é um tempo
+muito longo. E, até lá, quem diabos sabe quais serão os riscos?
 ____
 
-Perhaps we could think of Bitcoin as something organic. Imagine a
-small, slowly-growing oak plant. Imagine also that you have never seen a fully
-grown tree in your life. Wouldn't it be wise then to restrain your
-control issues instead of setting in advance all the rules on how this plant
-should be allowed to evolve and grow?
+Talvez possamos pensar no Bitcoin como algo orgânico. Imagine uma
+pequena planta de carvalho crescendo lentamente. Imagine também que você nunca viu uma árvore totalmente
+crescida em sua vida. Não seria prudente então refrear suas
+questões de controle em vez de definir com antecedência todas as regras sobre como essa planta
+deve evoluir e crescer?
 
-=== Conclusion
+=== Conclusão
 
-Whether the bitcoin supply will grow past 21 million we cannot say
-today, and that is probably not so bad. Ensuring that the security
-budget remains high enough is crucial but not urgent. Let's have this
-discussion in 10-50 years, when we know more. If it's still relevant.
+Se o fornecimento de bitcoin ultrapassará 21 milhões, não podemos dizer
+hoje, e isso provavelmente não é tão ruim. Garantir que o orçamento de
+segurança permaneça alto o suficiente é crucial, mas não urgente. Vamos ter essa
+discussão daqui a 10-50 anos, quando soubermos mais. Se ainda for relevante.

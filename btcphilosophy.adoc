@@ -1,4 +1,4 @@
-= Bitcoin development philosophy
+= Filosofia do desenvolvimento do Bitcoin
 Kalle Rosenbaum <kalle@rosenbaum.se>; Linnéa Rosenbaum <linnea@rosenbaum.se>
 include::settings.adoc[]
 

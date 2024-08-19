@@ -1,280 +1,228 @@
-== Trustlessness
+== Confiança Zero
 
 image::trustlessness-banner.jpg[]
 
-This chapter dissects the concept of trustlessness, what it means from a computer
-science perspective, and why Bitcoin has to be trustless to retain its
-value proposition. We then talk about what it means to use Bitcoin in
-a trustless way, and what kind of guarantees a full node can and cannot
-give you. In the last section, we look at the real-world interaction
-between Bitcoin and actual softwares or users, and the need to make
-trade-offs between convenience and trustlessness to get anything done
-at all.
+Este capítulo disseca o conceito de confiança zero (trustlessness), o que ele significa 
+do ponto de vista da ciência da computação e por que o Bitcoin precisa ser 
+trustless para manter sua proposta de valor. Em seguida, falamos sobre o que 
+significa usar o Bitcoin de uma maneira sem confiança e que tipo de garantias 
+um full node pode e não pode oferecer. Na última seção, examinamos a interação 
+do Bitcoin no mundo real com softwares ou usuários reais, e a necessidade de fazer 
+trade-offs entre conveniência e confiança zero para conseguir realizar qualquer coisa.
 
-People often say things like "`Bitcoin is great because it's
-trustless`". What do they mean by trustless? Pieter Wuille explains
-this widely used term on
-https://bitcoin.stackexchange.com/a/45674/69518[Stack Exchange]:
+As pessoas frequentemente dizem coisas como "`Bitcoin é ótimo porque não exige confiança`". 
+O que elas querem dizer com confiança zero? Pieter Wuille explica esse termo amplamente 
+usado no https://bitcoin.stackexchange.com/a/45674/69518[Stack Exchange]:
 
 [quote, Pieter Wuille, Bitcoin Stack Exchange (2016)]
 ____
-The trust we're talking about in "trustless" is an abstract technical
-term. A distributed system is called trustless when it does not
-require any trusted parties to function correctly.
+A confiança de que estamos falando em "confiança zero" é um termo técnico abstrato. 
+Um sistema distribuído é chamado de sem confiança quando não requer nenhuma parte 
+confiável para funcionar corretamente.
 ____
 
-In short, the word _trustless_ refers to a property of the Bitcoin
-protocol whereby it can logically function without "`any trusted
-parties`". This is different from the trust you inevitably have to
-put into the software or hardware you run. More on this latter aspect of trust will be discussed further
-in this chapter.
+Em resumo, a palavra _trustless_ refere-se a uma propriedade do protocolo Bitcoin, segundo 
+a qual ele pode funcionar logicamente sem "`nenhuma parte confiável`". Isso é diferente da 
+confiança que você inevitavelmente tem que depositar no software ou hardware que você utiliza. 
+Mais sobre esse aspecto da confiança será discutido mais adiante neste capítulo.
 
-In centralized systems, we rely on a central actor's reputation in order to make sure
-that they will take care of security or roll back in case of issues,
-as well as on the legal system to sanction any violations. These trust
-requirements are problematic in pseudonymous decentralized systems - there is
-no possibility of recourse so there really can't be any trust. In the introduction to
-https://bitcoin.org/bitcoin.pdf[the Bitcoin whitepaper], Satoshi Nakamoto
-describes this problem:
+Em sistemas centralizados, confiamos na reputação de um ator central para garantir que ele 
+cuidará da segurança ou reverterá em caso de problemas, bem como no sistema legal para sancionar 
+quaisquer violações. Esses requisitos de confiança são problemáticos em sistemas descentralizados 
+pseudônimos - não há possibilidade de recurso, então realmente não pode haver confiança. 
+Na introdução ao https://bitcoin.org/bitcoin.pdf[whitepaper do Bitcoin], Satoshi Nakamoto 
+descreve esse problema:
 
 [quote,Satoshi Nakamoto, Bitcoin: A Peer-to-Peer Electronic Cash System (2008)]
 ____
-Commerce on the Internet has come to rely almost exclusively on
-financial institutions serving as trusted third parties to process
-electronic payments. While the system works well enough for most
-transactions, it still suffers from the inherent weaknesses of the
-trust based model.  Completely non-reversible transactions are not
-really possible, since financial institutions cannot avoid mediating
-disputes. The cost of mediation increases transaction costs, limiting
-the minimum practical transaction size and cutting off the possibility
-for small casual transactions, and there is a broader cost in the loss
-of ability to make non-reversible payments for nonreversible
-services. With the possibility of reversal, the need for trust
-spreads. Merchants must be wary of their customers, hassling them for
-more information than they would otherwise need.  A certain percentage
-of fraud is accepted as unavoidable. These costs and payment
-uncertainties can be avoided in person by using physical currency, but
-no mechanism exists to make payments over a communications channel
-without a trusted party
+O comércio na Internet passou a depender quase exclusivamente de instituições financeiras 
+que servem como terceiros confiáveis para processar pagamentos eletrônicos. Embora o sistema 
+funcione bem o suficiente para a maioria das transações, ele ainda sofre com as fraquezas 
+inerentes ao modelo baseado em confiança. Transações completamente não reversíveis não são 
+realmente possíveis, pois as instituições financeiras não podem evitar a mediação de disputas. 
+O custo da mediação aumenta os custos das transações, limitando o tamanho mínimo prático da 
+transação e eliminando a possibilidade de pequenas transações casuais, e há um custo mais amplo 
+na perda da capacidade de fazer pagamentos não reversíveis para serviços não reversíveis. 
+Com a possibilidade de reversão, a necessidade de confiança se espalha. Os comerciantes devem 
+ficar atentos aos seus clientes, incomodando-os por mais informações do que normalmente precisariam. 
+Uma certa porcentagem de fraude é aceita como inevitável. Esses custos e incertezas de pagamento 
+podem ser evitados pessoalmente usando moeda física, mas não existe nenhum mecanismo para fazer 
+pagamentos através de um canal de comunicação sem uma parte confiável.
 ____
 
-It seems that we can't have a decentralized system based on trust, and
-that's why trustlessness is important in Bitcoin.
+Parece que não podemos ter um sistema descentralizado baseado em confiança, e é por isso que a 
+confiança zero é importante no Bitcoin.
 
-To use Bitcoin in a trustless manner, you have to run a
-fully-validating Bitcoin node. Only then will you be able to verify
-that the blocks you receive from others are following the consensus
-rules; for example, that the coin issuance schedule is kept and that no
-double-spends occur on the blockchain. If you don't run a full node,
-you outsource verification of Bitcoin blocks to someone else and
-trust them to tell you the truth, which means you're not using Bitcoin
-trustlessly.
+Para usar o Bitcoin de forma sem confiança, você precisa executar um node Bitcoin de validação 
+completa. Só então você será capaz de verificar se os blocos que você recebe de outros estão 
+seguindo as regras de consenso; por exemplo, se o cronograma de emissão de moedas está sendo
+mantido e se não ocorrem double-spends na blockchain. Se você não executar um full node, você 
+terceiriza a verificação dos blocos do Bitcoin para outra pessoa e confia que eles estão lhe 
+dizendo a verdade, o que significa que você não está usando o Bitcoin de forma sem confiança.
 
-David Harding has authored
-https://bitcoin.org/en/bitcoin-core/features/validation[an article on
-the bitcoin.org website] explaining how running a full node - or
-using Bitcoin trustlessly - actually helps you.
+David Harding é autor de https://bitcoin.org/en/bitcoin-core/features/validation[um artigo no site bitcoin.org] 
+explicando como executar um full node - ou usar o Bitcoin sem confiança - realmente ajuda você.
 
-[quote, David Harding, Full Validation on bitcoin.org (2015)]
+[quote, David Harding, Validação Completa no bitcoin.org (2015)]
 ____
-The bitcoin currency only works when people accept bitcoins in
-exchange for other valuable things. That means it’s the people
-accepting bitcoins who give it value and who get to decide how Bitcoin
-should work.
+A moeda bitcoin só funciona quando as pessoas aceitam bitcoins em troca de outras coisas valiosas. 
+Isso significa que são as pessoas que aceitam bitcoins que dão valor a ele e que decidem como o 
+Bitcoin deve funcionar.
 
-When you accept bitcoins, you have the power to enforce Bitcoin’s
-rules, such as preventing confiscation of any person’s bitcoins
-without access to that person’s private keys.
+Quando você aceita bitcoins, você tem o poder de impor as regras do Bitcoin, como evitar a confiscação 
+de bitcoins de qualquer pessoa sem acesso às chaves privadas dessa pessoa.
 
-Unfortunately, *many users outsource their enforcement power*. This
-leaves Bitcoin’s decentralization in a weakened state where a handful
-of miners can collude with a handful of banks and free services to
-change Bitcoin’s rules for all those non-verifying users who
-outsourced their power.
+Infelizmente, *muitos usuários terceirizam seu poder de imposição*. Isso deixa a descentralização do 
+Bitcoin em um estado enfraquecido, onde um punhado de mineradores pode conspirar com um punhado de 
+bancos e serviços gratuitos para mudar as regras do Bitcoin para todos aqueles usuários não verificadores 
+que terceirizaram seu poder.
 
-Unlike other wallets, *Bitcoin Core does enforce the rules*—so if the
-miners and banks change the rules for their non-verifying users, those
-users will be unable to pay full validation Bitcoin Core users
-like you.
+Ao contrário de outras carteiras, *o Bitcoin Core impõe as regras* - então, se os mineradores e bancos 
+mudarem as regras para seus usuários não verificadores, esses usuários não conseguirão pagar usuários 
+do Bitcoin Core de validação completa como você.
 ____
 
-He says that running a full node will help you verify every aspect of
-the blockchain without trusting anyone else, so as to ensure that the coins you
-receive from others are genuine. This is great, but there's one important
-thing that a full node can't help you with: it can't prevent double-
-spending through chain rewrites:
+Ele diz que executar um full node ajudará você a verificar todos os aspectos da blockchain sem confiar 
+em ninguém, de modo a garantir que as moedas que você recebe de outros são genuínas. Isso é ótimo, mas 
+há uma coisa importante que um full node não pode ajudar: ele não pode impedir o double-spending através 
+de reescritas da cadeia:
 
-[quote, David Harding, Full Validation on bitcoin.org (2015)]
+[quote, David Harding, Validação Completa no bitcoin.org (2015)]
 ____
-Note that although all programs—including Bitcoin Core—are vulnerable
-to chain rewrites, Bitcoin provides a defense mechanism: the more
-confirmations your transactions have, the safer you are. There is no
-known decentralized defense better than that.
+Observe que, embora todos os programas - incluindo o Bitcoin Core - sejam vulneráveis a reescritas da 
+cadeia, o Bitcoin oferece um mecanismo de defesa: quanto mais confirmações suas transações tiverem, 
+mais seguro você estará. Não há defesa descentralizada conhecida melhor do que essa.
 ____
 
-No matter how advanced your software is, you still have to trust that
-the blocks containing your coins won't be rewritten. However, as pointed
-out by Harding, you can await a number of confirmations, after which
-you consider the probability of a chain rewrite small enough to be
-acceptable.
+Não importa quão avançado seja o seu software, você ainda precisa confiar que os blocos contendo suas 
+moedas não serão reescritos. No entanto, como apontado por Harding, você pode esperar um número de 
+confirmações, após as quais você considera que a probabilidade de uma reescrita da cadeia é pequena 
+o suficiente para ser aceitável.
 
-The incentives for using Bitcoin in a trustless way align with the
-system's need for <<fullnodedecentralization,full node
-decentralization>>. The more people who use their own full nodes, the
-more full node decentralization, and thus the stronger Bitcoin stands
-against malicious changes to the protocol. But unfortunately, as
-explained in the full node decentralization section, users often opt
-for trusted services as consequence of the inevitable trade-off between trustlessness and convenience.
+Os incentivos para usar o Bitcoin de forma sem confiança estão alinhados com a necessidade do sistema 
+de <<fullnodedecentralization,descentralização dos full nodes>>. Quanto mais pessoas usam seus próprios 
+full nodes, maior é a descentralização dos full nodes, e assim o Bitcoin se torna mais resistente a 
+mudanças maliciosas no protocolo. Mas, infelizmente, como explicado na seção de descentralização dos 
+full nodes, os usuários muitas vezes optam por serviços confiáveis como consequência do trade-off 
+inevitável entre confiança zero e conveniência.
 
-Bitcoin's trustlessness is absolutely imperative from a system
-perspective. In 2018, Matt Corallo,
-https://btctranscripts.com/baltic-honeybadger/2018/trustlessness-scalability-and-directions-in-security-models/[spoke
-about trustlessness] at the Baltic Honeybadger conference in Riga.
-// Video: https://youtu.be/66ZoGUAnY9s?t=4019
-The essence of that talk is that you can't build trustless systems on
-top of a trusted system, but you can build trusted systems - for
-example, a custodial wallet - on top of a trustless system.
+A confiança zero no Bitcoin é absolutamente imperativa do ponto de vista do sistema. Em 2018, Matt Corallo, 
+https://btctranscripts.com/baltic-honeybadger/2018/trustlessness-scalability-and-directions-in-security-models/[falou sobre confiança zero] 
+na conferência Baltic Honeybadger em Riga. // Vídeo: https://youtu.be/66ZoGUAnY9s?t=4019 O cerne dessa palestra é 
+que você não pode construir sistemas sem confiança em cima de um sistema confiável, mas pode construir sistemas 
+confiáveis - por exemplo, uma carteira custodial - em cima de um sistema sem confiança.
 
-.A trustless base layer allows for various trade-offs on higher levels.
+.Uma camada base sem confiança permite vários trade-offs em níveis superiores.
 image::trust.png[width=50%]
 
-This security model allows the system designer to select trade-offs
-that make sense to them without forcing those trade-offs on others.
+Esse modelo de segurança permite que o designer do sistema selecione trade-offs que fazem sentido 
+para eles, sem forçar esses trade-offs a outros.
 
 [[donttrustverify]]
-=== Don't trust, verify
+=== Não confie, verifique
 
-Bitcoin works trustlessly, but you still have to trust your software and
-hardware to some degree. That's because your software or hardware
-might not be programmed to do what's stated on the box. For example:
+O Bitcoin funciona sem confiança, mas você ainda precisa confiar no seu software e hardware em algum 
+grau. Isso porque o seu software ou hardware pode não estar programado para fazer o que está especificado. 
+Por exemplo:
 
-* The CPU might be maliciously designed to detect private key
-  cryptographic operations and leak the private key data.
-* The operating system's random number generator might not be as
-  random as it claims.
-* Bitcoin Core might have sneaked in code that will send your private
-  keys to some bad actor.
+* A CPU pode ser projetada maliciosamente para detectar operações criptográficas com chave privada e 
+vazar os dados da chave privada.
+* O gerador de números aleatórios do sistema operacional pode não ser tão aleatório quanto afirma.
+* O Bitcoin Core pode ter introduzido código que enviará suas chaves privadas para algum ator mal-intencionado.
 
-So, besides running a full node, you also need to make sure you're
-running what you intend to. Reddit user brianddk
-https://www.reddit.com/r/Bitcoin/comments/smj1ep/bitcoin_v220_and_guix_stronger_defense_against/[wrote
-an article] about the various levels of trust you can choose from, when
-verifying your software. In the section "`Trusting the builders`", he
-talks about _reproducible builds_:
+Então, além de executar um full node, você também precisa garantir que está executando o que pretende. 
+O usuário do Reddit brianddk https://www.reddit.com/r/Bitcoin/comments/smj1ep/bitcoin_v220_and_guix_stronger_defense_against/[escreveu um artigo] 
+sobre os vários níveis de confiança que você pode escolher, ao verificar seu software. Na seção "`Confiando nos construtores`", 
+ele fala sobre _builds reprodutíveis_:
 
-[quote, brianddk on Reddit, Bitcoin v22.0 and Guix; Stronger defense against the "Trusting Trust Attack" (2022)]
+[quote, brianddk no Reddit, Bitcoin v22.0 e Guix; Defesa mais forte contra o "Ataque de Confiança Confiável" (2022)]
 ____
-Reproducible builds are a way to design software so that many
-community developers can each build the software and ensure that the
-final installer built is identical to what other developers
-produce. With a very public, reproducible project like bitcoin, no
-single developer needs to be completely trusted. Many developers can
-all perform the build and attest that they produced the same file as
-the one the original builder digitally signed.
+Builds reprodutíveis são uma maneira de projetar software para que muitos desenvolvedores da comunidade possam 
+construir o software e garantir que o instalador final construído seja idêntico ao que outros desenvolvedores 
+produzem. Com um projeto muito público e reprodutível como o bitcoin, nenhum desenvolvedor individual precisa 
+ser completamente confiável. Muitos desenvolvedores podem todos realizar a construção e atestar que produziram 
+o mesmo arquivo que o arquivo que o construtor original assinou digitalmente.
 ____
 
-The article defines 5 levels of trust: trusting the site, the
-builders, the compiler, the kernel, and the hardware.
+O artigo define 5 níveis de confiança: confiar no site, nos construtores, no compilador, no kernel e no 
+hardware.
 
-To further deepen the topic of reproducible builds, Carl Dong
-https://btctranscripts.com/breaking-bitcoin/2019/bitcoin-build-system/[made
-a presentation about Guix]
-explaining why
-trusting the operating system, libraries, and compilers can be
-problematic, and how to fix that with a system called Guix, which is
-used by Bitcoin Core today.
+Para aprofundar ainda mais o tópico de builds reprodutíveis, Carl Dong 
+https://btctranscripts.com/breaking-bitcoin/2019/bitcoin-build-system/[fez uma apresentação sobre Guix] 
+explicando por que confiar no sistema operacional, bibliotecas e compiladores pode ser problemático 
+e como corrigir isso com um sistema chamado Guix, que é usado pelo Bitcoin Core hoje.
 
-[quote, Carl Dong on Guix, Breaking Bitcoin Conference (2019)]
+[quote, Carl Dong sobre Guix, Conferência Breaking Bitcoin (2019)]
 ____
-So what can we do about the fact that our toolchain can have a bunch
-of trusted binaries that can be reproducibly malicious? We need to be
-more than reproducible. We need to be bootstrappable. We cannot have
-that many binary tools that we need to download and trust from
-external servers controlled by other organizations. We should know how
-these tools are built and exactly how we can go through the process of
-building them again, preferably from a much smaller set of trusted
-binaries. We need to minimize our trusted set of binaries as much as
-possible, and have an easily auditable path from those toolchains to
-what we use how to build bitcoin. This allows us to maximize
-verification and minimize trust.
+Então, o que podemos fazer sobre o fato de que nossa cadeia de ferramentas pode ter um monte de 
+binários confiáveis que podem ser maliciosamente reprodutíveis? Precisamos ser mais do que reprodutíveis. 
+Precisamos ser inicializáveis. Não podemos ter tantas ferramentas binárias que precisamos baixar e 
+confiar de servidores externos controlados por outras organizações. Devemos saber como essas ferramentas 
+são construídas e exatamente como podemos passar pelo processo de construí-las novamente, de preferência 
+a partir de um conjunto muito menor de binários confiáveis. Precisamos minimizar nosso conjunto confiável 
+de binários o máximo possível e ter um caminho facilmente auditável dessas cadeias de ferramentas até o 
+que usamos para construir o bitcoin. Isso nos permite maximizar a verificação e minimizar a confiança.
 ____
 
-He then explains how Guix allows us to only trust a minimal binary of
-357 bytes that can be verified and fully understood if you know how
-to interpret the instructions. This is quite remarkable: one verifies that
-the 357-byte binary does what it should, then uses it to build the
-full build system from source code, and ends up with a Bitcoin Core
-binary that should be an exact copy of anyone else's build.
+Ele então explica como o Guix nos permite confiar apenas em um binário mínimo de 357 bytes que pode ser 
+verificado e completamente entendido se você souber como interpretar as instruções. Isso é bastante notável:
+você verifica que o binário de 357 bytes faz o que deveria, depois o usa para construir todo o sistema de 
+build a partir do código-fonte e acaba com um binário do Bitcoin Core que deve ser uma cópia exata do build 
+de qualquer outra pessoa.
 
-There's a mantra that many bitcoiners subscribe to, which captures well
-much of the above:
+Há um mantra ao qual muitos bitcoiners aderem, que captura bem grande parte do que foi dito acima:
 
-[quote, Bitcoiners everywhere]
+[quote, Bitcoiners em todo lugar]
 ____
-Don't trust, verify.
+Não confie, verifique.
 ____
 
 //noqr
-This alludes to the phrase
-"https://en.wikipedia.org/wiki/Trust,_but_verify[trust, but verify]"
-that former U.S. president Ronald Reagan used in the context of
-nuclear
-disarmament. https://twitter.com/Truthcoin/status/1491415722123153408?s=20&t=ZyROxZxlBppdRpuuzsiF5w[Bitcoiners
-switched it around to highlight the rejection of trust and the
-importance of running a full node].
+Isso alude à frase "https://en.wikipedia.org/wiki/Trust,_but_verify[confie, mas verifique]" que o 
+ex-presidente dos EUA Ronald Reagan usou no contexto do desarmamento nuclear. 
+https://twitter.com/Truthcoin/status/1491415722123153408?s=20&t=ZyROxZxlBppdRpuuzsiF5w[Bitcoiners inverteram isso para destacar a rejeição da confiança e a importância de executar um full node].
 
-It's up to the users to decide to what degree they want to verify the
-software they use and the blockchain data they receive. As with so
-many other things in Bitcoin, there's a trade-off between convenience
-and trustlessness. It's almost always more convenient to use a
-custodial wallet compared to running Bitcoin Core on your own
-hardware. However, as Bitcoin software is maturing and user interfaces are
-improving, over time it should get better at supporting users willing to work
-towards trustlessness. Also, as users gain more knowledge over time,
-they should be able to gradually remove trust from the equation.
+Cabe aos usuários decidir em que grau desejam verificar o software que usam e os dados da 
+blockchain que recebem. Como em tantas outras coisas no Bitcoin, há um trade-off entre conveniência 
+e confiança zero. Quase sempre é mais conveniente usar uma carteira custodial em comparação a executar 
+o Bitcoin Core no seu próprio hardware. No entanto, à medida que o software do Bitcoin amadurece e 
+as interfaces do usuário melhoram, com o tempo deve se tornar melhor em apoiar usuários dispostos a 
+trabalhar em direção à confiança zero. Além disso, à medida que os usuários ganham mais conhecimento 
+ao longo do tempo, eles devem ser capazes de remover gradualmente a confiança da equação.
 
-Some users think adversarially (see <<adversarialthinking>>) and verify
-most aspects of the software they run. As a consequence, they reduce the need for trust to the bare minimum,
-as they only need to trust their computer hardware and operating system. In
-doing so, they also help people who don't verify their hardware as thoroughly by
-raising their voices in public to warn about any issues they might find. One
-good example of this is an
-https://bitcoincore.org/en/2018/09/20/notice/[event that occurred in
-2018], when someone discovered a bug that would allow miners to spend an
-output twice in the same transaction:
+Alguns usuários pensam de forma adversarial (veja <<adversarialthinking>>) e verificam a maioria dos 
+aspectos do software que executam. Como consequência, eles reduzem a necessidade de confiança ao mínimo, 
+já que precisam confiar apenas no hardware e no sistema operacional de seu computador. Ao fazer isso, 
+eles também ajudam pessoas que não verificam seu hardware tão minuciosamente, levantando suas vozes 
+em público para alertar sobre qualquer problema que possam encontrar. Um bom exemplo disso é um 
+https://bitcoincore.org/en/2018/09/20/notice/[evento que ocorreu em 2018], quando alguém descobriu 
+um bug que permitiria aos mineradores gastar uma saída duas vezes na mesma transação:
 
-[quote, CVE-2018-17144 Full Disclosure on bitcoincore.org (2018)]
+[quote, Divulgação Completa do CVE-2018-17144 no bitcoincore.org (2018)]
 ____
-CVE-2018-17144, a fix for which was released on September 18th in
-Bitcoin Core versions 0.16.3 and 0.17.0rc4, includes both a Denial of
-Service component and a critical inflation vulnerability. It was
-originally reported to several developers working on Bitcoin Core, as
-well as projects supporting other cryptocurrencies, including ABC and
-Unlimited on September 17th as a Denial of Service bug only, however
-we quickly determined that the issue was also an inflation
-vulnerability with the same root cause and fix.
+CVE-2018-17144, uma correção para a qual foi lançada em 18 de setembro nas versões 0.16.3 e 0.17.0rc4 
+do Bitcoin Core, inclui tanto um componente de Denial of Service quanto uma vulnerabilidade crítica 
+de inflação. Foi originalmente relatado a vários desenvolvedores trabalhando no Bitcoin Core, bem 
+como em projetos que suportam outras criptomoedas, incluindo ABC e Unlimited em 17 de setembro apenas 
+como um bug de Denial of Service, no entanto, determinamos rapidamente que o problema também era uma 
+vulnerabilidade de inflação com a mesma causa raiz e correção.
 ____
 
-Here, an anonymous person reported an issue that turned out much worse
-than the reporter realized. This highlights the fact that people who verify the
-code often report security flaws instead of exploiting them. This is
-beneficial to those who aren't able to verify everything
-themselves. However, users should not trust others to keep them safe,
-but should rather verify for themselves whenever and whatever they can; that's how one remains as
-sovereign as possible, and how Bitcoin prospers. The more eyes on
-the software, the less likely it is that malicious code and security
-flaws slip through.
+Aqui, uma pessoa anônima relatou um problema que acabou sendo muito pior do que o relator imaginava. 
+Isso destaca o fato de que as pessoas que verificam o código frequentemente relatam falhas de segurança 
+em vez de explorá-las. Isso é benéfico para aqueles que não conseguem verificar tudo por si mesmos. 
+No entanto, os usuários não devem confiar nos outros para mantê-los seguros, mas devem verificar por 
+si mesmos sempre que e o que puderem; é assim que se permanece o mais soberano possível e como o Bitcoin 
+prospera. Quanto mais olhos no software, menos provável é que código malicioso e falhas de segurança 
+passem despercebidos.
 
-=== Conclusion
+=== Conclusão
 
-The Bitcoin protocol is trustless because it allows users to interact
-with it without trusting a third party. In practice, however, most
-people aren't able to verify the full stack of software and hardware
-they run Bitcoin on. Skilled people that verify software or hardware
-are able to warn other, less skilled, people when they find malicious
-code or bugs.
+O protocolo Bitcoin é sem necessidade de confiança porque permite que os usuários interajam com ele sem confiar em uma 
+terceira parte. Na prática, entretanto, a maioria das pessoas não é capaz de verificar toda a pilha de 
+software e hardware em que executa o Bitcoin. Pessoas habilidosas que verificam software ou hardware 
+são capazes de alertar outras, menos habilidosas, quando encontram código malicioso ou bugs.
 
-Without trustlessness, we can't have decentralizaion, because trust
-inevitebly involves some central point of authority. You can build a
-trusted system on top of a trustless system, but you can't build a
-trustless system on top of a trusted system.
+Sem confiança zero, não podemos ter descentralização, porque a confiança inevitavelmente envolve algum 
+ponto central de autoridade. Você pode construir um sistema confiável em cima de um sistema sem confiança,
+mas não pode construir um sistema sem confiança em cima de um sistema confiável.
